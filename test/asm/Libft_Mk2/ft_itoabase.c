@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoabase.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/22 15:27:47 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/22 15:45:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <stdlib.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+char				*ft_itoabase(int n, unsigned int b)
+{
+	char			*str;
+	unsigned int	nb;
+	unsigned int	t;
+	unsigned int	i;
+
+	nb = (unsigned int)((n < 0) ? -n : n);
+	i = 2 + (n < 0);
+	t = 1;
+	while (nb / t >= b)
 	{
-
+		++i;
+		t *= b;
 	}
-	return (0);
+	str = (char*)ft_m(sizeof(char) * i);
+	if ((i = n < 0))
+		str[0] = '-';
+	while (t)
+	{
+		str[i++] = "0123456789abcdef"[nb / t % b];
+		t /= b;
+	}
+	str[i] = '\0';
+	return (str);
 }

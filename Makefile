@@ -6,11 +6,11 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/20 14:00:57 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/20 15:28:24 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main setup))
+OBJS = $(addsuffix .o, $(addprefix objs/, main setup utl))
 NAME = corewar
 FLAGS = -Weverything -O3
 

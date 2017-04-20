@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parrprem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:49:24 by tberthie          #+#    #+#             */
+/*   Updated: 2017/03/30 00:26:04 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+void	ft_parrprem(void **tab, void *elem)
+{
+	unsigned int	arr_len;
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+	arr_len = ft_parrlen(tab);
+	while (*tab != elem)
 	{
-
+		++tab;
+		--arr_len;
 	}
-	return (0);
+	while (--arr_len)
+	{
+		tab[0] = tab[1];
+		++tab;
+	}
+	tab[0] = 0;
 }

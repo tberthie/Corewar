@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parrelmfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:49:01 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:49:03 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <stdlib.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
+void	ft_parrelmfree(void **array)
+{
+	void	**beg;
 
-	}
-	return (0);
+	beg = array;
+	while (*array)
+		free(**(void***)array++);
 }

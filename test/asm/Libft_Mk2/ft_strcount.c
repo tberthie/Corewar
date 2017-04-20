@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcount.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/03/24 11:44:49 by tberthie          #+#    #+#             */
+/*   Updated: 2017/03/24 11:46:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+unsigned int	ft_strcount(const char *s, char c)
+{
+	unsigned int	count;
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
-
-	}
-	return (0);
+	count = 0;
+	while (*s)
+		if (*s++ == c)
+			count++;
+	return (count);
 }

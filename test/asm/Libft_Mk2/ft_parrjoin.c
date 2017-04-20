@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parrjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:49:10 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:49:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+void	**ft_parrjoin(void **a1, void **a2)
+{
+	void	**na;
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
-
-	}
-	return (0);
+	na = ft_parrnew();
+	while (*a1)
+		ft_parrpush(&na, *a1++);
+	while (*a2)
+		ft_parrpush(&na, *a2++);
+	return (na);
 }

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/20 15:23:53 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/20 15:49:34 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-#include "libft.h"
+int		reverse_bytes(int nb)
+{
+	int	new;
+	int	bytes;
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
-
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+	new = 0;
+	bytes = 4;
+	while (bytes)
 	{
-
+		bytes--;
+		new |= ((nb >> 8 * bytes) & 0xff) << (8 * (3 - bytes));
 	}
-	return (0);
+	return (new);
 }

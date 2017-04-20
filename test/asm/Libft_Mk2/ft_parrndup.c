@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parrndup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:49:17 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:49:18 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+void	**ft_parrndup(void **array, unsigned int n)
+{
+	void			**new_array;
+	unsigned int	i;
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+	new_array = (void**)ft_m(sizeof(void*) * (n + 1));
+	i = 0;
+	while (array[i] && n--)
 	{
-
+		new_array[i] = array[i];
+		++i;
 	}
-	return (0);
+	while (n--)
+		new_array[i] = (void*)0;
+	new_array[i] = (void*)0;
+	return (new_array);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strarrdup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:50:05 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:50:07 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
+#include "libft_internal.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+char	**ft_strarrdup(char **array)
+{
+	char	**n_arr;
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
-
-	}
-	return (0);
+	n_arr = (char**)ft_parrnew();
+	while (*array)
+		ft_parrpush((void***)&n_arr, ft_strdup(*array++));
+	return (n_arr);
 }

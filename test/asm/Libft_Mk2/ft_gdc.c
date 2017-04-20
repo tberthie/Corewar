@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_gdc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:48:20 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:48:28 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <dirent.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+char	**ft_gdc(char *path)
+{
+	char			**rc;
+	DIR				*dir;
+	struct dirent	*dirent;
+
+	if ((dir = opendir(path)))
 	{
-
+		rc = (char**)ft_parrnew();
+		readdir(dir);
+		readdir(dir);
+		while ((dirent = readdir(dir)))
+			ft_parrpush((void***)&rc, ft_strdup(dirent->d_name));
+		closedir(dir);
+		return (rc);
 	}
-	return (0);
+	return ((char**)0);
 }

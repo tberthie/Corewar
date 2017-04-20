@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_gnl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:48:31 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/21 16:47:07 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <stdlib.h>
+#include <unistd.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
+char	*ft_gnl(int fd)
+{
+	char	*line;
+	char	c;
 
-	}
-	return (0);
+	line = ft_strnew();
+	while (read(fd, &c, 1) == 1 && c != '\n')
+		ft_strpush(&line, c);
+	if (c == '\n')
+		return (line);
+	free(line);
+	return ((char*)0);
 }

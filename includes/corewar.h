@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:18:07 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/20 15:50:24 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ typedef struct		s_corewar {
 
 	void				*memory;
 	unsigned int		dump;
+	char				pad[4];
 
 }					t_corewar;
 
 char				setup(t_corewar *corewar, char **args);
+
+int					reverse_bytes(int nb);
 
 #endif

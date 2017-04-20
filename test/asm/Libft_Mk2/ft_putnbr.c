@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:49:45 by tberthie          #+#    #+#             */
+/*   Updated: 2017/03/25 18:25:44 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <unistd.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
+void	ft_putnbr(int nb)
+{
+	unsigned int	i;
+
+	if (nb < 0)
 	{
-
+		write(1, "-", 1);
+		nb *= -1;
 	}
-	return (0);
+	i = 1;
+	while ((unsigned int)nb / i > 9)
+		i *= 10;
+	while (i)
+	{
+		ft_putchar((char)((unsigned int)nb / i % 10) + '0');
+		i /= 10;
+	}
 }

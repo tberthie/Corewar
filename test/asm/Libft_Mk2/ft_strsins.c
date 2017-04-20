@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:51:23 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/20 19:51:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
 #include "libft.h"
+#include "libft_internal.h"
 
-int			main(int ac, char **av) {
-	t_corewar	*corewar;
+#include <stdlib.h>
 
-	corewar = (t_corewar*)ft_m(sizeof(t_corewar));
-	if (setup(corewar, ++av))
-	{
+void	ft_strsins(char **str, char *ins, unsigned int i)
+{
+	char	*n_str;
+	char	c;
 
-	}
-	return (0);
+	n_str = ft_strnew();
+	c = (*str)[i];
+	(*str)[i] = '\0';
+	ft_strspush(&n_str, *str);
+	ft_strspush(&n_str, ins);
+	(*str)[i] = c;
+	ft_strspush(&n_str, *str + i);
+	free(*str);
+	*str = n_str;
 }
