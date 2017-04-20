@@ -6,18 +6,18 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/20 13:20:47 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/20 14:00:57 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main))
+OBJS = $(addsuffix .o, $(addprefix objs/, main setup))
 NAME = corewar
 FLAGS = -Weverything -O3
 
 
-all: objs $(OBJS) $(NAME)
+all: objs $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
 	make -C libft
 	gcc -o $(NAME) $(OBJS) libft/libft.a
 
