@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 16:13:42 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/21 15:27:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char		check_champion(char *path, void *buffer)
 	header = (header_t*)buffer;
 	if ((reverse_bytes((int)header->magic) != COREWAR_EXEC_MAGIC))
 	{
-		ft_printf(2, "corewar: %s: invalid champion file\n", path);
+		ft_printf(2, "corewar: %s: invalid file format\n", path);
 		return (0);
 	}
 	if (reverse_bytes((int)header->prog_size) > CHAMP_MAX_SIZE)
@@ -32,14 +32,18 @@ static char		check_champion(char *path, void *buffer)
 		ft_printf(2, "corewar: %s: exceeds max size\n", path);
 		return (0);
 	}
+	ft_printf(1, "---------------\n");
+	ft_printf(1, "Champion loaded\n");
+	ft_printf(1, "---------------\n");
+	ft_printf(1, "%s\n", header->prog_name);
+	ft_printf(1, "%s\n", header->comment);
 	return (1);
 }
 
-char		setup(t_corewar *corewar, char **args) {
+static char		parse(t_corewar *corewar, char **args) {
 	int			fd;
 	void		*buffer;
 
-	corewar->memory = ft_memalloc(MEM_SIZE);
 	while (*args)
 	{
 		buffer = ft_memalloc(sizeof(header_t));
@@ -54,4 +58,9 @@ char		setup(t_corewar *corewar, char **args) {
 		args++;
 	}
 	return (1);
+}
+
+char		setup(t_corewar *corewar, char **args) {
+	corewar->memory = ft_memalloc(MEM_SIZE);
+	return (parse(corewar, args));
 }
