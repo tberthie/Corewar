@@ -6,16 +6,16 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 15:23:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:49:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/24 15:36:07 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		reverse_bytes(int nb)
+unsigned int		rev_int(unsigned int nb)
 {
-	int	new;
-	int	bytes;
+	unsigned int	new;
+	unsigned int	bytes;
 
 	new = 0;
 	bytes = 4;
