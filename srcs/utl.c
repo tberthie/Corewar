@@ -5,24 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 15:23:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/24 15:36:07 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/25 15:34:59 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "libft.h"
 
-unsigned int		rev_int(unsigned int nb)
+void			error(char *file, char *msg)
 {
-	unsigned int	new;
-	unsigned int	bytes;
-
-	new = 0;
-	bytes = 4;
-	while (bytes)
+	if (file)
 	{
-		bytes--;
-		new |= ((nb >> 8 * bytes) & 0xff) << (8 * (3 - bytes));
+		ft_printf(2, "corewar: %s\n", file);
+		ft_printf(2, RED"%s\n"EOC, msg);
 	}
-	return (new);
+	else
+	{
+		ft_printf(2, "corewar: execution failed\n", file);
+		ft_printf(2, RED"%s\n"EOC, msg);
+	}
+	exit(EXIT_FAILURE);
 }

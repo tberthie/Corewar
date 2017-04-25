@@ -6,13 +6,14 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/24 15:41:10 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/25 15:23:20 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main setup utl))
+OBJS = $(addsuffix .o, $(addprefix objs/, main setup bits utl))
 NAME = corewar
-FLAGS = -Weverything -Wno-pointer-arith -Wno-padded -O3
+FLAGS = -Weverything -O3 \
+		-Wno-pointer-arith -Wno-padded -Wno-missing-noreturn
 
 
 all: objs $(NAME)

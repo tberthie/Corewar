@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gnl.c                                           :+:      :+:    :+:   */
+/*   utl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:48:31 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/21 16:47:07 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/20 15:23:53 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/25 15:22:23 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-
-char	*ft_gnl(int fd)
+unsigned int		rev_int(unsigned int nb)
 {
-	char	*line;
-	char	c;
+	unsigned int	new;
+	unsigned int	bytes;
 
-	line = ft_strnew();
-	while (read(fd, &c, 1) == 1 && c != '\n')
-		ft_strpush(&line, c);
-	if (c == '\n')
-		return (line);
-	free(line);
-	return ((char*)0);
+	new = 0;
+	bytes = 4;
+	while (bytes)
+	{
+		bytes--;
+		new |= ((nb >> 8 * bytes) & 0xff) << (8 * (3 - bytes));
+	}
+	return (new);
 }
