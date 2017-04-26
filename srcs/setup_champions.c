@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 15:15:32 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 15:16:54 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void		set_number(t_corewar *corewar, t_champ *champ)
 		while (find_number(corewar->champs, i))
 			i++;
 		champ->number = i;
-	}	
+	}
 	corewar->next = 0;
 }
 
@@ -94,7 +94,5 @@ void			add_champion(t_corewar *corewar, char *path)
 	champ = (t_champ*)ft_memalloc(sizeof(t_champ));
 	init_champion(champ, header, data);
 	set_number(corewar, champ);
-	ft_printf(1, "Champion %d(%s) loaded - `%s` - %do\n", champ->number,
-	champ->name, champ->comment, champ->size);
 	ft_parrpush((void***)&corewar->champs, champ);
 }
