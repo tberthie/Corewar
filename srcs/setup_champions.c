@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 13:51:07 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 15:15:32 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,38 @@ static void		init_champion(t_champ *champ, header_t *header, void *data)
 		champ->reg[i++] = ft_memalloc(REG_SIZE);
 	champ->name = ft_strdup(header->prog_name);
 	champ->comment = ft_strdup(header->comment);
-	champ->size = header->prog_size;
+	champ->size = rev_int(header->prog_size);
 	champ->content = data + sizeof(header_t);
+}
+
+static char		find_number(t_champ **champs, unsigned int n)
+{
+	t_champ **tmp;
+
+	tmp = champs;
+	while (*tmp)
+	{
+		if ((*tmp)->number == n)
+			return (1);
+		tmp++;
+	}
+	return (0);
+}
+
+static void		set_number(t_corewar *corewar, t_champ *champ)
+{
+	unsigned int	i;
+
+	i = 1;
+	if (corewar->next > 0 && !find_number(corewar->champs, corewar->next))
+		champ->number = corewar->next;
+	else
+	{
+		while (find_number(corewar->champs, i))
+			i++;
+		champ->number = i;
+	}	
+	corewar->next = 0;
 }
 
 void			add_champion(t_corewar *corewar, char *path)
@@ -61,10 +91,10 @@ void			add_champion(t_corewar *corewar, char *path)
 	data = parse_champion(fd, path);
 	header = (header_t*)data;
 	close(fd);
-	champ = (t_champ*)ft_m(sizeof(t_champ));
+	champ = (t_champ*)ft_memalloc(sizeof(t_champ));
 	init_champion(champ, header, data);
-	/* ---------------------------------- */
-	champ->number = ft_parrlen((void**)corewar->champs) + 1;
-	/* ---------------------------------- */
+	set_number(corewar, champ);
+	ft_printf(1, "Champion %d(%s) loaded - `%s` - %do\n", champ->number,
+	champ->name, champ->comment, champ->size);
 	ft_parrpush((void***)&corewar->champs, champ);
 }

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 13:51:02 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 15:14:26 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define E_READ "Invalid champion file"
 # define E_SIZE "This champion exceeds size limit"
 # define E_ARG "Invalid argument"
+# define E_EXP "Argument expected"
+# define E_NBR "Bad number syntax (> 0 expected)"
 # define E_USAGE "./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 
 typedef struct		s_champ {
@@ -37,6 +39,8 @@ typedef struct		s_champ {
 	unsigned int		number;
 
 	void				*reg[REG_NUMBER];
+	void				*pc;
+	char				carry;
 
 	unsigned int		size;
 	void				*content;
@@ -46,7 +50,10 @@ typedef struct		s_champ {
 typedef struct		s_corewar {
 
 	void				*memory;
+
 	unsigned int		dump;
+	unsigned int		next;
+
 	char				pad[4];
 	t_champ				**champs;
 
