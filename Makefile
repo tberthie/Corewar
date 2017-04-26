@@ -6,11 +6,12 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/26 13:18:23 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/26 17:38:24 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main setup bits utl setup_champions))
+OBJS = $(addsuffix .o, $(addprefix objs/, main setup bits utl setup_champions \
+	   load run))
 NAME = corewar
 FLAGS = -Weverything -O3 \
 		-Wno-pointer-arith -Wno-padded -Wno-missing-noreturn

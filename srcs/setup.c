@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 15:13:40 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 16:56:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			setup(t_corewar *corewar, char **args)
 	corewar->next = 0;
 	corewar->memory = ft_memalloc(MEM_SIZE);
 	corewar->champs = (t_champ**)ft_parrnew();
+	corewar->proc = (t_proc**)ft_parrnew();
 	corewar->dump = 0;
 	parse(corewar, args);
 	if (ft_parrlen((void**)corewar->champs) < 2)

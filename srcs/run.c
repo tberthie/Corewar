@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 17:35:40 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/26 17:39:52 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-int			main(int ac, char **av)
+void			run(t_corewar *corewar)
 {
-	t_corewar	*corewar;
+	int		i = 0;
 
-	if (ac > MAX_ARGS_NUMBER + 1)
-		error(0, "Too many arguments");
-	if (ac < 2)
-		error("usage", EOC""E_USAGE);
-	corewar = (t_corewar*)ft_memalloc(sizeof(t_corewar));
-	setup(corewar, ++av);
-	load(corewar);
-	run(corewar);
-	return (0);
+	while (corewar->proc[i])
+	{
+		printf("Proc #%d %p p%d\n", i, corewar->proc[i]->pc,
+		*(unsigned int*)corewar->proc[i]->reg[0]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 15:14:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 17:40:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,39 @@
 
 typedef struct		s_champ {
 
-	char				*name;
-	char				*comment;
-	unsigned int		number;
+	char			*name;
+	char			*comment;
+	unsigned int	number;
 
-	void				*reg[REG_NUMBER];
-	void				*pc;
-	char				carry;
-
-	unsigned int		size;
-	void				*content;
+	unsigned int	size;
+	void			*content;
 
 }					t_champ;
 
+typedef struct		s_proc {
+
+	void			*reg[REG_NUMBER];
+	void			*pc;
+	char			carry;
+
+}					t_proc;
+
 typedef struct		s_corewar {
 
-	void				*memory;
+	void			*memory;
+	t_proc			**proc;
 
-	unsigned int		dump;
-	unsigned int		next;
+	unsigned int	dump;
+	unsigned int	next;
 
-	char				pad[4];
-	t_champ				**champs;
+	t_champ			**champs;
 
 }					t_corewar;
 
 void				setup(t_corewar *corewar, char **args);
+void				load(t_corewar *corewar);
+void				run(t_corewar *corewar);
+
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
 

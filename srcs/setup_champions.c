@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 15:16:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 16:59:41 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ void			*parse_champion(int fd, char *path)
 
 static void		init_champion(t_champ *champ, header_t *header, void *data)
 {
-	int		i;
-
-	i = 0;
-	while (i < REG_NUMBER)
-		champ->reg[i++] = ft_memalloc(REG_SIZE);
 	champ->name = ft_strdup(header->prog_name);
 	champ->comment = ft_strdup(header->comment);
 	champ->size = rev_int(header->prog_size);
