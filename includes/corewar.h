@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 17:40:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 18:57:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 
 # define RED "\x1b[31m"
+# define GREEN "\x1b[32m"
 # define EOC "\x1b[0m"
 
 # define E_FORMAT "Not a valid champion file"
@@ -49,6 +50,9 @@ typedef struct		s_proc {
 	void			*pc;
 	char			carry;
 
+	char			alive;
+	unsigned int	live;
+
 }					t_proc;
 
 typedef struct		s_corewar {
@@ -61,6 +65,12 @@ typedef struct		s_corewar {
 
 	t_champ			**champs;
 
+	unsigned int	cycle;
+	unsigned int	ctd;
+	unsigned int	check;
+
+	unsigned int	last_alive;
+
 }					t_corewar;
 
 void				setup(t_corewar *corewar, char **args);
@@ -69,9 +79,10 @@ void				run(t_corewar *corewar);
 
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
+char				find_champion(t_champ **champs, unsigned int n);
 
 void				error(char *file, char *msg);
-
 unsigned int		rev_int(unsigned int nb);
+void				hex_dump(unsigned char hex);
 
 #endif

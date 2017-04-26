@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 16:56:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 18:41:52 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void			setup(t_corewar *corewar, char **args)
 	corewar->champs = (t_champ**)ft_parrnew();
 	corewar->proc = (t_proc**)ft_parrnew();
 	corewar->dump = 0;
+	corewar->ctd = CYCLE_TO_DIE;
+	corewar->last_alive = 0;
+	corewar->check = MAX_CHECKS;
 	parse(corewar, args);
 	if (ft_parrlen((void**)corewar->champs) < 2)
 		error(0, "Not enough champions");

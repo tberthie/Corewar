@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 17:40:50 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 18:15:48 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void		init_proc(t_proc *proc, unsigned int n, void *start)
 	}
 	proc->carry = 1;
 	proc->pc = start;
+	proc->alive = 1;
 }
 
 static void		load_champion(t_corewar *corewar, unsigned int i,
