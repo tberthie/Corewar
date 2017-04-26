@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 18:53:57 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/26 19:16:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void					run(t_corewar *corewar)
 	cycle = 0;
 	while (alive_proc(corewar->proc))
 	{
-		// exec processes;
+		process(corewar);
 		if (corewar->dump && ++corewar->cycle == corewar->dump)
 			dump(corewar);
 		cycle++;

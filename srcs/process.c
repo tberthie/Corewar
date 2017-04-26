@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utl.c                                              :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 19:11:47 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/26 19:19:29 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-void			error(char *file, char *msg)
+void				process(t_corewar *corewar)
 {
-	if (file)
-	{
-		ft_printf(2, "corewar: %s\n", file);
-		ft_printf(2, RED"%s\n"EOC, msg);
-	}
-	else
-	{
-		ft_printf(2, "corewar: execution error\n", file);
-		ft_printf(2, RED"%s\n"EOC, msg);
-	}
-	exit(1);
-}
+	unsigned int	i;
 
-void			hex_dump(unsigned char hex)
-{
-	ft_putchar(hex < 16 ? '0' : ("0123456789ABCDEF")[hex % 16]);
-	hex = hex >= 16 ? hex / 16 : hex;
-	ft_putchar(("0123456789ABCDEF")[hex % 16]);
+	i = ft_parrlen((void**)corewar->proc);
+	while (i--)
+	{
+		if (corewar->proc[i]->alive)
+			ft_printf(1, "#%d live ", i);
+	}
+	ft_printf(1, "\n");
 }
