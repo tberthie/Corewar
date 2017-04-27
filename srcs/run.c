@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 19:16:58 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/27 14:22:34 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,16 @@ void					run(t_corewar *corewar)
 {
 	unsigned int	cycle;
 	unsigned int	lives;
+	unsigned int	i;
 
 	cycle = 0;
+	i = ft_parrlen((void**)corewar->proc);
+	while (i--)
+		cycles(corewar->proc[i]);
 	while (alive_proc(corewar->proc))
 	{
 		process(corewar);
-		if (corewar->dump && ++corewar->cycle == corewar->dump)
+		if (++corewar->cycle == corewar->dump)
 			dump(corewar);
 		cycle++;
 		if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=
