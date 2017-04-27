@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/26 19:11:47 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/27 16:52:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,19 @@ void			hex_dump(unsigned char hex)
 	ft_putchar(hex < 16 ? '0' : ("0123456789ABCDEF")[hex % 16]);
 	hex = hex >= 16 ? hex / 16 : hex;
 	ft_putchar(("0123456789ABCDEF")[hex % 16]);
+}
+
+unsigned int	rev_int(unsigned int nb)
+{
+	unsigned int	new;
+	unsigned int	bytes;
+
+	new = 0;
+	bytes = 4;
+	while (bytes)
+	{
+		bytes--;
+		new |= ((nb >> 8 * bytes) & 0xff) << (8 * (3 - bytes));
+	}
+	return (new);
 }
