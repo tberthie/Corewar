@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:03:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:22:46 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 		if (++proc->pc == corewar->memory + MEM_SIZE)
 			proc->pc = corewar->memory;
 	}
-/*	op == 1 ? live() : 0;
-	op == 2 ? ld() : 0;
-	op == 3 ? st() : 0;
-	op == 4 ? add() : 0;
-	op == 5 ? sub() : 0;
-	op == 6 ? and() : 0;
-	op == 7 ? or() : 0;
-	op == 8 ? xor() : 0;
-	op == 9 ? zjmp() : 0;
-	op == 10 ? ldi() : 0;
-	op == 11 ? sti() : 0;
-	op == 12 ? fork() : 0;
-	op == 13 ? lld() : 0;
-	op == 14 ? lldi() : 0;
-	op == 15 ? lfork() : 0;
-	op == 16 ? aff() : 0;*/
+//	op == 1 ? live(proc, corewar) : 0;
+//	op == 2 ? ld(proc, corewar) : 0;
+//	op == 3 ? st(proc, corewar) : 0;
+//	op == 4 ? add(proc, corewar) : 0;
+//	op == 5 ? sub(proc, corewar) : 0;
+//	op == 6 ? and(proc, corewar) : 0;
+//	op == 7 ? or(proc, corewar) : 0;
+//	op == 8 ? xor(proc, corewar) : 0;
+//	op == 9 ? zjmp(proc, corewar) : 0;
+//	op == 10 ? ldi(proc, corewar) : 0;
+//	op == 11 ? sti(proc, corewar) : 0;
+//	op == 12 ? fork(proc, corewar) : 0;
+//	op == 13 ? lld(proc, corewar) : 0;
+//	op == 14 ? lldi(proc, corewar) : 0;
+//	op == 15 ? lfork(proc, corewar) : 0;
+//	op == 16 ? aff(proc, corewar) : 0;
 }
 
 void				cycles(t_proc *proc)
