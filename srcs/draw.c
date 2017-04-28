@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:22:22 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 18:27:44 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 22:04:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,21 @@ SDL_Color		get_color(unsigned int color)
 	return (sc);
 }
 
+void			dhex(t_visual *visu, char *txt, unsigned int color, SDL_Rect rc)
+{
+	SDL_Surface		*sf;
+
+	sf = TTF_RenderText_Shaded(visu->hex_font, txt, get_color(0xb0b0b0),
+	get_color(color));
+	SDL_BlitSurface(sf, 0, visu->sf, &rc);
+	SDL_FreeSurface(sf);
+}
+
 void			text(t_visual *visu, char *txt, unsigned int color, SDL_Rect rc)
 {
 	SDL_Surface		*sf;
 
-	sf = TTF_RenderText_Solid(visu->font, txt, get_color(color));
+	sf = TTF_RenderText_Shaded(visu->font, txt, get_color(color), get_color(0));
 	SDL_BlitSurface(sf, 0, visu->sf, &rc);
 	SDL_FreeSurface(sf);
 }

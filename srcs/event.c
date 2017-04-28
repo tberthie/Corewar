@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:58:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 17:16:35 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 23:51:21 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		process_event(SDL_Event ev)
 		quit();
 }
 
-static void		keyboard(t_corewar *corewar, t_visual *visu)
+static void		keyboard(void)
 {
 	const Uint8		*status;
 
@@ -32,11 +32,11 @@ static void		keyboard(t_corewar *corewar, t_visual *visu)
 	status[SDL_SCANCODE_ESCAPE] ? quit() : 0;
 }
 
-void			event(t_corewar *corewar, t_visual *visu)
+void			event(void)
 {
 	SDL_Event	ev;
 
-	keyboard(corewar, visu);
+	keyboard();
 	while (SDL_PollEvent(&ev))
 		process_event(ev);
 }

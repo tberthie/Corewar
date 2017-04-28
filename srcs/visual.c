@@ -6,56 +6,73 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 18:51:33 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 00:12:42 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		render_hex(t_corewar *corewar, t_visual *visu)
-{
-	SDL_Rect	rc;
-	int			y[2];
-	int			x[2];
-	int			rows;
-
-	rows = MEM_SIZE / 64;
-	y[0] = 0;
-	while (y[0] < rows)
-	{
-		x[0] = 0;
-		while (x[0] < 64)
-		{
-			x[1] = ((double)x[0] / 64) * 1500.0 - 0.75;
-			y[1] = ((double)y[0] / rows) * 1000.0 - 0.75;
-			rc = rec(x[1], y[1], (1.0 / 64.0 * 1500.0), (1.0 / rows) * 1000.0);
-			SDL_FillRect(visu->sf, &rc, 0xa00000);
-//			text(visu, "00", 0xffffff, rc);
-			x[0]++;
-		}
-		y[0]++;
-	}
-}
-
 static void		set_visual(t_corewar *corewar, t_visual *visu)
 {
 	SDL_Rect	rc;
 
-	event(corewar, visu);
+	event();
 	ft_memcpy(visu->save, corewar->memory, MEM_SIZE);
 	rc = rec(0, 0, 1500, 1000);
 	SDL_FillRect(visu->sf, &rc, 0);
+	rc = rec(15, 15, 1162, 970);
+	SDL_FillRect(visu->sf, &rc, 0x505050);
 	render_hex(corewar, visu);
 }
 
-static void		display(t_visual *visu)
+static void		outlines(t_visual *visu)
+{
+	SDL_SetRenderDrawColor(visu->ren, 0xd0, 0xd0, 0xd0, 0xff);
+	SDL_RenderDrawLine(visu->ren, 10, 10, 1182, 10);
+	SDL_RenderDrawLine(visu->ren, 10, 990, 1182, 990);
+	SDL_RenderDrawLine(visu->ren, 10, 10, 10, 990);
+	SDL_RenderDrawLine(visu->ren, 1182, 10, 1182, 990);
+	SDL_RenderDrawLine(visu->ren, 1190, 10, 1190, 990);
+	SDL_RenderDrawLine(visu->ren, 1490, 10, 1490, 990);
+	SDL_RenderDrawLine(visu->ren, 1190, 10, 1490, 10);
+	SDL_RenderDrawLine(visu->ren, 1190, 990, 1490, 990);
+}
+
+static void		display(t_corewar *corewar, t_visual *visu)
 {
 	SDL_Texture		*tx;
+	char			*tmp;
 
+	text(visu, "C O R E W A R", 0x900000, rec(1200, 20, 0, 0));
+	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
+	text(visu, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,
+	rec(1350, 60, 0, 0));
+	free(tmp);
+	text(visu, "To Die", 0xffffff, rec(1200, 85, 0, 0));
+	text(visu, (tmp = ft_utoabase(corewar->ctd, 10)), 0xa0a0a0,
+	rec(1350, 85, 0, 0));
+	free(tmp);
+	text(visu, "Per Second", 0xffffff, rec(1200, 110, 0, 0));
+	text(visu, (tmp = ft_utoabase(visu->cps, 10)), 0xa0a0a0,
+	rec(1350, 110, 0, 0));
+	free(tmp);
+	/***/
+	text(visu, "Last Alive", 0xffffff, rec(1200, 145, 0, 0));
+	text(visu, "fluttershy", 0xff0000, rec(1350, 145, 0, 0));
+	dhex(visu, "oh, my, what a scary project", 0, rec(1200, 165, 0, 0));
+
+	text(visu, "1 - fluttershy", 0xa0a0a0, rec(1200, 200, 0, 0));
+	text(visu, "DEAD", 0xff0000, rec(1415, 200, 0, 0));
+	text(visu, "2 - helltrain", 0x00ff00, rec(1200, 400, 0, 0));
+	text(visu, "3 - zork", 0xa0a0a0, rec(1200, 600, 0, 0));
+	text(visu, "DEAD", 0xff0000, rec(1415, 600, 0, 0));
+	text(visu, "4 - rainbowdash", 0xff00ff, rec(1200, 800, 0, 0));
+	/***/
 	tx = SDL_CreateTextureFromSurface(visu->ren, visu->sf);
 	SDL_RenderCopy(visu->ren, tx, 0, 0);
 	SDL_DestroyTexture(tx);
+	outlines(visu);
 	SDL_RenderPresent(visu->ren);
 }
 
@@ -71,6 +88,7 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 		if (corewar->play)
 		{
 			process(corewar);
+			corewar->cycle++;
 			cycle++;
 			if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=
 			NBR_LIVE) || !--corewar->check)
@@ -81,8 +99,7 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 			}
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
 		}
-		display(visu);
+		display(corewar, visu);
 	}
 	SDL_Quit();
 }
-

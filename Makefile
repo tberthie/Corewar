@@ -6,14 +6,14 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/28 17:28:27 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/28 23:47:46 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS = $(addsuffix .o, $(addprefix objs/, main \
 	   load setup setup_champions \
 	   run process \
-	   visual event draw \
+	   visual event draw render \
 	   utl))
 
 NAME = corewar

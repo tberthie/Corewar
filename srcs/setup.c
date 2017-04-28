@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 18:35:16 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 23:41:20 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ void			setup_visual(t_visual *visu)
 	SDL_CreateRenderer(visu->win, -1, SDL_RENDERER_ACCELERATED)))
 		error(0, (char*)SDL_GetError());
 	visu->sf = SDL_CreateRGBSurface(0, 1500, 1000, 32, 0, 0, 0, 0);
-	if (!(visu->font = TTF_OpenFont("SDL/font.ttf", 12)))
+	if (!(visu->hex_font = TTF_OpenFont("SDL/font.ttf", 9)))
+		error(0, (char*)SDL_GetError());
+	if (!(visu->font = TTF_OpenFont("SDL/font.ttf", 20)))
 		error(0, (char*)SDL_GetError());
 	visu->cps = 100;
 	visu->save = ft_memalloc(MEM_SIZE);
+	ft_memset(visu->color, MEM_SIZE * 4, (char)0x50);
 }
 
 void			setup(t_corewar *corewar, char **args)
