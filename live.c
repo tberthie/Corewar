@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/24 15:41:31 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/28 18:48:52 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/28 22:05:04 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,6 @@
 // avancer la tete de lecture(pc) de la taille de l'instruction (prendre en compte l'octet de codage)
 
 #include "corewar.h"
-
-void		modify_carry(t_proc processus)
-{
-	if (processus->carry == 1)
-		processus->carry = 0;
-	else
-		processus->carry = 1;
-}
-
-void 	load_size(char *src, void *dest, int size, int *mv)
-{
-	char 	*tmp;
-
-	tmp = ft_memalloc(size);
-	*tmp = *tmp | *src;
-	dest = ft_strdup(tmp);
-	*mv++;
-}
 
 void 	aff(int registre)
 {

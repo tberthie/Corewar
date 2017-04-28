@@ -6,10 +6,27 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/28 22:02:02 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/28 22:05:01 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+void		modify_carry(t_proc processus)
+{
+	if (processus->carry == 1)
+		processus->carry = 0;
+	else
+		processus->carry = 1;
+}
+
+void 	load_size(char *src, void *dest, int size, int *mv)
+{
+	char 	*tmp;
+
+	tmp = ft_memalloc(size);
+	*tmp = *tmp | *src;
+	dest = ft_strdup(tmp);
+	*mv++;
+}
 
 void 	*move_adr(void *adr, t_corewar *corewar, int nbr, int *mv)
 {
@@ -31,7 +48,7 @@ void 	and(t_proc *processus, t_corewar *corewar)
 
 	mv = 0;
 	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv); // on passe le numero de l instruction et l octet de codage
+	tmp = move_adr(tmp, corewar, 1, &mv); // on passe le numero de l instruction
 	tab = byte_analysis(tmp, &mv);
 	tmp++;
 	p1 = get_value(tmp, tab[0], &mv, processus); // on recupere le premier argument
@@ -43,7 +60,7 @@ void 	and(t_proc *processus, t_corewar *corewar)
 	processus->pc += mv;
 }
 
-void 	ld(t_proc *processus, t_corewar *corewar) // p2 est le numero d un registre, p1 est une valeur ou un registre
+void 	ld(t_proc *processus, t_corewar *corewar)
 {
 	char	*p1;
 	void 	*tmp;
@@ -57,7 +74,7 @@ void 	ld(t_proc *processus, t_corewar *corewar) // p2 est le numero d un registr
 	tab = byte_analysis(tmp, &mv);
 	p1 = get_value(tmp, tab[0], &mv, processus);
 	tmp = processus->pc + mv;
-	load_size(p1, processus->reg[(char)*tmp], REG_SIZE, &mv); // verifier si c est la bonne maniere d ecrire dans un registre
+	load_size(p1, processus->reg[(char)*tmp], REG_SIZE, &mv);
 	modify_carry(processus);
 	processus->pc += mv;
 }
