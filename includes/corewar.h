@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 00:21:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 00:37:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct		s_champ {
 
 	unsigned int	size;
 	void			*content;
+
+	unsigned int	color;
 
 }					t_champ;
 

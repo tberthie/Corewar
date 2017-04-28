@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 00:32:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 00:37:35 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,23 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	text(visu, (tmp = ft_utoabase(visu->cps, 10)), 0xa0a0a0,
 	rec(1300, 110, 0, 0));
 	free(tmp);
-	/***/
 	text(visu, "Last live", 0xffffff, rec(1200, 145, 0, 0));
+
+	/***/
 	text(visu, "fluttershy", 0xff0000, rec(1300, 145, 0, 0));
 	dhex(visu, "oh, my, what a scary project", 0, rec(1200, 165, 0, 0));
 
 	text(visu, "1 - fluttershy", 0xa0a0a0, rec(1200, 200, 0, 0));
 	text(visu, "DEAD", 0xff0000, rec(1415, 200, 0, 0));
+
 	text(visu, "2 - helltrain", 0x00ff00, rec(1200, 400, 0, 0));
+
 	text(visu, "3 - zork", 0xa0a0a0, rec(1200, 600, 0, 0));
+
 	text(visu, "DEAD", 0xff0000, rec(1415, 600, 0, 0));
 	text(visu, "4 - rainbowdash", 0xff00ff, rec(1200, 800, 0, 0));
 	/***/
+
 	tx = SDL_CreateTextureFromSurface(visu->ren, visu->sf);
 	SDL_RenderCopy(visu->ren, tx, 0, 0);
 	SDL_DestroyTexture(tx);
