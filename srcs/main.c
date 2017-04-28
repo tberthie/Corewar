@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/27 16:52:30 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:15:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int			main(int ac, char **av)
 {
 	t_corewar	*corewar;
+	t_visual	*visu;
 
 	if (ac > MAX_ARGS_NUMBER + 1)
 		error(0, "Too many arguments");
@@ -24,6 +25,12 @@ int			main(int ac, char **av)
 	corewar = (t_corewar*)ft_memalloc(sizeof(t_corewar));
 	setup(corewar, ++av);
 	load(corewar);
-	run(corewar);
+	if (corewar->visual)
+	{
+		setup_visual((visu = (t_visual*)ft_memalloc(sizeof(t_visual))));
+		visual_run(corewar, visu);
+	}
+	else
+		run(corewar);
 	return (0);
 }

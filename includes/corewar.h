@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 14:28:56 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:41:40 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define COREWAR_H
 
 # include "op.h"
+# include "SDL.h"
+# include "SDL_ttf.h"
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -56,6 +58,18 @@ typedef struct		s_proc {
 
 }					t_proc;
 
+typedef struct		s_visual {
+
+	SDL_Window		*win;
+	SDL_Renderer	*ren;
+	SDL_Surface		*sf;
+	TTF_Font		*font;
+
+	void			*save;
+	unsigned int	cps;
+
+}					t_visual;
+
 typedef struct		s_corewar {
 
 	void			*memory;
@@ -69,8 +83,10 @@ typedef struct		s_corewar {
 	unsigned int	cycle;
 	unsigned int	ctd;
 	unsigned int	check;
-
 	unsigned int	last_alive;
+
+	char			visual;
+	char			play;
 
 }					t_corewar;
 
@@ -79,10 +95,19 @@ void				load(t_corewar *corewar);
 void				run(t_corewar *corewar);
 void				process(t_corewar *corewar);
 
+void				setup_visual(t_visual *visu);
+void				visual_run(t_corewar *corewar, t_visual *visu);
+SDL_Rect			rec(int x, int y, int w, int h);
+void				text(t_visual *visu, char *txt,
+					unsigned int color,SDL_Rect rc);
+
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
 char				find_champion(t_champ **champs, unsigned int n);
 void				cycles(t_proc *proc);
+char				alive_proc(t_proc **proc);
+unsigned int		check_live(t_proc **proc);
+void				event(t_corewar *corewar, t_visual *visu);
 
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);

@@ -6,14 +6,14 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 14:25:50 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:16:15 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static char				alive_proc(t_proc **proc)
+char					alive_proc(t_proc **proc)
 {
 	while (*proc)
 	{
@@ -24,7 +24,7 @@ static char				alive_proc(t_proc **proc)
 	return (0);
 }
 
-static unsigned int		check_live(t_proc **proc)
+unsigned int			check_live(t_proc **proc)
 {
 	unsigned int	total;
 
@@ -87,16 +87,12 @@ void					run(t_corewar *corewar)
 {
 	unsigned int	cycle;
 	unsigned int	lives;
-	unsigned int	i;
 
 	cycle = 0;
-	i = ft_parrlen((void**)corewar->proc);
-	while (i--)
-		cycles(corewar->proc[i]);
 	while (alive_proc(corewar->proc))
 	{
 		process(corewar);
-		if (++corewar->cycle == corewar->dump)
+		if (++corewar->cycle == corewar->dump && !corewar->visual)
 			dump(corewar);
 		cycle++;
 		if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=

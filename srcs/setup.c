@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/27 16:52:21 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:35:16 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,29 @@ static void		parse(t_corewar *corewar, char **args)
 	corewar->next = 0;
 	while (*args)
 	{
-		if (**args == '-')
+		if (!ft_strcmp(*args, "-v"))
+			corewar->visual = 1;
+		else if (**args == '-')
 			parse_option(corewar, args++);
 		else
 			add_champion(corewar, *args);
 		args++;
 	}
+}
+
+void			setup_visual(t_visual *visu)
+{
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) || TTF_Init())
+		error(0, (char*)SDL_GetError());
+	if (!(visu->win = SDL_CreateWindow("Corewar", SDL_WINDOWPOS_CENTERED,
+	SDL_WINDOWPOS_CENTERED, 1500, 1000, SDL_WINDOW_SHOWN)) || !(visu->ren =
+	SDL_CreateRenderer(visu->win, -1, SDL_RENDERER_ACCELERATED)))
+		error(0, (char*)SDL_GetError());
+	visu->sf = SDL_CreateRGBSurface(0, 1500, 1000, 32, 0, 0, 0, 0);
+	if (!(visu->font = TTF_OpenFont("SDL/font.ttf", 12)))
+		error(0, (char*)SDL_GetError());
+	visu->cps = 100;
+	visu->save = ft_memalloc(MEM_SIZE);
 }
 
 void			setup(t_corewar *corewar, char **args)
@@ -55,6 +72,7 @@ void			setup(t_corewar *corewar, char **args)
 	corewar->last_alive = 0;
 	corewar->check = MAX_CHECKS;
 	parse(corewar, args);
+	corewar->play = corewar->visual ? 0 : 1;
 	if (ft_parrlen((void**)corewar->champs) < 2)
 		error(0, "Not enough champions");
 	if (ft_parrlen((void**)corewar->champs) > MAX_PLAYERS)
