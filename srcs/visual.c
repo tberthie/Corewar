@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 00:12:42 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 00:32:54 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		set_visual(t_corewar *corewar, t_visual *visu)
 {
 	SDL_Rect	rc;
 
-	event();
+	event(corewar, visu);
 	ft_memcpy(visu->save, corewar->memory, MEM_SIZE);
 	rc = rec(0, 0, 1500, 1000);
 	SDL_FillRect(visu->sf, &rc, 0);
@@ -47,19 +47,19 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	text(visu, "C O R E W A R", 0x900000, rec(1200, 20, 0, 0));
 	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
 	text(visu, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,
-	rec(1350, 60, 0, 0));
+	rec(1300, 60, 0, 0));
 	free(tmp);
 	text(visu, "To Die", 0xffffff, rec(1200, 85, 0, 0));
 	text(visu, (tmp = ft_utoabase(corewar->ctd, 10)), 0xa0a0a0,
-	rec(1350, 85, 0, 0));
+	rec(1300, 85, 0, 0));
 	free(tmp);
-	text(visu, "Per Second", 0xffffff, rec(1200, 110, 0, 0));
+	text(visu, "CPS", 0xffffff, rec(1200, 110, 0, 0));
 	text(visu, (tmp = ft_utoabase(visu->cps, 10)), 0xa0a0a0,
-	rec(1350, 110, 0, 0));
+	rec(1300, 110, 0, 0));
 	free(tmp);
 	/***/
-	text(visu, "Last Alive", 0xffffff, rec(1200, 145, 0, 0));
-	text(visu, "fluttershy", 0xff0000, rec(1350, 145, 0, 0));
+	text(visu, "Last live", 0xffffff, rec(1200, 145, 0, 0));
+	text(visu, "fluttershy", 0xff0000, rec(1300, 145, 0, 0));
 	dhex(visu, "oh, my, what a scary project", 0, rec(1200, 165, 0, 0));
 
 	text(visu, "1 - fluttershy", 0xa0a0a0, rec(1200, 200, 0, 0));
@@ -101,5 +101,6 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 		}
 		display(corewar, visu);
 	}
-	SDL_Quit();
+	while (1)
+		event(corewar, visu);
 }

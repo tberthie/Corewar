@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 23:51:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 00:21:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void				dhex(t_visual *visu, char *txt,
 					unsigned int color,SDL_Rect rc);
 void				text(t_visual *visu, char *txt,
 					unsigned int color,SDL_Rect rc);
+void				event(t_corewar *corewar, t_visual *visu);
 
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
@@ -112,7 +113,7 @@ char				find_champion(t_champ **champs, unsigned int n);
 void				cycles(t_proc *proc);
 char				alive_proc(t_proc **proc);
 unsigned int		check_live(t_proc **proc);
-void				event(void);
+
 
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);
