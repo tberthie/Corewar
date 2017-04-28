@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:20:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 12:52:53 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,27 @@
 
 static char				alive_proc(t_proc **proc)
 {
-	t_proc	**tmp;
-
-	tmp = proc;
-	while (*tmp)
+	while (*proc)
 	{
-		if ((*tmp)->alive)
+		if ((*proc)->alive)
 			return (1);
-		tmp++;
+		proc++;
 	}
 	return (0);
 }
 
 static unsigned int		check_live(t_proc **proc)
 {
-	t_proc			**tmp;
 	unsigned int	total;
 
 	total = 0;
-	tmp = proc;
-	while (*tmp)
+	while (*proc)
 	{
-		if (!(*tmp)->live)
-			(*tmp)->alive = 0;
-		total += (*tmp)->live;
-		(*tmp)->live = 0;
-		tmp++;
+		if (!(*proc)->live)
+			(*proc)->alive = 0;
+		total += (*proc)->live;
+		(*proc)->live = 0;
+		proc++;
 	}
 	return (total);
 }

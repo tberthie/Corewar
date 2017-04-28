@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:22:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/28 12:46:59 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 		if (++proc->pc == corewar->memory + MEM_SIZE)
 			proc->pc = corewar->memory;
 	}
+	printf(" - run 0x%x", op);
 //	op == 1 ? live(proc, corewar) : 0;
 //	op == 2 ? ld(proc, corewar) : 0;
 //	op == 3 ? st(proc, corewar) : 0;
@@ -61,6 +62,7 @@ void				process(t_corewar *corewar)
 	{
 		if (corewar->proc[i]->alive)
 		{
+			printf("p#%d", i + 0);
 			if (corewar->proc[i]->wait)
 				corewar->proc[i]->wait--;
 			if (!corewar->proc[i]->wait)
@@ -68,6 +70,7 @@ void				process(t_corewar *corewar)
 				execute(corewar, corewar->proc[i]);
 				cycles(corewar->proc[i]);
 			}
+			printf(" - %dc\n", corewar->proc[i]->wait);
 		}
 	}
 }
