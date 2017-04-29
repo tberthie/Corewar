@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 17:53:33 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:10:15 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ static void			execute(t_corewar *corewar, t_visual *visu, t_proc *proc)
 	if (visu && (champ = get_player(corewar, proc)))
 		visu->color[proc->pc] = champ->color;
 	op = ((unsigned char*)corewar->memory)[proc->pc];
-//	if (!op || op > 16)
-//	{
+	if (!op || op > 16)
 		if (++proc->pc == MEM_SIZE)
 			proc->pc = 0;
-//	}
 /*	op == 1 ? live(proc, corewar) : 0;
 	op == 2 ? ld(proc, corewar) : 0;
 	op == 3 ? st(proc, corewar) : 0;

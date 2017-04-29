@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:00:49 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:08:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void			render_stats(t_corewar *corewar, t_visual *visu)
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
 	{
-		if (corewar->proc[i]->alive && (player =
-		get_player(corewar, corewar->proc[i])))
+		if (corewar->proc[i]->alive &&
+		(player = get_player(corewar, corewar->proc[i])))
 			visu->color[corewar->proc[i]->pc] = player->color + 0x404040;
 	}
 	render_players(corewar, visu);

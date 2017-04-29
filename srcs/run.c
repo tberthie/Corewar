@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:02:08 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:08:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,21 @@ char					alive_proc(t_proc **proc)
 	return (0);
 }
 
-unsigned int			check_live(t_proc **proc)
+unsigned int			check_live(t_corewar *corewar, t_visual *visu,
+						t_proc **proc)
 {
 	unsigned int	total;
+	t_champ			*player;
 
 	total = 0;
 	while (*proc)
 	{
-		if (!(*proc)->live)
+		if ((*proc)->alive && !(*proc)->live)
+		{
 			(*proc)->alive = 0;
+			if (visu && (player = get_player(corewar, *proc)))
+				visu->color[(*proc)->pc] = player->color;
+		}
 		total += (*proc)->live;
 		(*proc)->live = 0;
 		proc++;
@@ -95,8 +101,8 @@ void					run(t_corewar *corewar)
 		if (++corewar->cycle == corewar->dump && !corewar->visual)
 			dump(corewar);
 		cycle++;
-		if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=
-		NBR_LIVE) || !--corewar->check)
+		if ((cycle >= corewar->ctd && (lives = check_live(0, 0, corewar->proc))
+		>= NBR_LIVE) || !--corewar->check)
 		{
 			corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
 			corewar->ctd : CYCLE_DELTA;
