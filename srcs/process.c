@@ -6,23 +6,26 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 13:45:02 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 17:53:33 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void			execute(t_corewar *corewar, t_proc *proc)
+static void			execute(t_corewar *corewar, t_visual *visu, t_proc *proc)
 {
 	unsigned char		op;
+	t_champ				*champ;
 
+	if (visu && (champ = get_player(corewar, proc)))
+		visu->color[proc->pc] = champ->color;
 	op = ((unsigned char*)corewar->memory)[proc->pc];
-	if (!op || op > 16)
-	{
+//	if (!op || op > 16)
+//	{
 		if (++proc->pc == MEM_SIZE)
 			proc->pc = 0;
-	}
+//	}
 /*	op == 1 ? live(proc, corewar) : 0;
 	op == 2 ? ld(proc, corewar) : 0;
 	op == 3 ? st(proc, corewar) : 0;
@@ -52,7 +55,7 @@ void				cycles(t_corewar *corewar, t_proc *proc)
 	(op == 14) + 999 * (op == 15) + (op == 16);
 }
 
-void				process(t_corewar *corewar)
+void				process(t_corewar *corewar, t_visual *visu)
 {
 	unsigned int	i;
 
@@ -65,7 +68,7 @@ void				process(t_corewar *corewar)
 				corewar->proc[i]->wait--;
 			if (!corewar->proc[i]->wait)
 			{
-				execute(corewar, corewar->proc[i]);
+				execute(corewar, visu, corewar->proc[i]);
 				cycles(corewar, corewar->proc[i]);
 			}
 		}

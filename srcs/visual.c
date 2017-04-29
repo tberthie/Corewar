@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 17:16:56 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:01:45 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 		if (corewar->play)
 		{
 			time = SDL_GetTicks();
-			process(corewar);
+			process(corewar, visu);
 			corewar->cycle++;
 			cycle++;
 			if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=

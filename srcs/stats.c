@@ -6,14 +6,14 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 17:28:22 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:00:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static t_champ	*get_player(t_corewar *corewar, t_proc *proc)
+t_champ			*get_player(t_corewar *corewar, t_proc *proc)
 {
 	unsigned int	nb;
 	int				i;
@@ -98,8 +98,9 @@ void			render_stats(t_corewar *corewar, t_visual *visu)
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
 	{
-		if ((player = get_player(corewar, corewar->proc[i])))
-			visu->color[corewar->proc[i]->pc] = player->color;
+		if (corewar->proc[i]->alive && (player =
+		get_player(corewar, corewar->proc[i])))
+			visu->color[corewar->proc[i]->pc] = player->color + 0x404040;
 	}
 	render_players(corewar, visu);
 	!corewar->play ? text(visu, "PAUSED", 0xffff00, rec(1395, 60, 0, 0)) : 0;

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 17:17:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:02:08 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void					run(t_corewar *corewar)
 	cycle = 0;
 	while (alive_proc(corewar->proc))
 	{
-		process(corewar);
+		process(corewar, 0);
 		if (++corewar->cycle == corewar->dump && !corewar->visual)
 			dump(corewar);
 		cycle++;
