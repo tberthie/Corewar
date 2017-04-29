@@ -6,14 +6,15 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:06:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:33:26 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "op.h"
+# include "config.h"
+
 # include "SDL.h"
 # include "SDL_ttf.h"
 
@@ -93,6 +94,8 @@ typedef struct		s_corewar {
 	char			play;
 
 }					t_corewar;
+
+# include "operators.h"
 
 void				setup(t_corewar *corewar, char **args);
 void				load(t_corewar *corewar);
