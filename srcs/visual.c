@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 14:48:24 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 14:57:45 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,12 @@ static void		set_visual(t_corewar *corewar, t_visual *visu)
 	render_hex(corewar, visu);
 }
 
-static void		outlines(t_visual *visu)
-{
-	SDL_SetRenderDrawColor(visu->ren, 0xd0, 0xd0, 0xd0, 0xff);
-	SDL_RenderDrawLine(visu->ren, 10, 10, 1182, 10);
-	SDL_RenderDrawLine(visu->ren, 10, 990, 1182, 990);
-	SDL_RenderDrawLine(visu->ren, 10, 10, 10, 990);
-	SDL_RenderDrawLine(visu->ren, 1182, 10, 1182, 990);
-	SDL_RenderDrawLine(visu->ren, 1190, 10, 1190, 990);
-	SDL_RenderDrawLine(visu->ren, 1490, 10, 1490, 990);
-	SDL_RenderDrawLine(visu->ren, 1190, 10, 1490, 10);
-	SDL_RenderDrawLine(visu->ren, 1190, 990, 1490, 990);
-}
-
 static void		display(t_corewar *corewar, t_visual *visu)
 {
 	SDL_Texture		*tx;
 	char			*tmp;
 
-	text(visu, "C O R E W A R", 0x900000, rec(1200, 20, 0, 0));
+	text(visu, "C O R E W A R", 0xffffff, rec(1200, 20, 0, 0));
 	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
 	text(visu, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,
 	rec(1300, 60, 0, 0));
@@ -62,7 +49,6 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	tx = SDL_CreateTextureFromSurface(visu->ren, visu->sf);
 	SDL_RenderCopy(visu->ren, tx, 0, 0);
 	SDL_DestroyTexture(tx);
-	outlines(visu);
 	SDL_RenderPresent(visu->ren);
 }
 
