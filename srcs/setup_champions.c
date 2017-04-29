@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:07:48 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:51:36 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void		init_champion(t_corewar *corewar, t_champ *champ,
 	champ->size = rev_int(header->prog_size);
 	champ->content = data + sizeof(t_header);
 	color = ft_parrlen((void**)corewar->champs);
-	champ->color = 0xb0 * (color == 2 || color == 3) + (0xb0 << 8) *
-	(color == 1) + (0xb0 << 16) * (color == 0 || color == 3);
+	champ->color = 0xb0 * (color == 3) + (0xb0 << 8) * (color == 1 ||
+	color == 2 || color == 3) + (0xb0 << 16) * (color == 0 || color == 2);
 }
 
 char			find_champion(t_champ **champs, unsigned int n)

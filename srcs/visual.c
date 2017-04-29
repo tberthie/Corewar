@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:33:09 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:58:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	SDL_Texture		*tx;
 
 	text(visu, "C O R E W A R", 0xffffff, rec(1200, 20, 0, 0));
-	!corewar->play ? text(visu, "PAUSED", 0xffff00, rec(1395, 60, 0, 0)) : 0;
 	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
 	text(visu, "To Die", 0xffffff, rec(1200, 85, 0, 0));
 	text(visu, "CPS Max", 0xffffff, rec(1200, 110, 0, 0));

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:25:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 18:59:59 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static void		player_stats(t_corewar *corewar, t_visual *visu, int i)
 			lives += corewar->proc[j]->live;
 	}
 	text(visu, (tmp = ft_itoabase(proc, 10)), 0xa0a0a0,
-	rec(1320, 200 * (i + 1) + 50, 0, 0));
+	rec(1350, 200 * (i + 1) + 50, 0, 0));
 	free(tmp);
 	text(visu, (tmp = ft_itoabase(lives, 10)), 0xa0a0a0,
-	rec(1320, 200 * (i + 1) + 75, 0, 0));
+	rec(1350, 200 * (i + 1) + 75, 0, 0));
 	free(tmp);
 }
 
@@ -81,7 +81,7 @@ static void		render_players(t_corewar *corewar, t_visual *visu)
 		0xa0a0a0, rec(1200, 200 * (i + 1), 0, 0));
 		if (corewar->champs[i]->number == corewar->last_alive)
 			text(visu, corewar->champs[i]->name, corewar->champs[i]->color,
-			rec(1300, 145, 0, 0));
+			rec(1330, 145, 0, 0));
 		if (!alive)
 			text(visu, "DEAD", 0xff0000, rec(1415, 200 * (i + 1), 0, 0));
 		else
@@ -103,15 +103,15 @@ void			render_stats(t_corewar *corewar, t_visual *visu)
 			visu->color[corewar->proc[i]->pc] = player->color + 0x404040;
 	}
 	render_players(corewar, visu);
-	!corewar->play ? text(visu, "PAUSED", 0xffff00, rec(1395, 60, 0, 0)) : 0;
+	!corewar->play ? text(visu, "PAUSED", 0xffff00, rec(1395, 20, 0, 0)) : 0;
 	text(visu, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,
-	rec(1300, 60, 0, 0));
+	rec(1330, 60, 0, 0));
 	free(tmp);
 	text(visu, (tmp = ft_utoabase(corewar->ctd, 10)), 0xa0a0a0,
-	rec(1300, 85, 0, 0));
+	rec(1330, 85, 0, 0));
 	free(tmp);
 	text(visu, (tmp = ft_utoabase(visu->cps, 10)), 0xa0a0a0,
-	rec(1300, 110, 0, 0));
+	rec(1330, 110, 0, 0));
 	free(tmp);
 	text(visu, "Last live", 0xffffff, rec(1200, 145, 0, 0));
 }
