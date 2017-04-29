@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 13:55:58 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 14:48:24 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	text(visu, (tmp = ft_utoabase(corewar->ctd, 10)), 0xa0a0a0,
 	rec(1300, 85, 0, 0));
 	free(tmp);
-	text(visu, "CPS", 0xffffff, rec(1200, 110, 0, 0));
+	text(visu, "CPS Max", 0xffffff, rec(1200, 110, 0, 0));
 	text(visu, (tmp = ft_utoabase(visu->cps, 10)), 0xa0a0a0,
 	rec(1300, 110, 0, 0));
 	free(tmp);
@@ -66,10 +66,18 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	SDL_RenderPresent(visu->ren);
 }
 
+static void		set_ctd(t_corewar *corewar)
+{
+	corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
+	corewar->ctd : CYCLE_DELTA;
+	corewar->check = MAX_CHECKS;
+}
+
 void			visual_run(t_corewar *corewar, t_visual *visu)
 {
 	unsigned int	cycle;
 	unsigned int	lives;
+	unsigned int	time;
 
 	cycle = 0;
 	while (alive_proc(corewar->proc))
@@ -77,17 +85,16 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 		set_visual(corewar, visu);
 		if (corewar->play)
 		{
+			time = SDL_GetTicks();
 			process(corewar);
 			corewar->cycle++;
 			cycle++;
 			if ((cycle >= corewar->ctd && (lives = check_live(corewar->proc)) >=
 			NBR_LIVE) || !--corewar->check)
-			{
-				corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
-				corewar->ctd : CYCLE_DELTA;
-				corewar->check = MAX_CHECKS;
-			}
+				set_ctd(corewar);
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
+			(time = SDL_GetTicks() - time) < 1000 / visu->cps ?
+			SDL_Delay(1000 / visu->cps - time) : 0;
 		}
 		display(corewar, visu);
 	}
