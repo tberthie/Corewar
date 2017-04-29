@@ -6,14 +6,14 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/28 14:37:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 13:48:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		init_proc(t_proc *proc, unsigned int n, void *start)
+static void		init_proc(t_proc *proc, unsigned int n, unsigned int offset)
 {
 	int		reg;
 
@@ -25,7 +25,7 @@ static void		init_proc(t_proc *proc, unsigned int n, void *start)
 			*(unsigned int*)proc->reg[reg - 1] = n;
 	}
 	proc->carry = 1;
-	proc->pc = start;
+	proc->pc = offset;
 	proc->alive = 1;
 }
 
@@ -39,8 +39,8 @@ static void		load_champion(t_corewar *corewar, unsigned int i,
 	ft_parrlen((void**)corewar->champs));
 	ft_memcpy(start, corewar->champs[i]->content, corewar->champs[i]->size);
 	proc = ft_m(sizeof(t_proc));
-	init_proc(proc, corewar->champs[i]->number, start);
-	cycles(proc);
+	init_proc(proc, corewar->champs[i]->number, (start - corewar->memory));
+	cycles(corewar, proc);
 	ft_parrpush((void***)&corewar->proc, proc);
 }
 

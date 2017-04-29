@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 00:41:12 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 13:45:02 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 {
 	unsigned char		op;
 
-	op = *(unsigned char*)proc->pc;
+	op = ((unsigned char*)corewar->memory)[proc->pc];
 	if (!op || op > 16)
 	{
-		if (++proc->pc == corewar->memory + MEM_SIZE)
-			proc->pc = corewar->memory;
+		if (++proc->pc == MEM_SIZE)
+			proc->pc = 0;
 	}
 /*	op == 1 ? live(proc, corewar) : 0;
 	op == 2 ? ld(proc, corewar) : 0;
@@ -41,11 +41,11 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 	op == 16 ? aff(proc, corewar) : 0;*/
 }
 
-void				cycles(t_proc *proc)
+void				cycles(t_corewar *corewar, t_proc *proc)
 {
 	unsigned char		op;
 
-	op = *(unsigned char*)proc->pc;
+	op = ((unsigned char*)corewar->memory)[proc->pc];
 	proc->wait = 1 + 9 * (op == 1 || op == 4 || op == 5 || op == 13) + 4 *
 	(op == 2 || op == 3) + 5 * (op == 6 || op == 7 || op == 8) + 19 *
 	(op == 9) + 24 * (op == 10 || op == 11) + 799 * (op == 12) + 49 *
@@ -66,7 +66,7 @@ void				process(t_corewar *corewar)
 			if (!corewar->proc[i]->wait)
 			{
 				execute(corewar, corewar->proc[i]);
-				cycles(corewar->proc[i]);
+				cycles(corewar, corewar->proc[i]);
 			}
 		}
 	}

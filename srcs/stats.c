@@ -6,14 +6,39 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 00:39:51 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 13:53:09 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "libft.h"
+
+static t_champ	*get_player(t_corewar *corewar, t_proc *proc)
+{
+	unsigned int	nb;
+	int				i;
+
+	nb = *(char*)(*proc->reg);
+	i = ft_parrlen((void**)corewar->champs);
+	while (i--)
+	{
+		if (corewar->champs[i]->number == nb)
+			return (corewar->champs[i]);
+	}
+	return (0);
+}
 
 void			render_stats(t_corewar *corewar, t_visual *visu)
 {
+	t_champ		*player;
+	int			i;
+
+	i = ft_parrlen((void**)corewar->proc);
+	while (i--)
+	{
+		if ((player = get_player(corewar, corewar->proc[i])))
+			visu->color[corewar->proc[i]->pc] = player->color;
+	}
 	text(visu, "fluttershy", 0xff0000, rec(1300, 145, 0, 0));
 	dhex(visu, "oh, my, what a scary project", 0, rec(1200, 165, 0, 0));
 
