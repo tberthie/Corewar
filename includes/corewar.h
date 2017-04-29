@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:33:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/29 19:05:04 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ typedef struct		s_corewar {
 
 }					t_corewar;
 
-# include "operators.h"
-
 void				setup(t_corewar *corewar, char **args);
 void				load(t_corewar *corewar);
 void				run(t_corewar *corewar);
@@ -122,5 +120,10 @@ unsigned int		check_live(t_corewar *corewar, t_visual *v, t_proc **proc);
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);
 void				hex_dump(unsigned char hex);
+
+int					*byte_analysis(t_proc *prc, t_corewar *core);
+char				*get_value(t_proc *prc, t_corewar *core, int size, int nbr);
+char				*get_reg_value(t_proc *prc, t_corewar *core);
+void				*get_adr_modulo(t_proc *prc, t_corewar *core, int nbr);
 
 #endif
