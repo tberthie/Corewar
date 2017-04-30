@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 14:14:06 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:22:54 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@ void 	*get_adr_dir_modulo(t_proc *processus, t_corewar *corewar)
 
 void 	*get_adr_modulo(t_proc *processus, t_corewar *corewar, int nbr)
 {
-	if (nbr == 1)
+	if (nbr == REG_CODE)
 		return(get_adr_reg(processus, corewar));
 	else
 		return(get_adr_dir_modulo(processus, corewar));
 }
 
-int		*byte_analysis(t_proc *processus, t_corewar *corewar)
+int        *byte_analysis(t_proc *processus, t_corewar *corewar)
 {
-	int		*nbr;
-	void 	*adr;
-	char	byte;
+    int		*nbr;
+    void 	*adr;
+    char	byte;
 
-	adr = get_pc(processus, corewar);
-	byte = (char)adr;
-	nbr = (int*)malloc(sizeof(int) * 3);
-	nbr[0] = (byte & 11000000) >> 6;
-	nbr[1] = (byte & 00110000) >> 4;
-	nbr[2] = (byte & 00001100) >> 2;
-	processus->pc++;
-	return(nbr);
+    adr = get_pc(processus, corewar);
+    byte = *(unsigned char*)adr;
+    nbr = (int*)malloc(sizeof(int) * 3);
+    nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
+    nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
+    nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
+    processus->pc++;
+    return(nbr);
 }
 
 char	*get_direct_value(t_proc *processus, t_corewar *corewar) // a modifier car peut se lire sur 2 ou 4 octets
@@ -137,9 +137,9 @@ char	*get_value(t_proc *processus, t_corewar *corewar, int size, int nbr)
 {
 	char	*p1;
 
-	if (nbr == 10)
+	if (nbr == DIR_CODE)
 		p1 = get_direct_value(processus, corewar);
-	else if (nbr == 11)
+	else if (nbr == IND_CODE)
 		p1 = get_indirect_value(processus, size, corewar);
 	else
 		p1 = get_reg_value(processus,corewar);
@@ -150,9 +150,9 @@ char	*get_value_nm(t_proc *processus, t_corewar *corewar, int size, int nbr)
 {
 	char	*p1;
 
-	if (nbr == 10)
+	if (nbr == DIR_CODE)
 		p1 = get_direct_value(processus, corewar);
-	else if (nbr == 11)
+	else if (nbr == IND_CODE)
 		p1 = get_indirect_value_nm(processus, size, corewar);
 	else
 		p1 = get_reg_value(processus,corewar);
