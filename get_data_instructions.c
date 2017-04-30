@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 15:04:05 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 15:06:23 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void 	live(t_proc *processus, t_corewar *corewar)
 	processus->live++;
 	last_champ = get_player(corewar, processus);
 	corewar->last_alive = last_champ->number;
+	processus->pc += 5;
 }
 
 void 	c_and(t_proc *processus, t_corewar *corewar)
