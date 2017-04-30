@@ -6,11 +6,14 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/28 22:05:01 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 14:13:39 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		modify_carry(t_proc processus)
+#include "../includes/corewar.h"
+#include "../libft/libft.h"
+
+void		modify_carry(t_proc *processus)
 {
 	if (processus->carry == 1)
 		processus->carry = 0;
@@ -18,183 +21,240 @@ void		modify_carry(t_proc processus)
 		processus->carry = 1;
 }
 
-void 	load_size(char *src, void *dest, int size, int *mv)
-{
-	char 	*tmp;
 
-	tmp = ft_memalloc(size);
-	*tmp = *tmp | *src;
-	dest = ft_strdup(tmp);
-	*mv++;
-}
-
-void 	*move_adr(void *adr, t_corewar *corewar, int nbr, int *mv)
+void 	*get_pc(t_proc *processus, t_corewar *corewar)
 {
-	adr += nbr;
-	*mv += nbr;
-	if ((char)corewar->memory + MEM_SIZE < (char)adr)
-		adr = corewar->memory;
+	void 	*adr;
+
+	if (MEM_SIZE < processus->pc)
+		processus->pc = 0;
+	adr = corewar->memory + processus->pc;
 	return(adr);
-
 }
 
 void 	and(t_proc *processus, t_corewar *corewar)
 {
-	char	*p1;
-	char	*p2;
-	int		mv;
-	int		*tab;
-	void 	*tmp;
+	char			*p1;
+	char			*p2;
+	int				*tab;
+	unsigned int 	*tmp;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv); // on passe le numero de l instruction
-	tab = byte_analysis(tmp, &mv);
-	tmp++;
-	p1 = get_value(tmp, tab[0], &mv, processus); // on recupere le premier argument
-	tmp = processus->pc + mv; // on deplace tmp em fonction de la taille du premier argument
-	p2 = get_value(processus, tab[1], &mv, processus);
-	tmp = processus->pc + mv;
-	load_size(p1 & p2, processus->reg[(char)*tmp], REG_SIZE, &mv)
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	processus->pc++;
+	p1 = get_value(processus, corewar, REG_SIZE, tab[0]);
+	p2 = get_value(processus, corewar,REG_SIZE, tab[1]);
+	tmp = get_adr_reg(processus, corewar);
+	*tmp = (unsigned int)p1 & (unsigned int)p2;
 	modify_carry(processus);
-	processus->pc += mv;
+	processus->pc++;
+}
+
+void 	or(t_proc *processus, t_corewar *corewar)
+{
+	char			*p1;
+	char			*p2;
+	int				*tab;
+	unsigned int 	*tmp;
+
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	processus->pc++;
+	p1 = get_value(processus, corewar, REG_SIZE, tab[0]);
+	p2 = get_value(processus, corewar,REG_SIZE, tab[1]);
+	tmp = get_adr_reg(processus, corewar);
+	*tmp = (unsigned int)p1 | (unsigned int)p2;
+	modify_carry(processus);
+	processus->pc++;
+}
+
+void 	xor(t_proc *processus, t_corewar *corewar)
+{
+	char			*p1;
+	char			*p2;
+	int				*tab;
+	unsigned int 	*tmp;
+
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	processus->pc++;
+	p1 = get_value(processus, corewar, REG_SIZE, tab[0]);
+	p2 = get_value(processus, corewar,REG_SIZE, tab[1]);
+	tmp = get_adr_reg(processus, corewar);
+	*tmp = (unsigned int)p1 ^ (unsigned int)p2;
+	modify_carry(processus);
+	processus->pc++;
 }
 
 void 	ld(t_proc *processus, t_corewar *corewar)
 {
 	char	*p1;
 	void 	*tmp;
-	void 	*adr;
-	int		mv;
 	int		*tab;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv);
-	tab = byte_analysis(tmp, &mv);
-	p1 = get_value(tmp, tab[0], &mv, processus);
-	tmp = processus->pc + mv;
-	load_size(p1, processus->reg[(char)*tmp], REG_SIZE, &mv);
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	p1 = get_value(processus, corewar, REG_SIZE, tab[0]);
+	tmp = get_adr_reg(processus, corewar);
+	tmp = p1;
 	modify_carry(processus);
-	processus->pc += mv;
+	processus->pc++;
+}
+
+void 	lld(t_proc *processus, t_corewar *corewar)
+{
+	char	*p1;
+	void 	*tmp;
+	int		*tab;
+
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	p1 = get_value_nm(processus, corewar, REG_SIZE, tab[0]);
+	tmp = get_adr_reg(processus, corewar);
+	tmp = p1;
+	modify_carry(processus);
+	processus->pc++;
 }
 
 void 	ldi(t_proc *processus, t_corewar *corewar)
 {
 	int		*tab;
-	int		mv;
 	void 	*tmp;
 	char	*p1;
+	unsigned int nbr;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv);
-	tab = byte_analysis(tmp, &mv);
-	tmp++;
-	p1 = get_value(tmp, tab[0], &mv, processus);
-	tmp = processus->pc + mv;
-	p1 = p1 | get_value(tmp, tab[1], &mv, processus);
-	tmp = processus->pc + mv;
-	load_size(p1, processus->reg[(char)*tmp], REG_SIZE, &mv);
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	p1 = get_value(processus, corewar, IND_SIZE, tab[0]);
+	nbr = (int)p1 + (int)get_value(processus, corewar, REG_SIZE, tab[1]);
+	tmp = get_adr_reg(processus, corewar);
+	ft_memcpy(tmp, get_pc(processus, corewar) + (nbr % IDX_MOD), REG_SIZE);
 	modify_carry(processus);
-	processus->pc += mv;
+	processus->pc ++;
+}
+
+void 	lldi(t_proc *processus, t_corewar *corewar)
+{
+	int		*tab;
+	void 	*tmp;
+	char	*p1;
+	unsigned int nbr;
+
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	p1 = get_value(processus, corewar, IND_SIZE, tab[0]);
+	nbr = (int)p1 + (int)get_value(processus, corewar, REG_SIZE, tab[1]);
+	tmp = get_adr_reg(processus, corewar);
+	ft_memcpy(tmp, get_pc(processus, corewar) + nbr , REG_SIZE);
+	modify_carry(processus);
+	processus->pc ++;
 }
 
 void 	st(t_proc *processus, t_corewar *corewar)
 {
-	void 	*tmp;
-	int		mv;
 	char	*p1;
-	void	*p2;
+	char	*p2;
 	int		*tab;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv);
-	tab = byte_analysis(tmp, &mv);
-	tmp++;
-	p1 = get_reg_value(tmp, processus, &mv);
-	tmp = processus->pc + mv;
-	p2 = get_adr_modulo(get_value(tmp, processus, &mv), processus, tab[1], &mv);
-	load_size(p1, p2, REG_SIZE, &mv);
-	processus->pc += mv;
+	processus->pc++;
+	tab = byte_analysis(processus, corewar);
+	p1 = get_reg_value(processus, corewar);
+	p2 = get_adr_modulo(processus, corewar, tab[1]);
+	p2 = p1;
 }
 
 void 	sti(t_proc *processus, t_corewar *corewar)
 {
 	int		*tab;
-	int		mv;
+	void 	*tmp;
 	char	*p1;
 	char 	*p2;
 	char 	*p3;
 
-	processus->pc = move_adr(processus->pc, corewar, 1, &mv);
-	tab = byte_analysis(processus->pc, &mv);
 	processus->pc++;
-	mv = 0;
-	p1 = get_value(processus->pc, tab[0], &mv, processus);
-	processus->pc += mv;
-	mv = 0;
-	p2 = get_value(processus->pc, tab[1], &mv, processus);
-	processus->pc += mv;
-	p3 = get_value(processus->pc, tab[2], &mv, processus);
-	load_size(p1, corewar->memory + char(p2 | p3), REG_SIZE, &mv); // voir si il faut vraiment avancer mv a ce moment la, de combien?
-	processus->pc++; // voir si il faut vraiment avancer mv a ce moment la, de combien?
+	tab = byte_analysis(processus, corewar);
+	p1 = get_reg_value(processus, corewar);
+	p2 = get_value(processus, corewar, REG_SIZE, tab[1]);
+	p3 = get_value(processus, corewar, REG_SIZE, tab[2]);
+	tmp = corewar->memory + (unsigned int)p2 + (unsigned int)p3;
+	tmp = p1;
+	processus->pc++;
 }
 
 void 	add(t_proc *processus, t_corewar *corewar)
 {
-	void 	*tmp;
-	int		mv;
-	int		*tab;
-	char 	*p1;
-	char 	*p2;
+	unsigned int	*p3;
+	char 			*p1;
+	char 			*p2;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 2, &mv);
-	p1 = get_value(tmp, 1 , &mv, processus);
-	tmp = processus->pc + mv;
-	p1 = p1 | get_value(tmp, 1 , &mv, processus);
-	tmp = processus->pc + mv;
-	load_size(p1, &processus->reg[(char)*tmp], REG_SIZE, &mv);
+
+	processus->pc+= 2;
+	p1 = get_reg_value(processus, corewar);
+	p2 = get_reg_value(processus, corewar);
+	p3 = get_adr_reg(processus, corewar);
+	*p3 = (unsigned int)p1 + (unsigned int)p2;
 	modify_carry(processus);
-	processus->pc += mv;
+}
+
+void 	sub(t_proc *processus, t_corewar *corewar)
+{
+	unsigned int	*p3;
+	char 			*p1;
+	char 			*p2;
+
+
+	processus->pc+= 2;
+	p1 = get_reg_value(processus, corewar);
+	p2 = get_reg_value(processus, corewar);
+	p3 = get_adr_reg(processus, corewar);
+	*p3 = (unsigned int)p1 - (unsigned int)p2;
+	modify_carry(processus);
 }
 
 void 	zjmp(t_proc *processus, t_corewar *corewar)
 {
-	void 	*tmp;
-	int		mv;
-	char 	*p1;
+	void 			*tmp;
+	unsigned int 	p1;
 
-	mv = 0;
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv);
-	p1 = (char)*tmp;
+	processus->pc++;
+	tmp = get_pc(processus, corewar);
+	p1 = (unsigned int)tmp;
 	if (processus->carry == 1)
 		processus->pc = processus->pc + (p1 % IDX_MOD);
-	mv++;
-	processus->pc += mv;
 }
 
-void 	fork(t_proc *processus, t_corewar *corewar)
+void 	c_fork(t_proc *processus, t_corewar *corewar)
 {
-	void 	*tmp;
-	int		mv;
-	char 	p1;
-	t_proc	*processus2;
+	void 			*tmp;
+	unsigned int	p1;
+	t_proc			*processus2;
 
-	mv = 0;
 	processus2 = (t_proc*)malloc(sizeof(t_proc));
-	processus2 = ft_memcpy(processus2, processus, sizeof(t_proc));
-	tmp = processus->pc;
-	tmp = move_adr(tmp, corewar, 1, &mv);
-	p1 = (char)*tmp;
+	ft_memcpy(processus2, processus, sizeof(t_proc));
+	processus->pc++;
+	tmp = get_pc(processus, corewar);
+	p1 = (unsigned int)tmp;
 	processus2->pc = processus->pc + (p1 % IDX_MOD);
-	if ((char)corewar->memory + MEM_SIZE < (char)processus2->pc)
-		processus2->pc = corewar->memory;
-	ft_parrpush(corewar->proc, processus2);
+	if (MEM_SIZE < processus2->pc)
+		processus2->pc = 0;
+	ft_parrpush((void***)&corewar->proc, processus2);
+}
+
+void 	lfork(t_proc *processus, t_corewar *corewar)
+{
+	void 			*tmp;
+	unsigned int	p1;
+	t_proc			*processus2;
+
+	processus2 = (t_proc*)malloc(sizeof(t_proc));
+	ft_memcpy(processus2, processus, sizeof(t_proc));
+	processus->pc++;
+	tmp = get_pc(processus, corewar);
+	p1 = (unsigned int)tmp;
+	processus2->pc = processus->pc + p1 ;
+	if (MEM_SIZE < processus2->pc)
+		processus2->pc = 0;
+	ft_parrpush((void***)&corewar->proc, processus2);
 }
 
 // void 	aff(t_proc *processus, t_corewar *corewar)
