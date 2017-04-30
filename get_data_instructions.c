@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 16:49:23 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 16:59:29 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		modify_carry(t_proc *processus)
 
 void 	live(t_proc *processus, t_corewar *corewar)
 {
-	t_champ	*lat_champ;
+	t_champ	*last_champ;
 
 	processus->live++;
 	last_champ = get_player(corewar, processus);
