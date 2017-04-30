@@ -6,13 +6,13 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/29 15:07:06 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/30 14:17:44 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS = $(addsuffix .o, $(addprefix objs/, main \
 	   load setup setup_champions \
-	   run process \
+	   run process operations get_data_instructions \
 	   visual event draw render stats \
 	   utl))
 
