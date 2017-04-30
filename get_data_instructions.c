@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 14:19:38 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 15:04:05 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ void 	*get_pc(t_proc *processus, t_corewar *corewar)
 		processus->pc = 0;
 	adr = corewar->memory + processus->pc;
 	return(adr);
+}
+
+void 	live(t_proc *processus, t_corewar *corewar)
+{
+	t_champ	*last_champ;
+
+	processus->live++;
+	last_champ = get_player(corewar, processus);
+	corewar->last_alive = last_champ->number;
 }
 
 void 	c_and(t_proc *processus, t_corewar *corewar)
