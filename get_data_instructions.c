@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 14:13:39 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/04/30 14:19:38 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void 	*get_pc(t_proc *processus, t_corewar *corewar)
 	return(adr);
 }
 
-void 	and(t_proc *processus, t_corewar *corewar)
+void 	c_and(t_proc *processus, t_corewar *corewar)
 {
 	char			*p1;
 	char			*p2;
@@ -50,7 +50,7 @@ void 	and(t_proc *processus, t_corewar *corewar)
 	processus->pc++;
 }
 
-void 	or(t_proc *processus, t_corewar *corewar)
+void 	c_or(t_proc *processus, t_corewar *corewar)
 {
 	char			*p1;
 	char			*p2;
@@ -68,7 +68,7 @@ void 	or(t_proc *processus, t_corewar *corewar)
 	processus->pc++;
 }
 
-void 	xor(t_proc *processus, t_corewar *corewar)
+void 	c_xor(t_proc *processus, t_corewar *corewar)
 {
 	char			*p1;
 	char			*p2;
