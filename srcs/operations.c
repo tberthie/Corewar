@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 14:30:40 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/30 17:22:45 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int		*byte_analysis(t_proc *processus, t_corewar *corewar)
 	char	byte;
 
 	adr = get_pc(processus, corewar);
-	byte = (char)adr;
+	byte = *(unsigned char*)adr;
 	nbr = (int*)malloc(sizeof(int) * 3);
-	nbr[0] = (byte & 11000000) >> 6;
-	nbr[1] = (byte & 00110000) >> 4;
-	nbr[2] = (byte & 00001100) >> 2;
+	nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
+	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
+	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
 	processus->pc++;
 	return(nbr);
 }
