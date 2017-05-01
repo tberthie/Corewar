@@ -6,155 +6,112 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/04/30 17:22:45 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/01 17:32:24 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// il faut que je recupere des int dans toutes les fonctions et que je gere la suite dans chacune des instructions
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
-void 	*get_adr_reg(t_proc *processus, t_corewar *corewar)
-{
-	unsigned int	index;
-	void 	*adr;
 
-	adr = get_pc(processus, corewar);
-	index = (unsigned int)adr;
-	return(processus->reg[index]);
+int        *byte_analysis(t_proc *processus, t_corewar *corewar)
+{
+    int		*nbr;
+    void 	*adr;
+    char	byte;
+
+    adr = get_pc(processus, corewar);
+    byte = *(unsigned char*)adr;
+    nbr = (int*)malloc(sizeof(int) * 3);
+    nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
+    nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
+    nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
+    processus->pc++;
+    return(nbr);
 }
 
-void 	*get_adr_dir_modulo(t_proc *processus, t_corewar *corewar)
-{
-	void 	*adr;
-	void 	*tmp;
-	char	index;
 
-	adr = get_pc(processus, corewar);
-	tmp = adr;
-	tmp += DIR_SIZE;
-	index = (char)tmp;
-	processus->pc += DIR_SIZE;
-	return(adr + (index % IDX_MOD));
-}
-
-void 	*get_adr_modulo(t_proc *processus, t_corewar *corewar, int nbr)
-{
-	if (nbr == 1)
-		return(get_adr_reg(processus, corewar));
-	else
-		return(get_adr_dir_modulo(processus, corewar));
-}
-
-int		*byte_analysis(t_proc *processus, t_corewar *corewar)
-{
-	int		*nbr;
-	void 	*adr;
-	char	byte;
-
-	adr = get_pc(processus, corewar);
-	byte = *(unsigned char*)adr;
-	nbr = (int*)malloc(sizeof(int) * 3);
-	nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
-	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
-	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
-	processus->pc++;
-	return(nbr);
-}
-
-char	*get_direct_value(t_proc *processus, t_corewar *corewar) // a modifier car peut se lire sur 2 ou 4 octets
-{
-	char	*value;
-	void 	*adr;
-
-	adr = get_pc(processus, corewar);
-	adr += 3;
-	value = (char*)adr;
-	processus->pc += DIR_SIZE;
-	return(value);
-}
-
-// char	*get_direct_value(t_proc *processus, t_corewar *corewar) // a modifier car peut se lire sur 2 ou 4 octets
-// {
-// 	char	*value;
-// 	void 	*adr;
-//
-// 	adr = get_pc(processus, corewar);
-// 	adr += 3;
-// 	value = (char*)adr;
-// 	processus->pc += DIR_SIZE;
-// 	return(value);
-// }
-
-char 	*get_indirect_value_nm(t_proc *processus, int size, t_corewar *corewar)
+int 	get_direct_value(t_proc *processus, t_corewar *corewar) // a modifier car peut se lire sur 2 ou 4 octets
 {
 	char	index;
 	void 	*adr;
+	// int		value;
+
+	index = *(char*)(corewar->memory + processus->pc + 3);
+	// adr = get_pc(processus, corewar);
+	// adr += 3;
+	// index = (char)adr;
+	// value = (int)(corewar->memory + index);
+	processus->pc += DIR_SIZE;
+	return((int)index);
+}
+
+int		get_indirect_value(t_proc *processus, t_corewar *corewar)
+{
+	void 	*adr;
 	void 	*tmp;
-	char 	*value;
+	int		value;
 
 	adr = get_pc(processus, corewar);
 	tmp = adr;
 	tmp++;
-	index = (char)tmp;
-	value = ft_memalloc(size);
-	ft_memcpy(value, adr + index , size);
+	adr = corewar->memory + processus->pc + (int)tmp % IDX_MOD;
+	value = (int)adr;
 	processus->pc += IND_SIZE;
-	return(adr);
+	return(value);
 }
 
-char 	*get_indirect_value(t_proc *processus, int size, t_corewar *corewar)
+int		get_reg_value(t_proc *processus, t_corewar *corewar)
 {
 	char	index;
-	void 	*adr;
-	void 	*tmp;
-	char 	*value;
+	int		value;
 
-	adr = get_pc(processus, corewar);
-	tmp = adr;
-	tmp++;
-	index = (char)tmp;
-	value = ft_memalloc(size);
-	ft_memcpy(value, adr + (index % IDX_MOD), size);
-	processus->pc += IND_SIZE;
-	return(adr);
-}
-
-char	*get_reg_value(t_proc *processus, t_corewar *corewar)
-{
-	unsigned int	index;
-	void 	*adr;
-	char	*value;
-
-	adr = get_pc(processus, corewar);
-	index = (unsigned int)adr;
-	value = ft_memalloc(REG_SIZE);
-//	ft_memcpy(value , processus->reg[index] , REG_SIZE);
+	index = *(char*)(corewar->memory + processus->pc);
+	value = *(int*)processus->reg[index];
 	processus->pc++;
 	return(value);
 }
 
-char	*get_value(t_proc *processus, t_corewar *corewar, int size, int nbr)
+int		get_value(t_proc *processus, t_corewar *corewar, int nbr)
 {
-	char	*p1;
+	int		p1;
 
-	if (nbr == 10)
+	if (nbr == DIR_CODE)
 		p1 = get_direct_value(processus, corewar);
-	else if (nbr == 11)
-		p1 = get_indirect_value(processus, size, corewar);
+	else if (nbr == IND_CODE)
+		p1 = get_indirect_value(processus, corewar);
 	else
 		p1 = get_reg_value(processus,corewar);
+
 	return(p1);
 }
 
-char	*get_value_nm(t_proc *processus, t_corewar *corewar, int size, int nbr)
+int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar)
 {
-	char	*p1;
+	void 	*adr;
+	void 	*tmp;
+	int		value;
 
-	if (nbr == 10)
+	adr = get_pc(processus, corewar);
+	tmp = adr;
+	tmp++;
+	adr = corewar->memory + processus->pc + (int)tmp;
+	value = (int)adr;
+	processus->pc += IND_SIZE;
+	return(value);
+}
+
+int		get_value_nm(t_proc *processus, t_corewar *corewar, int nbr)
+{
+	int		p1;
+
+	if (nbr == DIR_CODE)
 		p1 = get_direct_value(processus, corewar);
-	else if (nbr == 11)
-		p1 = get_indirect_value_nm(processus, size, corewar);
+	else if (nbr == IND_CODE)
+		p1 = get_indirect_value_nm(processus, corewar);
 	else
 		p1 = get_reg_value(processus,corewar);
+
 	return(p1);
 }
