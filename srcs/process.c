@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/30 18:13:33 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:51:46 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void			execute(t_corewar *corewar, t_visual *visu, t_proc *proc)
 	if (!op || op > 16)
 		if (++proc->pc == MEM_SIZE)
 			proc->pc = 0;
-	op == 13 || op == 14 || op == 4 || op == 5 || op == 6 || op == 7 || op == 8 || op == 2 || op == 10 ? proc->pc += 1 : 0;
-	printf("Proc #%d op %d\n", proc->pc, op);
+	op == 4 || op == 5 || op == 6 || op == 7 || op == 8 || op == 9 || op == 2 || op == 10 || op == 13 || op == 14 ? proc->pc += 1 : 0;
+//	printf("Proc #%d op %d\n", proc->pc, op);
 
 	op == 1 ? live(proc, corewar) : 0;
 //	op == 2 ? ld(proc, corewar) : 0;

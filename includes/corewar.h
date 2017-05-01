@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/30 15:00:31 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:57:02 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,29 +121,31 @@ void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);
 void				hex_dump(unsigned char hex);
 
-int                    *byte_analysis(t_proc *processus, t_corewar *corewar);
-char                *get_value(t_proc *processus, t_corewar *corewar, int size, int nbr);
-char                *get_reg_value(t_proc *processus, t_corewar *corewar);
-void                 *get_adr_modulo(t_proc *processus, t_corewar *corewar, int nbr);
-void                 *get_adr_reg(t_proc *processus, t_corewar *corewar);
-void                 *get_pc(t_proc *processus, t_corewar *corewar);
-char				*get_value_nm(t_proc *processus, t_corewar *corewar, int size, int nbr);
-void                modify_carry(t_proc *processus);
-void                 *get_pc(t_proc *processus, t_corewar *corewar);
+int					*byte_analysis(t_proc *proc, t_corewar *corewar);
+char				*get_value(t_proc *proc, t_corewar *cw, int size, int nbr);
+char				*get_reg_value(t_proc *proc, t_corewar *corewar);
+void				*get_adr_modulo(t_proc *proc, t_corewar *corewar, int nbr);
+void				*get_adr_reg(t_proc *proc, t_corewar *corewar);
+void				*get_pc(t_proc *proc, t_corewar *corewar);
+char				*get_value_nm(t_proc *pro, t_corewar *cw, int sze, int nbr);
+void				modify_carry(t_proc *proc);
+void				*get_pc(t_proc *proc, t_corewar *corewar);
 
-void                 c_and(t_proc *processus, t_corewar *corewar);
-void                 c_or(t_proc *processus, t_corewar *corewar);
-void                 c_xor(t_proc *processus, t_corewar *corewar);
-void                 ld(t_proc *processus, t_corewar *corewar);
-void                 lld(t_proc *processus, t_corewar *corewar);
-void                 ldi(t_proc *processus, t_corewar *corewar);
-void                 lldi(t_proc *processus, t_corewar *corewar);
-void                 st(t_proc *processus, t_corewar *corewar);
-void                 sti(t_proc *processus, t_corewar *corewar);
-void                 add(t_proc *processus, t_corewar *corewar);
-void                 sub(t_proc *processus, t_corewar *corewar);
-void                 zjmp(t_proc *processus, t_corewar *corewar);
-void                 c_fork(t_proc *processus, t_corewar *corewar);
-void                 lfork(t_proc *processus, t_corewar *corewar);
+void				live(t_proc *processus, t_corewar *corewar);
+void				c_and(t_proc *processus, t_corewar *corewar);
+void				c_or(t_proc *processus, t_corewar *corewar);
+void				c_xor(t_proc *processus, t_corewar *corewar);
+void				ld(t_proc *processus, t_corewar *corewar);
+void				lld(t_proc *processus, t_corewar *corewar);
+void				ldi(t_proc *processus, t_corewar *corewar);
+void				lldi(t_proc *processus, t_corewar *corewar);
+void				st(t_proc *processus, t_corewar *corewar);
+void				sti(t_proc *processus, t_corewar *corewar);
+void				add(t_proc *processus, t_corewar *corewar);
+void				sub(t_proc *processus, t_corewar *corewar);
+void				zjmp(t_proc *processus, t_corewar *corewar);
+void				c_fork(t_proc *processus, t_corewar *corewar);
+void				lfork(t_proc *processus, t_corewar *corewar);
+void				aff(t_proc *processus, t_corewar *corewar);
 
 #endif
