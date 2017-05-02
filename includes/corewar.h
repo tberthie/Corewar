@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/02 13:35:35 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/02 17:46:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_champ {
 
 typedef struct		s_proc {
 
-	void			*reg[REG_NUMBER];
+	void			*(reg[REG_NUMBER]);
 	unsigned int	pc;
 	char			carry;
 
@@ -72,6 +72,7 @@ typedef struct		s_visual {
 	void			*save;
 	unsigned int	color[MEM_SIZE];
 	unsigned int	cps;
+	unsigned int	step;
 
 }					t_visual;
 
@@ -86,14 +87,12 @@ typedef struct		s_corewar {
 	t_champ			**champs;
 
 	unsigned int	cycle;
-	unsigned int	step;
 	unsigned int	ctd;
 	unsigned int	check;
 	unsigned int	last_alive;
 
 	char			visual;
 	char			play;
-	unsigned int	time;
 
 }					t_corewar;
 
@@ -122,22 +121,5 @@ unsigned int		check_live(t_corewar *corewar, t_visual *v, t_proc **proc);
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);
 void				hex_dump(unsigned char hex);
-
-void				live(t_proc *processus, t_corewar *corewar);
-void				c_and(t_proc *processus, t_corewar *corewar);
-void				c_or(t_proc *processus, t_corewar *corewar);
-void				c_xor(t_proc *processus, t_corewar *corewar);
-void				ld(t_proc *processus, t_corewar *corewar);
-void				lld(t_proc *processus, t_corewar *corewar);
-void				ldi(t_proc *processus, t_corewar *corewar);
-void				lldi(t_proc *processus, t_corewar *corewar);
-void				st(t_proc *processus, t_corewar *corewar);
-void				sti(t_proc *processus, t_corewar *corewar);
-void				add(t_proc *processus, t_corewar *corewar);
-void				sub(t_proc *processus, t_corewar *corewar);
-void				zjmp(t_proc *processus, t_corewar *corewar);
-void				c_fork(t_proc *processus, t_corewar *corewar);
-void				lfork(t_proc *processus, t_corewar *corewar);
-void				aff(t_proc *processus, t_corewar *corewar);
 
 #endif

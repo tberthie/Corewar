@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/02 13:48:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/02 18:11:38 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,18 @@ static void		set_ctd(t_corewar *corewar)
 
 static void		calc_cps(t_corewar *corewar, t_visual *visu)
 {
-	unsigned int	time;
+	double		delay;
+	double		frames;
 
-	if (!(corewar->cycle % corewar->step))
+	if (!visu->step--)
 	{
+		delay = SDL_GetTicks();
 		display(corewar, visu);
-		if ((time = SDL_GetTicks() - corewar->time) < 1000 / visu->cps)
-		{
-			SDL_Delay(1000 / visu->cps - time);
-			corewar->step = 1;
-		}
-		else
-			// bug if 100
-			corewar->step = time * (1000 / visu->cps);
+		delay = 1000.0 / (SDL_GetTicks() - delay);
+		frames = visu->cps / delay;
+		if (frames < 1.0)
+			SDL_Delay(1000.0 / (frames * delay));
+		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames;
 	}
 }
 
@@ -73,11 +72,10 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 	unsigned int	lives;
 
 	cycle = 0;
-	corewar->step = 1;
+	visu->step = 0;
 	while (alive_proc(corewar->proc))
 	{
 		set_visual(corewar, visu);
-		corewar->time = SDL_GetTicks();
 		if (corewar->play)
 		{
 			process(corewar, visu);
@@ -90,6 +88,7 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 		}
 		corewar->play ? calc_cps(corewar, visu) : display(corewar, visu);
 	}
+	display(corewar, visu);
 	while (1)
 		event(corewar, visu);
 }
