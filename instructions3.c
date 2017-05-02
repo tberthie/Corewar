@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/02 19:51:40 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/02 19:59:55 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	add(t_proc *processus, t_corewar *corewar)
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		p1 = *(int*)processus->reg[index];
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		p2 = *(int*)processus->reg[index];
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		*(int*)processus->reg[index] = p1 + p2;
 		processus->carry = 1;
@@ -91,13 +91,13 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		p1 = *(int*)processus->reg[index];
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		p2 = *(int*)processus->reg[index];
-		if ((index = set_index(processus, corewar, index)) < 0)
+		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		*(int*)processus->reg[index] = p1 - p2;
 		processus->carry = 1;
