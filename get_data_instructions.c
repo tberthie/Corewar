@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:00:50 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/02 16:50:05 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/02 18:43:22 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,16 +117,17 @@ void 	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 
 	processus->pc++;
+	// ft_printf(1, "yolo\n");
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
 		// ft_printf(1, "P1 = %d\n", p1);
 		index = *(char*)(corewar->memory + processus->pc);
 		// ft_printf(1, "index :%d\n", (int)index);
+		// ft_printf(1, "INDEX = %d\n", (int)index);
 		if (index < 2 || 15 < index)
 			return ;
 		*(int*)processus->reg[(int)index - 1] = p1;
-
 		processus->carry = 1;
 	}
 	else
@@ -330,7 +331,7 @@ void 	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 
 }
 
-void 	c_fork(t_proc *processus, t_corewar *corewar, unsigned char op)
+void 	c_fork(t_proc *processus, t_corewar *corewar)
 {
 	t_proc			*processus2;
 	char			index;
@@ -344,7 +345,7 @@ void 	c_fork(t_proc *processus, t_corewar *corewar, unsigned char op)
 	processus->pc++;
 }
 
-void 	lfork(t_proc *processus, t_corewar *corewar, unsigned char op)
+void 	lfork(t_proc *processus, t_corewar *corewar)
 {
 	t_proc			*processus2;
 	char			index;
