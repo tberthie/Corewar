@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/01 23:58:09 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/02 13:48:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static void		set_visual(t_corewar *corewar, t_visual *visu)
 	SDL_FillRect(visu->sf, &rc, 0);
 	rc = rec(15, 15, 1162, 970);
 	SDL_FillRect(visu->sf, &rc, 0x505050);
-	render_hex(corewar, visu);
 }
 
 static void		display(t_corewar *corewar, t_visual *visu)
 {
 	SDL_Texture		*tx;
 
+	render_hex(corewar, visu);
 	text(visu, "C O R E W A R", 0xffffff, rec(1200, 20, 0, 0));
 	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
 	text(visu, "To Die", 0xffffff, rec(1200, 85, 0, 0));
@@ -49,19 +49,37 @@ static void		set_ctd(t_corewar *corewar)
 	corewar->check = MAX_CHECKS;
 }
 
+static void		calc_cps(t_corewar *corewar, t_visual *visu)
+{
+	unsigned int	time;
+
+	if (!(corewar->cycle % corewar->step))
+	{
+		display(corewar, visu);
+		if ((time = SDL_GetTicks() - corewar->time) < 1000 / visu->cps)
+		{
+			SDL_Delay(1000 / visu->cps - time);
+			corewar->step = 1;
+		}
+		else
+			// bug if 100
+			corewar->step = time * (1000 / visu->cps);
+	}
+}
+
 void			visual_run(t_corewar *corewar, t_visual *visu)
 {
 	unsigned int	cycle;
 	unsigned int	lives;
-	unsigned int	time;
 
 	cycle = 0;
+	corewar->step = 1;
 	while (alive_proc(corewar->proc))
 	{
 		set_visual(corewar, visu);
+		corewar->time = SDL_GetTicks();
 		if (corewar->play)
 		{
-			time = SDL_GetTicks();
 			process(corewar, visu);
 			corewar->cycle++;
 			cycle++;
@@ -69,10 +87,8 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 			corewar->proc)) >= NBR_LIVE) || !--corewar->check)
 				set_ctd(corewar);
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
-			(time = SDL_GetTicks() - time) < 1000 / visu->cps ?
-			SDL_Delay(1000 / visu->cps - time) : 0;
 		}
-		display(corewar, visu);
+		corewar->play ? calc_cps(corewar, visu) : display(corewar, visu);
 	}
 	while (1)
 		event(corewar, visu);

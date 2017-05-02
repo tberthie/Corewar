@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/01 23:47:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/02 13:35:35 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,14 @@ typedef struct		s_corewar {
 	t_champ			**champs;
 
 	unsigned int	cycle;
+	unsigned int	step;
 	unsigned int	ctd;
 	unsigned int	check;
 	unsigned int	last_alive;
 
 	char			visual;
 	char			play;
+	unsigned int	time;
 
 }					t_corewar;
 
