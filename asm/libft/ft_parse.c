@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 15:52:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/01 16:10:23 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/02 17:18:14 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ char	*ft_parse(char *file_name)
 	char *tmp;
 	int fd;
 
-	if (!(buf = (char *)malloc(1)) || !(tmp = (char *)malloc(1)))
-		return (NULL);
-	buf[0] = '\0';
-	tmp[0] = '\0';
+	buf = NULL;
+	tmp = NULL;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NULL);
 	tmp = get_file(fd, buf, tmp);
