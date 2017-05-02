@@ -6,44 +6,43 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/01 16:30:12 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/02 16:50:23 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// il faut que je recupere des int dans toutes les fonctions et que je gere la suite dans chacune des instructions
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
 
-int        *byte_analysis(t_proc *processus, t_corewar *corewar)
+int        *byte_analysis(t_proc *processus, t_corewar *corewar) // mettre le carry si l octet de codage foire et renvoyer un tab NULL
 {
     int		*nbr;
-    void 	*adr;
     char	byte;
 
-    adr = get_pc(processus, corewar);
-    byte = *(unsigned char*)adr;
+    byte = *(char*)(corewar->memory + processus->pc);
+	// ft_printf(1, "BYTE %d\n", (int)byte);
     nbr = (int*)malloc(sizeof(int) * 3);
     nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
     nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
     nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
-    processus->pc++;
-    return(nbr);
+	// ft_printf(1, "%d %d %d\n", nbr[0], nbr[1], nbr[2]);
+    processus->pc =  (processus->pc + 1) % MEM_SIZE;
+	if ((1 <= nbr[0] && nbr[0]<= 3) && (1 <= nbr[1] && nbr[1]<= 3))
+		return(nbr);
+	return (NULL);
 }
 
-
-int 	get_direct_value(t_proc *processus, t_corewar *corewar) // a modifier car peut se lire sur 2 ou 4 octets
+int 	get_direct_value(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	char	index;
-	void 	*adr;
-	// int		value;
+	int		mv;
 
-	index = *(char*)(corewar->memory + processus->pc + 3);
-	// adr = get_pc(processus, corewar);
-	// adr += 3;
-	// index = (char)adr;
-	// value = (int)(corewar->memory + index);
-	processus->pc += DIR_SIZE;
+	if ((9 <= op && op <= 12) || op == 14 || op == 15)
+		mv = 1;
+	else
+		mv = 3;
+	index = *(char*)(corewar->memory + processus->pc + mv);
+	processus->pc = (processus->pc + (mv + 1)) % MEM_SIZE;
 	return((int)index);
 }
 
@@ -58,32 +57,43 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar)
 	tmp++;
 	adr = corewar->memory + processus->pc + (int)tmp % IDX_MOD;
 	value = (int)adr;
-	processus->pc += IND_SIZE;
+	processus->pc = (processus->pc + 2) % MEM_SIZE;
 	return(value);
 }
 
-int		get_reg_value(t_proc *processus, t_corewar *corewar)
+int		get_reg_value(t_proc *processus, t_corewar *corewar) // verifier qu on ne va pas chercher un registre au dela de 16;
 {
 	char	index;
 	int		value;
+	int		index2;
 
 	index = *(char*)(corewar->memory + processus->pc);
-	value = (int)processus->reg[index];
+	// int i = 0;
+	// while (i < 16)
+	// {
+	// 	ft_printf(1, " REG %d = %d\n", i, *(int*)processus->reg[i]);
+	// 	i++;
+	// }
+	index2 = (int)index - 1;
+	// ft_printf(1, "index :%d\n", index2);
+	if (index2 < 0 || 15 < index2)
+		return (0);
+	value = *(int*)processus->reg[index2];
+	// ft_printf(1, "value :%d\n", value);
 	processus->pc++;
 	return(value);
 }
 
-int		get_value(t_proc *processus, t_corewar *corewar, int nbr)
+int		get_value(t_proc *processus, t_corewar *corewar, int nbr, unsigned char op)
 {
 	int		p1;
 
 	if (nbr == DIR_CODE)
-		p1 = get_direct_value(processus, corewar);
+		p1 = get_direct_value(processus, corewar, op);
 	else if (nbr == IND_CODE)
 		p1 = get_indirect_value(processus, corewar);
 	else
 		p1 = get_reg_value(processus,corewar);
-
 	return(p1);
 }
 
@@ -98,16 +108,16 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar)
 	tmp++;
 	adr = corewar->memory + processus->pc + (int)tmp;
 	value = (int)adr;
-	processus->pc += IND_SIZE;
+	processus->pc = (processus->pc + 2) % MEM_SIZE;
 	return(value);
 }
 
-int		get_value_nm(t_proc *processus, t_corewar *corewar, int nbr)
+int		get_value_nm(t_proc *processus, t_corewar *corewar, int nbr, unsigned char op)
 {
 	int		p1;
 
 	if (nbr == DIR_CODE)
-		p1 = get_direct_value(processus, corewar);
+		p1 = get_direct_value(processus, corewar, op);
 	else if (nbr == IND_CODE)
 		p1 = get_indirect_value_nm(processus, corewar);
 	else
