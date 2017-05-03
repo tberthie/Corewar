@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/02 19:22:42 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:52:05 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 
 	processus->pc++;
-	// ft_printf(1, "yolo\n");
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
-		// ft_printf(1, "P1 = %d\n", p1);
 		index = *(char*)(corewar->memory + processus->pc);
-		// ft_printf(1, "index :%d\n", (int)index);
-		// ft_printf(1, "INDEX = %d\n", (int)index);
-		if (index < 2 || 15 < index)
+		if (index < 2 || 16 < index)
+		{
+			processus->pc++;
 			return ;
+		}
 		*(int*)processus->reg[(int)index - 1] = p1;
 		processus->carry = 1;
 	}
