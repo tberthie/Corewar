@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/03 17:03:04 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:42:49 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,31 @@
 
 void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
-	int		p1;
 	int		tmp;
 	void	*adr;
-	void	*adr2;
+	int		offset;
+	int		i;
 
 	tmp = processus->pc;
-	processus->pc++;
-	adr = get_pc(processus, corewar);
-	processus->pc++;
-	adr2 = get_pc(processus, corewar);
-	p1 = *(char*)adr + (*(char*)adr2 << 8);
+	offset = 0;
+	i = 0;
+	adr = corewar->memory + processus->pc + 1;
+	while (i++ < IND_SIZE)
+	{
+		offset = offset + (*(char*)adr << ((i - 1) * 8));
+		adr++;
+	}
 	if (processus->carry == 1)
 	{
-		tmp = (tmp + (p1 % IDX_MOD));
+		tmp = tmp + (offset % IDX_MOD);
 		if (tmp > MEM_SIZE)
 			tmp = tmp % MEM_SIZE - MEM_SIZE;
-		if ((int)tmp < 0)
+		if (tmp < 0)
 			tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
+		processus->pc = (unsigned int)tmp;
 	}
-	processus->pc = (unsigned int)tmp;
+	else
+		processus->pc += 2;
 }
 
 void	c_fork(t_proc *processus, t_corewar *corewar)

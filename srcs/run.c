@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 18:58:16 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:46:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static void				dump(t_corewar *corewar)
 void					run(t_corewar *corewar)
 {
 	unsigned int	cycle;
-	unsigned int	lives;
 
 	cycle = 0;
 	while (alive_proc(corewar->proc))
@@ -101,8 +100,13 @@ void					run(t_corewar *corewar)
 		if (++corewar->cycle == corewar->dump && !corewar->visual)
 			dump(corewar);
 		cycle++;
-		if ((cycle >= corewar->ctd && (lives = check_live(0, 0, corewar->proc))
-		>= NBR_LIVE) || !--corewar->check)
+		if (!--corewar->check)
+		{
+			corewar->ctd--;
+			corewar->check = MAX_CHECKS;
+		}
+		if ((cycle >= corewar->ctd && check_live(0, 0, corewar->proc)
+		>= NBR_LIVE))
 		{
 			corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
 			corewar->ctd : CYCLE_DELTA;

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 17:17:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:46:52 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,20 @@ static void		display(t_corewar *corewar, t_visual *visu)
 	SDL_RenderPresent(visu->ren);
 }
 
-static void		set_ctd(t_corewar *corewar)
+static void		set_ctd(t_corewar *corewar, t_visual *visu, unsigned int cycle)
 {
-	corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
-	corewar->ctd : CYCLE_DELTA;
-	corewar->check = MAX_CHECKS;
+	if ((cycle >= corewar->ctd && check_live(corewar, visu, corewar->proc)
+	>= NBR_LIVE))
+	{
+		corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
+		corewar->ctd : CYCLE_DELTA;
+		corewar->check = MAX_CHECKS;
+	}
+	if (!--corewar->check)
+	{
+		corewar->ctd--;
+		corewar->check = MAX_CHECKS;
+	}
 }
 
 static void		calc_cps(t_corewar *corewar, t_visual *visu)
@@ -62,15 +71,13 @@ static void		calc_cps(t_corewar *corewar, t_visual *visu)
 		frames = visu->cps / delay;
 		if (frames < 1.0)
 			SDL_Delay(1000.0 / (frames * delay));
-		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames +
-		(frames - (int)frames >= 0.5 ? 1 : 0);
+		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames;
 	}
 }
 
 void			visual_run(t_corewar *corewar, t_visual *visu)
 {
 	unsigned int	cycle;
-	unsigned int	lives;
 
 	cycle = 0;
 	visu->step = 0;
@@ -82,9 +89,7 @@ void			visual_run(t_corewar *corewar, t_visual *visu)
 			process(corewar, visu);
 			corewar->cycle++;
 			cycle++;
-			if ((cycle >= corewar->ctd && (lives = check_live(corewar, visu,
-			corewar->proc)) >= NBR_LIVE) || !--corewar->check)
-				set_ctd(corewar);
+			set_ctd(corewar, visu, cycle);
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
 		}
 		corewar->play ? calc_cps(corewar, visu) : display(corewar, visu);

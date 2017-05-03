@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 18:29:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/01 17:01:56 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:37:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA			50
 # define NBR_LIVE				21
-# define MAX_CHECKS				10000
+# define MAX_CHECKS				10
 
 typedef char	t_arg_type;
 
