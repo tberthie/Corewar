@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/29 19:02:42 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 18:01:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void		render_players(t_corewar *corewar, t_visual *visu)
 {
 	int				i;
 	char			alive;
+	char			*tmp;
 
 	i = ft_parrlen((void**)corewar->champs);
 	while (i--)
@@ -79,13 +80,19 @@ static void		render_players(t_corewar *corewar, t_visual *visu)
 		alive = is_alive(corewar, corewar->champs[i]);
 		text(visu, corewar->champs[i]->name, alive ? corewar->champs[i]->color :
 		0xa0a0a0, rec(1200, 200 * (i + 1), 0, 0));
+		text(visu, "#", 0xa0a0a0, rec(1200, 200 * (i + 1) + 20, 0, 0));
+		text(visu, (tmp = ft_itoabase(corewar->champs[i]->number, 10)),
+		0xa0a0a0, rec(1220, 200 * (i + 1) + 20, 0, 0));
+		free(tmp);
 		if (corewar->champs[i]->number == corewar->last_alive)
-			text(visu, corewar->champs[i]->name, corewar->champs[i]->color,
-			rec(1330, 145, 0, 0));
-		if (!alive)
-			text(visu, "DEAD", 0xff0000, rec(1415, 200 * (i + 1), 0, 0));
-		else
-			player_stats(corewar, visu, i);
+		{
+			text(visu, "#", corewar->champs[i]->color, rec(1330, 145, 0, 0));
+			text(visu, (tmp = ft_itoabase(corewar->champs[i]->number, 10)),
+			corewar->champs[i]->color, rec(1350, 145, 0, 0));
+			free(tmp);
+		}
+		!alive ? text(visu, "DEAD", 0xff0000, rec(1415, 200 * (i + 1), 0, 0)) :
+		player_stats(corewar, visu, i);
 	}
 }
 
