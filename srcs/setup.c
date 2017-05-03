@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/01 17:00:21 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 16:23:10 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			setup(t_corewar *corewar, char **args)
 	corewar->check = MAX_CHECKS;
 	parse(corewar, args);
 	corewar->play = corewar->visual ? 0 : 1;
-	if (ft_parrlen((void**)corewar->champs) < 2)
+	if (ft_parrlen((void**)corewar->champs) < 1)
 		error(0, "Not enough champions");
 	if (ft_parrlen((void**)corewar->champs) > MAX_PLAYERS)
 		error(0, "Too many champions");

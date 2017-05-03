@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/02 18:11:38 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:17:54 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void		calc_cps(t_corewar *corewar, t_visual *visu)
 		frames = visu->cps / delay;
 		if (frames < 1.0)
 			SDL_Delay(1000.0 / (frames * delay));
-		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames;
+		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames +
+		(frames - (int)frames >= 0.5 ? 1 : 0);
 	}
 }
 

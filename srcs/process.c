@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/02 18:13:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:31:57 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ static void			execute(t_corewar *corewar, t_visual *visu, t_proc *proc)
 	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
 		proc->pc = 0;
 
-	op != 1 && op != 9 && op != 12 && op != 13 ? proc->pc += 1 : 0;
-//	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
+//	op != 1 && op != 9 && op != 12 && op != 13 ? proc->pc += 1 : 0;
+	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
 
 	op == 1 ? live(proc, corewar) : 0;
-/*	op == 2 ? ld(proc, corewar, op) : 0;
+	op == 2 ? ld(proc, corewar, op) : 0;
     op == 3 ? st(proc, corewar) : 0;
     op == 4 ? add(proc, corewar) : 0;
     op == 5 ? sub(proc, corewar) : 0;
     op == 6 ? c_and(proc, corewar, op) : 0;
     op == 7 ? c_or(proc, corewar, op) : 0;
-    op == 8 ? c_xor(proc, corewar, op) : 0;*/
+    op == 8 ? c_xor(proc, corewar, op) : 0;
     op == 9 ? zjmp(proc, corewar, op) : 0;
-/*	op == 10 ? ldi(proc, corewar, op) : 0;
-    op == 11 ? sti(proc, corewar, op) : 0;*/
-    op == 12 ? c_fork(proc, corewar, op) : 0;
-/*    op == 13 ? lld(proc, corewar, op) : 0;
-    op == 14 ? lldi(proc, corewar, op) : 0;*/
-    op == 15 ? lfork(proc, corewar, op) : 0;
-//    op == 16 ? aff(proc, corewar, op) : 0;
+	op == 10 ? ldi(proc, corewar, op) : 0;
+    op == 11 ? sti(proc, corewar, op) : 0;
+    op == 12 ? c_fork(proc, corewar) : 0;
+	op == 13 ? lld(proc, corewar, op) : 0;
+    op == 14 ? lldi(proc, corewar, op) : 0;
+    op == 15 ? lfork(proc, corewar) : 0;
+	op == 16 ? aff(proc, corewar) : 0;
 }
 
 void				cycles(t_corewar *corewar, t_proc *proc)

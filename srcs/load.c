@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/01 17:41:47 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/03 16:27:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		load_champion(t_corewar *corewar, unsigned int i,
 	start = corewar->memory + n * (MEM_SIZE /
 	ft_parrlen((void**)corewar->champs));
 	ft_memcpy(start, corewar->champs[i]->content, corewar->champs[i]->size);
-	proc = ft_m(sizeof(t_proc));
+	proc = ft_memalloc(sizeof(t_proc));
 	init_proc(proc, corewar->champs[i]->number, (start - corewar->memory));
 	cycles(corewar, proc);
 	ft_parrpush((void***)&corewar->proc, proc);
