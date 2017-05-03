@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/02 19:49:23 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:28:09 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		p1;
+	int		tmp;
 
 	processus->pc++;
+	tmp = processus->pc;
 	p1 = get_value(processus, corewar, DIR_CODE, op);
 	if (processus->carry == 1)
 	{
-		processus->pc = (processus->pc + (p1 % IDX_MOD));
-		if (processus->pc > MEM_SIZE)
-			processus->pc = processus->pc % MEM_SIZE - MEM_SIZE;
-		if ((int)processus->pc < 0)
-			processus->pc = MEM_SIZE - 1 + processus->pc % -MEM_SIZE;
+		tmp = (tmp + (p1 % IDX_MOD));
+		if (tmp > MEM_SIZE)
+			tmp = tmp % MEM_SIZE - MEM_SIZE;
+		if ((int)tmp < 0)
+			tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
 	}
-	processus->pc++;
+	processus->pc = (unsigned int)tmp;
 }
 
 void	c_fork(t_proc *processus, t_corewar *corewar)
