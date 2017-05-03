@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/03 16:33:44 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:07:46 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 	adr = get_pc(processus, corewar);
 	processus->pc++;
 	adr2 = get_pc(processus, corewar);
-	p1 = *(char*)adr << 8 + *(char*)adr2;
+	p1 = *(char*)adr2 << 8 + *(char*)adr;
 	if (processus->carry == 1)
 	{
 		tmp = (tmp + (p1 % IDX_MOD));
