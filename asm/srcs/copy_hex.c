@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 14:36:07 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:41:51 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,3 @@ void		put_ind(t_asm *vasm, t_inst *node, int ind)
 	else
 		put_offset(vasm, node);
 }
-

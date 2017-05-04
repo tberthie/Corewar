@@ -6,13 +6,13 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 14:36:09 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:42:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		find_ocp(t_inst *node, int param, int oct, int i)
+int			find_ocp(t_inst *node, int param, int oct, int i)
 {
 	param = node->line;
 	node = node->next;
@@ -38,7 +38,7 @@ int		find_ocp(t_inst *node, int param, int oct, int i)
 
 void		put_asm(t_asm *vasm)
 {
-	t_inst *tmp;
+	t_inst	*tmp;
 
 	tmp = vasm->labreg;
 	while (tmp)
@@ -64,11 +64,12 @@ void		put_asm(t_asm *vasm)
 	}
 }
 
-void	print_hex(t_asm *vasm, char *str)
+void		print_hex(t_asm *vasm, char *str)
 {
 	vasm->s = ft_strsplit(str, '\n');
 	vasm->file_lines = ft_ptrlen(vasm->s);
 	get_labels(vasm, -1, 0, NULL);
+	init_checktab(vasm);
 	check_asm(vasm, 0, NULL);
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0600)) == -1)
 		exit(EXIT_FAILURE);
@@ -80,9 +81,9 @@ void	print_hex(t_asm *vasm, char *str)
 	free_all(vasm);
 }
 
-void	parse(t_asm *vasm, char *str)
+void		parse(t_asm *vasm, char *str)
 {
-	char *tmp;
+	char	*tmp;
 
 	init_asm(vasm);
 	if (!(vasm->file_name = (char *)malloc(ft_strlen(str) + 3)))
@@ -97,9 +98,9 @@ void	parse(t_asm *vasm, char *str)
 		free(tmp);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	t_asm vasm;
+	t_asm	vasm;
 
 	vasm.zero = 0;
 	vasm.ff = 255;

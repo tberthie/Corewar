@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 12:52:25 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:41:08 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ void		check_header(t_asm *vasm, int i)
 
 void		check_asm(t_asm *vasm, int i, char *inst)
 {
-	init_checktab(vasm);
 	while (i < vasm->file_lines)
 	{
 		if (ft_stristr(vasm->s[i], NAME_CMD_STRING) == -1 &&
-				ft_stristr(vasm->s[i], COMMENT_CMD_STRING) == -1 &&
+		ft_stristr(vasm->s[i], COMMENT_CMD_STRING) == -1 &&
 				vasm->s[i][0] != COMMENT_CHAR)
 		{
 			vasm->inst_line = i;
@@ -64,8 +63,10 @@ void		check_asm(t_asm *vasm, int i, char *inst)
 				inst = vasm->s[i] + ft_strichr(vasm->s[i], LABEL_CHAR) + 1;
 				inst += ft_trim(inst);
 			}
-			vasm->command = ft_stritabstr(vasm->cmd, inst, ft_strichr(inst, ' '));
-			vasm->checktab[vasm->command](vasm, inst + ft_strichr(inst, ' ') + 1);
+			vasm->command = ft_stritabstr(vasm->cmd, inst,
+			ft_strichr(inst, ' '));
+			vasm->checktab[vasm->command](vasm, inst +
+			ft_strichr(inst, ' ') + 1);
 		}
 		else if (vasm->s[i][0] != COMMENT_CHAR && (!ft_stristr(vasm->s[i],
 			NAME_CMD_STRING) || !ft_stristr(vasm->s[i], COMMENT_CMD_STRING)))
