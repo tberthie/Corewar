@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 18:11:31 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:36:09 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,34 @@ int		find_ocp(t_inst *node, int param, int oct, int i)
 		++i;
 	}
 	return (oct);
+}
+
+void		put_asm(t_asm *vasm)
+{
+	t_inst *tmp;
+
+	tmp = vasm->labreg;
+	while (tmp)
+	{
+		if (tmp->content_size)
+		{
+			if (tmp->content[0] == 'r')
+				put_reg(vasm, tmp);
+			else if (ft_nisdigit(tmp->content, ft_strlen(tmp->content)))
+				put_ind(vasm, tmp, 0);
+			else if (tmp->content[0] == DIRECT_CHAR)
+				put_dir(vasm, tmp, 0, 0);
+			else
+			{
+				vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
+						ft_strlen(tmp->content));
+				vasm->instruct = tmp;
+				if (vasm->command >= 0)
+					put_cmd(vasm, tmp);
+			}
+		}
+		tmp = tmp->next;
+	}
 }
 
 void	print_hex(t_asm *vasm, char *str)

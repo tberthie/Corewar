@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 18:00:03 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:34:49 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,10 @@ void			first_node(t_asm *vasm, int i, int size);
 t_inst			*other_node(t_inst *tmp, int i, int size);
 void			store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst);
 void			get_cor_size(t_asm *vasm);
+void			put_ind(t_asm *vasm, t_inst *node, int ind);
+void			put_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
+void			put_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
+void			put_reg(t_asm *vasm, t_inst *node);
+void			put_cmd(t_asm *vasm, t_inst *node);
 
 #endif

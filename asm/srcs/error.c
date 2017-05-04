@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 17:51:58 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:52:51 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void		error(t_asm *vasm)
 {
-	ft_lprintf(2, "ERROR: invalid value in file");
-	ft_lprintf(2, "for %s instruction on line%d\n", vasm->cmd[vasm->command],
-			vasm->inst_line);
+	ft_lprintf(2, "ERROR: invalid value in file ");
+	ft_lprintf(2, "for %s instruction on line %d\n", vasm->cmd[vasm->command],
+			vasm->inst_line + 1);
 	exit(EXIT_FAILURE);
 }
 

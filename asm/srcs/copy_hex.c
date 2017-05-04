@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 15:15:42 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:36:07 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,44 @@ void		put_reg(t_asm *vasm, t_inst *node)
 	write(vasm->fd, &reg, 1);
 }
 
+void		put_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i)
+{
+	while (i < node->content_size - 2)
+	{
+		write(vasm->fd, &vasm->ff, 1);
+		++i;
+	}
+	if (dir > -256)
+		write(vasm->fd, &vasm->ff, 1);
+	else
+	{
+		vasm->ret = (dir >> 8) & 0x000000ff;
+		write(vasm->fd, &vasm->ret, 1);
+	}
+}
+
 void		put_dir(t_asm *vasm, t_inst *node, int dir, size_t i)
 {
-	if (ft_isdigit(node->content[1]))
+	if (ft_isdigit(node->content[1]) || node->content[1] == '-')
 	{
 		dir = ft_atoi(node->content + 1);
-		while (i < node->content_size - 2)
+		if (dir >= 0)
 		{
-			write(vasm->fd, &vasm->zero, 1);
-			++i;
+			while (i < node->content_size - 2)
+			{
+				write(vasm->fd, &vasm->zero, 1);
+				++i;
+			}
+			if (dir < 256)
+				write(vasm->fd, &vasm->zero, 1);
+			else
+			{
+				vasm->ret = (dir >> 8) & 0x000000ff;
+				write(vasm->fd, &vasm->ret, 1);
+			}
 		}
-		if (dir < 256)
-			write(vasm->fd, &vasm->zero, 1);
 		else
-		{
-			vasm->ret = (dir >> 8) & 0x000000ff;
-			write(vasm->fd, &vasm->ret, 1);
-		}
+			put_dir_neg(vasm, node, dir, i);
 		write(vasm->fd, &dir, 1);
 	}
 	else
@@ -74,30 +95,3 @@ void		put_ind(t_asm *vasm, t_inst *node, int ind)
 		put_offset(vasm, node);
 }
 
-void		put_asm(t_asm *vasm)
-{
-	t_inst *tmp;
-
-	tmp = vasm->labreg;
-	while (tmp)
-	{
-		if (tmp->content_size)
-		{
-			if (tmp->content[0] == 'r')
-				put_reg(vasm, tmp);
-			else if (ft_nisdigit(tmp->content, ft_strlen(tmp->content)))
-				put_ind(vasm, tmp, 0);
-			else if (tmp->content[0] == DIRECT_CHAR)
-				put_dir(vasm, tmp, 0, 0);
-			else
-			{
-				vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
-						ft_strlen(tmp->content));
-				vasm->instruct = tmp;
-				if (vasm->command >= 0)
-					put_cmd(vasm, tmp);
-			}
-		}
-		tmp = tmp->next;
-	}
-}

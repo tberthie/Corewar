@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 13:49:41 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 14:37:04 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:55:30 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_dirlabel(char *inst)
 	if (inst[0] == DIRECT_CHAR && inst[1] != LABEL_CHAR && ft_strichr_cnt(inst
 				+ 1, SEPARATOR_CHAR))
 	{
-		if (!ft_nisdigit(inst + 1, ft_strichr(inst + 1, SEPARATOR_CHAR)) ||
+		if (!ft_nisdigit(inst + 1, ft_strichr(inst + 1, SEPARATOR_CHAR)) &&
 				(inst[1] == '-' && !ft_nisdigit(inst + 2, ft_strichr(inst + 2,
 				SEPARATOR_CHAR))))
 			return (0);
@@ -36,7 +36,7 @@ int		check_dirlabel(char *inst)
 	else if (inst[0] == DIRECT_CHAR && inst[1] != LABEL_CHAR &&
 			!ft_strichr_cnt(inst + 1, SEPARATOR_CHAR))
 	{
-		if (!ft_nisdigit(inst + 1, ft_strlen(inst + 1)) || (inst[1] == '-' &&
+		if (!ft_nisdigit(inst + 1, ft_strlen(inst + 1)) && (inst[1] == '-' &&
 					!ft_nisdigit(inst + 2, ft_strlen(inst + 2))))
 			return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 14:28:00 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:52:25 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void		check_asm(t_asm *vasm, int i, char *inst)
 				inst = vasm->s[i] + ft_strichr(vasm->s[i], LABEL_CHAR) + 1;
 				inst += ft_trim(inst);
 			}
-			vasm->checktab[ft_stritabstr(vasm->cmd, inst, ft_strichr(inst,
-						' '))](vasm, inst + ft_strichr(inst, ' ') + 1);
+			vasm->command = ft_stritabstr(vasm->cmd, inst, ft_strichr(inst, ' '));
+			vasm->checktab[vasm->command](vasm, inst + ft_strichr(inst, ' ') + 1);
 		}
 		else if (vasm->s[i][0] != COMMENT_CHAR && (!ft_stristr(vasm->s[i],
 			NAME_CMD_STRING) || !ft_stristr(vasm->s[i], COMMENT_CMD_STRING)))
