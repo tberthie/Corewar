@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 17:52:23 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 00:11:28 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,6 @@ typedef struct		s_proc {
 
 }					t_proc;
 
-typedef struct		s_visual {
-
-	SDL_Window		*win;
-	SDL_Renderer	*ren;
-	SDL_Surface		*sf;
-	TTF_Font		*hex_font;
-	TTF_Font		*font;
-
-	void			*save;
-	unsigned int	color[MEM_SIZE];
-	unsigned int	cps;
-	unsigned int	step;
-
-}					t_visual;
-
 typedef struct		s_corewar {
 
 	void			*memory;
@@ -88,27 +73,37 @@ typedef struct		s_corewar {
 
 	unsigned int	cycle;
 	unsigned int	ctd;
-	unsigned int	check;
+	int				check;
 	unsigned int	last_alive;
+
+	SDL_Window		*win;
+	SDL_Renderer	*ren;
+	SDL_Surface		*sf;
+	TTF_Font		*hex_font;
+	TTF_Font		*font;
 
 	char			visual;
 	char			play;
+	void			*save;
+	unsigned int	color[MEM_SIZE];
+	unsigned int	cps;
+	unsigned int	step;
 
 }					t_corewar;
 
 void				setup(t_corewar *corewar, char **args);
 void				load(t_corewar *corewar);
 void				run(t_corewar *corewar);
-void				process(t_corewar *corewar, t_visual *visu);
+void				process(t_corewar *corewar);
 
-void				setup_visual(t_visual *visu);
-void				visual_run(t_corewar *corewar, t_visual *visu);
+void				setup_visual(t_corewar *corewar);
+void				visual_run(t_corewar *corewar);
 SDL_Rect			rec(int x, int y, int w, int h);
-void				render_hex(t_corewar *corewar, t_visual *visu);
-void				dhex(t_visual *visu, char *tx, unsigned int c, SDL_Rect rc);
-void				text(t_visual *visu, char *tx, unsigned int c, SDL_Rect rc);
-void				event(t_corewar *corewar, t_visual *visu);
-void				render_stats(t_corewar *corewar, t_visual *visu);
+void				render_hex(t_corewar *corewar);
+void				dhex(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
+void				text(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
+void				event(t_corewar *corewar);
+void				render_stats(t_corewar *corewar);
 
 t_champ				*get_player(t_corewar *corewar, t_proc *proc);
 void				add_champion(t_corewar *corewar, char *path);
@@ -116,7 +111,7 @@ void				*parse_champion(int fd, char *path);
 char				find_champion(t_champ **champs, unsigned int n);
 void				cycles(t_corewar *corewar, t_proc *proc);
 char				alive_proc(t_proc **proc);
-unsigned int		check_live(t_corewar *corewar, t_visual *v, t_proc **proc);
+unsigned int		check_live(t_corewar *corewar, t_proc **proc);
 
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);
@@ -146,7 +141,7 @@ void				sti(t_proc *proc, t_corewar *corewar, unsigned char op);
 int					set_index(t_proc *proc, t_corewar *corewar);
 void				add(t_proc *proc, t_corewar *corewar);
 void				sub(t_proc *proc, t_corewar *corewar);
-void				zjmp(t_proc *proc, t_corewar *corewar, unsigned char op);
+void				zjmp(t_proc *proc, t_corewar *corewar);
 void				c_fork(t_proc *proc, t_corewar *corewar);
 void				lfork(t_proc *proc, t_corewar *corewar);
 void				aff(t_proc *proc, t_corewar *corewar);

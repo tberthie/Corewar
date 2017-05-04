@@ -6,29 +6,33 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/03 17:42:49 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/04 13:53:41 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
-void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
+void	zjmp(t_proc *processus, t_corewar *corewar)
 {
-	int		tmp;
-	void	*adr;
-	int		offset;
-	int		i;
+	int				tmp;
+	void			*adr;
+	unsigned short	val;
+	short			offset;
+	int				i;
 
 	tmp = processus->pc;
-	offset = 0;
+	val = 0;
 	i = 0;
 	adr = corewar->memory + processus->pc + 1;
 	while (i++ < IND_SIZE)
 	{
-		offset = offset + (*(char*)adr << ((i - 1) * 8));
+		val |= (*(unsigned char*)adr << ((IND_SIZE - i) * 8));
 		adr++;
 	}
+//	printf("0x%04x\n", val);
+	offset = val;
+//	printf("%d\n", offset);
 	if (processus->carry == 1)
 	{
 		tmp = tmp + (offset % IDX_MOD);
@@ -51,7 +55,7 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	ft_memcpy(processus2, processus, sizeof(t_proc));
 	processus->pc += 2;
 	index = *(char*)(corewar->memory + processus->pc);
-	processus2->pc = (processus->pc + (index % IDX_MOD)) % MEM_SIZE;
+	processus2->pc = (processus->pc - 2 + (index % IDX_MOD)) % MEM_SIZE;
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc++;
 }

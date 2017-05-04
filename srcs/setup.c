@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 16:23:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/04 15:05:05 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void		parse(t_corewar *corewar, char **args)
 	}
 }
 
-void			setup_visual(t_visual *visu)
+void			setup_visual(t_corewar *visu)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) || TTF_Init())
 		error(0, (char*)SDL_GetError());

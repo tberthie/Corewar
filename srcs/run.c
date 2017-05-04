@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 18:08:44 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 00:13:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char					alive_proc(t_proc **proc)
 	return (0);
 }
 
-unsigned int			check_live(t_corewar *corewar, t_visual *visu,
-						t_proc **proc)
+unsigned int			check_live(t_corewar *corewar, t_proc **proc)
 {
 	unsigned int	total;
 	t_champ			*player;
@@ -36,8 +35,8 @@ unsigned int			check_live(t_corewar *corewar, t_visual *visu,
 		if ((*proc)->alive && !(*proc)->live)
 		{
 			(*proc)->alive = 0;
-			if (visu && (player = get_player(corewar, *proc)))
-				visu->color[(*proc)->pc] = player->color;
+			if (corewar && (player = get_player(corewar, *proc)))
+				corewar->color[(*proc)->pc] = player->color;
 		}
 		total += (*proc)->live;
 		(*proc)->live = 0;
@@ -96,22 +95,18 @@ void					run(t_corewar *corewar)
 	cycle = 0;
 	while (alive_proc(corewar->proc))
 	{
-		process(corewar, 0);
+		process(corewar);
 		if (++corewar->cycle == corewar->dump && !corewar->visual)
 			dump(corewar);
-		cycle++;
-		if (!--corewar->check)
-		{
-			corewar->ctd--;
-			corewar->check = MAX_CHECKS;
-		}
-		if ((cycle >= corewar->ctd && check_live(0, 0, corewar->proc)
-		>= NBR_LIVE))
+		if (++cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
+		>= NBR_LIVE || corewar->check <= 0))
 		{
 			corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
 			corewar->ctd : CYCLE_DELTA;
 			corewar->check = MAX_CHECKS;
 		}
+		else
+			--corewar->check;
 		cycle = cycle >= corewar->ctd ? 0 : cycle;
 	}
 	result(corewar);

@@ -6,95 +6,87 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 17:46:52 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 00:13:31 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		set_visual(t_corewar *corewar, t_visual *visu)
+static void		set_visual(t_corewar *corewar)
 {
 	SDL_Rect	rc;
 
-	event(corewar, visu);
-	ft_memcpy(visu->save, corewar->memory, MEM_SIZE);
+	event(corewar);
+	ft_memcpy(corewar->save, corewar->memory, MEM_SIZE);
 	rc = rec(0, 0, 1500, 1000);
-	SDL_FillRect(visu->sf, &rc, 0);
+	SDL_FillRect(corewar->sf, &rc, 0);
 	rc = rec(15, 15, 1162, 970);
-	SDL_FillRect(visu->sf, &rc, 0x505050);
+	SDL_FillRect(corewar->sf, &rc, 0x505050);
 }
 
-static void		display(t_corewar *corewar, t_visual *visu)
+static void		display(t_corewar *corewar)
 {
 	SDL_Texture		*tx;
 
-	render_hex(corewar, visu);
-	text(visu, "C O R E W A R", 0xffffff, rec(1200, 20, 0, 0));
-	text(visu, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
-	text(visu, "To Die", 0xffffff, rec(1200, 85, 0, 0));
-	text(visu, "CPS Max", 0xffffff, rec(1200, 110, 0, 0));
-	text(visu, "Last live", 0xffffff, rec(1200, 145, 0, 0));
-	render_stats(corewar, visu);
-	tx = SDL_CreateTextureFromSurface(visu->ren, visu->sf);
-	SDL_RenderCopy(visu->ren, tx, 0, 0);
+	render_hex(corewar);
+	text(corewar, "C O R E W A R", 0xffffff, rec(1200, 20, 0, 0));
+	text(corewar, "Cycles", 0xffffff, rec(1200, 60, 0, 0));
+	text(corewar, "To Die", 0xffffff, rec(1200, 85, 0, 0));
+	text(corewar, "CPS Max", 0xffffff, rec(1200, 110, 0, 0));
+	text(corewar, "Last live", 0xffffff, rec(1200, 145, 0, 0));
+	render_stats(corewar);
+	tx = SDL_CreateTextureFromSurface(corewar->ren, corewar->sf);
+	SDL_RenderCopy(corewar->ren, tx, 0, 0);
 	SDL_DestroyTexture(tx);
-	SDL_RenderPresent(visu->ren);
+	SDL_RenderPresent(corewar->ren);
 }
 
-static void		set_ctd(t_corewar *corewar, t_visual *visu, unsigned int cycle)
-{
-	if ((cycle >= corewar->ctd && check_live(corewar, visu, corewar->proc)
-	>= NBR_LIVE))
-	{
-		corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
-		corewar->ctd : CYCLE_DELTA;
-		corewar->check = MAX_CHECKS;
-	}
-	if (!--corewar->check)
-	{
-		corewar->ctd--;
-		corewar->check = MAX_CHECKS;
-	}
-}
-
-static void		calc_cps(t_corewar *corewar, t_visual *visu)
+static void		calc_cps(t_corewar *corewar)
 {
 	double		delay;
 	double		frames;
 
-	if (!visu->step--)
+	if (!corewar->step--)
 	{
 		delay = SDL_GetTicks();
-		display(corewar, visu);
+		display(corewar);
 		delay = 1000.0 / (SDL_GetTicks() - delay);
-		frames = visu->cps / delay;
+		frames = corewar->cps / delay;
 		if (frames < 1.0)
 			SDL_Delay(1000.0 / (frames * delay));
-		visu->step = frames >= 0.5 && frames < 1.0 ? 1 : frames;
+		corewar->step = frames >= 0.5 && frames < 1.0 ? 1 : frames;
 	}
 }
 
-void			visual_run(t_corewar *corewar, t_visual *visu)
+void			visual_run(t_corewar *corewar)
 {
 	unsigned int	cycle;
 
 	cycle = 0;
-	visu->step = 0;
+	corewar->step = 0;
 	while (alive_proc(corewar->proc))
 	{
-		set_visual(corewar, visu);
+		set_visual(corewar);
 		if (corewar->play)
 		{
-			process(corewar, visu);
+			process(corewar);
 			corewar->cycle++;
 			cycle++;
-			set_ctd(corewar, visu, cycle);
+			if (cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
+			>= NBR_LIVE || corewar->check <= 0))
+			{
+				corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
+				corewar->ctd : CYCLE_DELTA;
+				corewar->check = MAX_CHECKS;
+			}
+			else
+				--corewar->check;
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
 		}
-		corewar->play ? calc_cps(corewar, visu) : display(corewar, visu);
+		corewar->play ? calc_cps(corewar) : display(corewar);
 	}
-	display(corewar, visu);
+	display(corewar);
 	while (1)
-		event(corewar, visu);
+		event(corewar);
 }

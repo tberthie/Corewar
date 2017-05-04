@@ -1,0 +1,2 @@
+Fix sti (write on mem)
+Live pc overflow (check?)

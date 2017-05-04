@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 16:27:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/04 15:06:54 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void		init_proc(t_proc *proc, unsigned int n, unsigned int offset)
 static void		load_champion(t_corewar *corewar, unsigned int i,
 				unsigned int n)
 {
-	void	*start;
-	t_proc	*proc;
+	void			*start;
+	t_proc			*proc;
 
 	start = corewar->memory + n * (MEM_SIZE /
 	ft_parrlen((void**)corewar->champs));

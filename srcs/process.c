@@ -6,42 +6,42 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/03 17:51:05 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/04 13:53:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void			execute(t_corewar *corewar, t_visual *visu, t_proc *proc)
+static void			execute(t_corewar *corewar, t_proc *proc)
 {
 	unsigned char		op;
 	t_champ				*champ;
 
 	op = ((unsigned char*)corewar->memory)[proc->pc];
-	if (visu && (champ = get_player(corewar, proc)))
-		visu->color[proc->pc] = champ->color * (op ? 1 : 0.75);
+	if (corewar->visual && (champ = get_player(corewar, proc)))
+		corewar->color[proc->pc] = champ->color * (op ? 1 : 0.75);
 	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
 		proc->pc = 0;
 
 //	op != 1 && op != 9 && op != 12 && op != 13 ? proc->pc += 1 : 0;
-	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
+//	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
 
 	op == 1 ? live(proc, corewar) : 0;
 	op == 2 ? ld(proc, corewar, op) : 0;
-    op == 3 ? st(proc, corewar) : 0;
-    op == 4 ? add(proc, corewar) : 0;
-    op == 5 ? sub(proc, corewar) : 0;
-    op == 6 ? c_and(proc, corewar, op) : 0;
-    op == 7 ? c_or(proc, corewar, op) : 0;
-    op == 8 ? c_xor(proc, corewar, op) : 0;
-    op == 9 ? zjmp(proc, corewar, op) : 0;
+	op == 3 ? st(proc, corewar) : 0;
+	op == 4 ? add(proc, corewar) : 0;
+	op == 5 ? sub(proc, corewar) : 0;
+	op == 6 ? c_and(proc, corewar, op) : 0;
+	op == 7 ? c_or(proc, corewar, op) : 0;
+	op == 8 ? c_xor(proc, corewar, op) : 0;
+	op == 9 ? zjmp(proc, corewar) : 0;
 	op == 10 ? ldi(proc, corewar, op) : 0;
-    op == 11 ? sti(proc, corewar, op) : 0;
-    op == 12 ? c_fork(proc, corewar) : 0;
+	op == 11 ? sti(proc, corewar, op) : 0;
+	op == 12 ? c_fork(proc, corewar) : 0;
 	op == 13 ? lld(proc, corewar, op) : 0;
-    op == 14 ? lldi(proc, corewar, op) : 0;
-    op == 15 ? lfork(proc, corewar) : 0;
+	op == 14 ? lldi(proc, corewar, op) : 0;
+	op == 15 ? lfork(proc, corewar) : 0;
 	op == 16 ? aff(proc, corewar) : 0;
 }
 
@@ -56,7 +56,7 @@ void				cycles(t_corewar *corewar, t_proc *proc)
 	(op == 14) + 999 * (op == 15) + (op == 16);
 }
 
-void				process(t_corewar *corewar, t_visual *visu)
+void				process(t_corewar *corewar)
 {
 	unsigned int	i;
 
@@ -69,7 +69,7 @@ void				process(t_corewar *corewar, t_visual *visu)
 				corewar->proc[i]->wait--;
 			if (!corewar->proc[i]->wait)
 			{
-				execute(corewar, visu, corewar->proc[i]);
+				execute(corewar, corewar->proc[i]);
 				cycles(corewar, corewar->proc[i]);
 			}
 		}
