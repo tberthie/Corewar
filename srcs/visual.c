@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/05 00:13:31 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 00:24:02 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,19 @@ static void		calc_cps(t_corewar *corewar)
 	}
 }
 
+static void		set_ctd(t_corewar *corewar, unsigned int cycle)
+{
+	if (cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
+	>= NBR_LIVE || corewar->check <= 0))
+	{
+		corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
+		corewar->ctd : CYCLE_DELTA;
+		corewar->check = MAX_CHECKS;
+	}
+	else
+		--corewar->check;
+}
+
 void			visual_run(t_corewar *corewar)
 {
 	unsigned int	cycle;
@@ -72,16 +85,7 @@ void			visual_run(t_corewar *corewar)
 		{
 			process(corewar);
 			corewar->cycle++;
-			cycle++;
-			if (cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
-			>= NBR_LIVE || corewar->check <= 0))
-			{
-				corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
-				corewar->ctd : CYCLE_DELTA;
-				corewar->check = MAX_CHECKS;
-			}
-			else
-				--corewar->check;
+			set_ctd(corewar, ++cycle);
 			cycle = cycle >= corewar->ctd ? 0 : cycle;
 		}
 		corewar->play ? calc_cps(corewar) : display(corewar);
