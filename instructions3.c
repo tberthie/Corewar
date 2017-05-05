@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 14:46:07 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:58:53 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		// ft_printf(1, "STIII OFFSET = %d\n", tmp);
 		print_bit(corewar->memory + tmp, p1);
 	}
+	processus->pc++;
 }
 
 int		set_index(t_proc *processus, t_corewar *corewar)
