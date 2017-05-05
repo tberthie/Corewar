@@ -6,19 +6,31 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/03 17:42:49 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:29:43 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
+#include <stdio.h>
 
-void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
+unsigned int	set_pc(int tmp)
 {
-	int		tmp;
-	void	*adr;
-	int		offset;
-	int		i;
+	if (tmp > MEM_SIZE)
+		tmp = tmp % MEM_SIZE - MEM_SIZE;
+	if (tmp < 0)
+		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
+	// ft_printf(1, "JUMP = %d\n", tmp);
+	return(tmp);
+}
+
+void	zjmp(t_proc *processus, t_corewar *corewar)
+{
+	int				tmp;
+	void			*adr;
+	unsigned short	offset;
+	int				i;
+	short			value;
 
 	tmp = processus->pc;
 	offset = 0;
@@ -26,17 +38,15 @@ void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 	adr = corewar->memory + processus->pc + 1;
 	while (i++ < IND_SIZE)
 	{
-		offset = offset + (*(char*)adr << ((i - 1) * 8));
+		offset |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
 		adr++;
 	}
+	offset += (0xffff << 16);
+	value = (short)offset;
 	if (processus->carry == 1)
 	{
-		tmp = tmp + (offset % IDX_MOD);
-		if (tmp > MEM_SIZE)
-			tmp = tmp % MEM_SIZE - MEM_SIZE;
-		if (tmp < 0)
-			tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
-		processus->pc = (unsigned int)tmp;
+		tmp = tmp + (value % IDX_MOD);
+		processus->pc = set_pc(tmp);
 	}
 	else
 		processus->pc += 2;
@@ -45,29 +55,56 @@ void	zjmp(t_proc *processus, t_corewar *corewar, unsigned char op)
 void	c_fork(t_proc *processus, t_corewar *corewar)
 {
 	t_proc			*processus2;
-	char			index;
+	short			value;
+	void 			*adr;
+	unsigned short	offset;
+	int				i;
 
+	i = 0;
+	offset = 0;
 	processus2 = (t_proc*)malloc(sizeof(t_proc));
 	ft_memcpy(processus2, processus, sizeof(t_proc));
-	processus->pc += 2;
-	index = *(char*)(corewar->memory + processus->pc);
-	processus2->pc = (processus->pc + (index % IDX_MOD)) % MEM_SIZE;
+	adr = corewar->memory + processus->pc + 1;
+	while (i++ < IND_SIZE)
+	{
+		// printf("VALUE = %04x\n", *(unsigned char*)adr);
+		offset |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
+		// printf("OFFSET: %d\n", offset);
+		adr++;
+	}
+	offset += (0xffff << 16);
+	value = (short)offset;
+	processus2->pc = (processus->pc + (value % IDX_MOD)) % MEM_SIZE;
+	// ft_printf(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc++;
+	processus->pc += 3;
 }
 
 void	lfork(t_proc *processus, t_corewar *corewar)
 {
 	t_proc			*processus2;
-	char			index;
+	short			value;
+	void 			*adr;
+	unsigned short	offset;
+	int				i;
 
+	i = 0;
+	offset = 0;
 	processus2 = (t_proc*)malloc(sizeof(t_proc));
 	ft_memcpy(processus2, processus, sizeof(t_proc));
-	processus->pc += 2;
-	index = *(char*)(corewar->memory + processus->pc);
-	processus2->pc = (processus->pc + index) % MEM_SIZE;
+	adr = corewar->memory + processus->pc + 1;
+	while (i++ < IND_SIZE)
+	{
+		// printf("VALUE = %04x\n", *(unsigned char*)adr);
+		offset |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
+		// printf("OFFSET: %d\n", offset);
+		adr++;
+	}
+	offset += (0xffff << 16);
+	value = (short)offset;
+	processus2->pc = processus->pc + value % MEM_SIZE;
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc++;
+	processus->pc += 3;
 }
 
 void	aff(t_proc *processus, t_corewar *corewar)

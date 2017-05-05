@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/02 19:15:25 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:22:40 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	live(t_proc *processus, t_corewar *corewar)
 void	*get_pc(t_proc *processus, t_corewar *corewar)
 {
 	void	*adr;
+	int		pc;
 
-	if (MEM_SIZE < processus->pc || (int)processus->pc < 0)
-		processus->pc = processus->pc % MEM_SIZE;
-	adr = corewar->memory + processus->pc;
+	pc = set_pc((int)processus->pc);
+	adr = corewar->memory + pc;
 	return (adr);
 }
 
