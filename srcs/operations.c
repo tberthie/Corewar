@@ -6,77 +6,78 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/03 17:25:38 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:53:51 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
+#include <stdio.h>
 
-int		*byte_analysis(t_proc *processus, t_corewar *corewar)
+int		get_int_direct_value(void *adr)
 {
-	int		*nbr;
-	char	byte;
+	unsigned int	tmp;
+	int				value;
+	int				i;
 
-	byte = *(char*)(corewar->memory + processus->pc);
-	nbr = (int*)malloc(sizeof(int) * 3);
-	nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
-	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
-	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
-	processus->pc = (processus->pc + 1) % MEM_SIZE;
-	if ((1 <= nbr[0] && nbr[0] <= 3) && (1 <= nbr[1] && nbr[1] <= 3))
-		return (nbr);
-	return (NULL);
+	i = 0;
+	tmp = 0;
+	value = 0;
+	while (i++ < 4)
+	{
+		tmp |= (unsigned int)(*(unsigned char*)adr << ((DIR_SIZE - i) * 8));
+		adr++;
+	}
+	value = (int)tmp;
+	return(value);
+}
+
+int		get_int_indirect_value(void *adr)
+{
+	unsigned short	tmp;
+	short			tmp2;
+	int				value;
+	int				i;
+
+	i = 0;
+	tmp = 0;
+	value = 0;
+	while (i++ < 2)
+	{
+		tmp |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
+		// printf("TMP STI = %02x\n", tmp);
+		adr++;
+	}
+	tmp += (0xffff << 16);
+	tmp2 = (short)tmp;
+	// printf("TMP SHORT STI = %02x %d\n", tmp2, tmp2);
+	value = (int)tmp2;
+	// printf("TMP INT STI = %02x %d\n", value, value);
+	return(value);
 }
 
 int		get_direct_value(t_proc *proc, t_corewar *corewar, unsigned char op)
 {
-	int		value;
-	int		mv;
-	int		i;
-	void 	*tmp;
+	int			value;
+	int				mv;
+	int				i;
+	void 			*adr;
 
 	i = 0;
 	value = 0;
-	tmp = get_pc(proc, corewar);
+	adr= get_pc(proc, corewar);
 	if ((9 <= op && op <= 12) || op == 14 || op == 15)
-		mv = 1;
-	else
-		mv = 3;
-	while (i <= mv)
 	{
-		value = value + (*(char*)tmp << (i * 8));
-		tmp++;
-		i++;
+		mv = 1;
+		value = get_int_indirect_value(adr);
+	}
+	else
+	{
+		mv = 3;
+		value = get_int_direct_value(adr);
 	}
 	proc->pc = (proc->pc + (mv + 1)) % MEM_SIZE;
-	return (value);
-}
-
-int		get_indirect_value(t_proc *processus, t_corewar *corewar)
-{
-	void	*adr;
-	int		value;
-	int		offset;
-	int		i;
-
-	i = 0;
-	offset = 0;
-	value = 0;
-	adr = get_pc(processus, corewar);
-	while (i++ < IND_SIZE)
-	{
-		offset = offset + (*(char*)adr << ((i - 1) * 8));
-		adr++;
-	}
-	adr = corewar->memory + processus->pc + offset % IDX_MOD;
-	i = 0;
-	while (i++ < IND_SIZE)
-	{
-		value = value + (*(char*)adr << ((i - 1) * 8));
-		adr++;
-	}
-	processus->pc = (processus->pc + 2) % MEM_SIZE;
+	// ft_printf(1, "VALUE DIR : %d\n", (int)value);
 	return (value);
 }
 
@@ -88,9 +89,11 @@ int		get_reg_value(t_proc *processus, t_corewar *corewar)
 
 	index = *(char*)(corewar->memory + processus->pc);
 	index2 = (int)index - 1;
+	// ft_printf(1, "index :%d\n", index2);
 	if (index2 < 0 || 15 < index2)
 		return (0);
 	value = *(int*)processus->reg[index2];
+	// ft_printf(1, "REG VALUE :%d\n", value);
 	processus->pc++;
 	return (value);
 }

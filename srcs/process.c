@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/04 13:53:30 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:38:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 	op == 14 ? lldi(proc, corewar, op) : 0;
 	op == 15 ? lfork(proc, corewar) : 0;
 	op == 16 ? aff(proc, corewar) : 0;
+
+	if (corewar->visual && champ)
+		corewar->color[proc->pc] = champ->color;
 }
 
 void				cycles(t_corewar *corewar, t_proc *proc)

@@ -6,12 +6,15 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/04 13:30:01 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:26:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// proteger tous les index
+// mettre a la norme
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
+
 
 void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
@@ -25,11 +28,8 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p1 = get_value(processus, corewar, tab[0], op);
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 16 < index)
-		{
-			processus->pc++;
 			return ;
-		}
-		*(int*)processus->reg[(int)index - 1] = p1;
+		*(int*)processus->reg[index - 1] = p1;
 		processus->carry = 1;
 	}
 	else
@@ -40,7 +40,7 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		p1;
-	int		index;
+	char	index;
 	int		*tab;
 
 	processus->pc++;
@@ -48,6 +48,8 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		p1 = get_value_nm(processus, corewar, tab[0], op);
 		index = *(char*)(corewar->memory + processus->pc);
+		if (index < 2 || 16 < index)
+			return ;
 		*(int*)processus->reg[(int)index - 1] = p1;
 		processus->carry = 1;
 	}
@@ -58,23 +60,29 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 
 void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
-	int		*tab;
-	int		index;
-	int		p1;
-	int		nbr;
+	int			*tab;
+	int			index;
+	int			nbr;
+	int			value;
+	unsigned	int tmp;
 
+	tmp = processus->pc;
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
-		p1 = get_value(processus, corewar, tab[0], op);
+		nbr = get_value(processus, corewar, tab[0], op);
 		// ft_printf(1, "P1 = %d\n", p1);
-		nbr = p1 + get_value(processus, corewar, tab[1], op);
+		nbr += get_value(processus, corewar, tab[1], op);
 		// ft_printf(1, "NBR = %d\n", nbr);
+		value = *(int*)(corewar->memory + tmp + (nbr % IDX_MOD));
 		index = *(char*)(corewar->memory + processus->pc);
-		// ft_printf(1, "index :%d\n", (int)index);
-		if (index < 0 || 15 < index)
+		// ft_printf(1, "index ldi:%d\n", (int)index);
+		if (index < 1 || 16 < index)
+		{
+			processus->pc++;
 			return ;
-		*(int*)processus->reg[(int)index - 1] = nbr;
+		}
+		*(int*)processus->reg[index - 1] = value;
 		processus->carry = 1;
 	}
 	else
@@ -84,21 +92,29 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 
 void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
-	int		*tab;
-	int		index;
-	int		p1;
-	int		nbr;
+	int			*tab;
+	int			index;
+	int			nbr;
+	int			value;
+	unsigned	int tmp;
 
+	tmp = processus->pc;
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
-		p1 = get_value_nm(processus, corewar, tab[0], op);
+		nbr = get_value_nm(processus, corewar, tab[0], op);
 		// ft_printf(1, "P1 = %d\n", p1);
-		nbr = p1 + get_value_nm(processus, corewar, tab[1], op);
+		nbr += get_value_nm(processus, corewar, tab[1], op);
 		// ft_printf(1, "NBR = %d\n", nbr);
+		value = *(int*)(corewar->memory + tmp + (nbr % IDX_MOD));
 		index = *(char*)(corewar->memory + processus->pc);
-		// ft_printf(1, "index :%d\n", (int)index);
-		*(int*)processus->reg[(int)index - 1] = nbr;
+		// ft_printf(1, "index ldi:%d\n", (int)index);
+		if (index < 1 || 16 < index)
+		{
+			processus->pc++;
+			return ;
+		}
+		*(int*)processus->reg[index - 1] = value;
 		processus->carry = 1;
 	}
 	else
@@ -106,27 +122,47 @@ void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	processus->pc++;
 }
 
+void 	st1(t_corewar *corewar, t_proc *processus, int p1)
+{
+	char	index;
+
+	index = *(char*)(corewar->memory + processus->pc);
+	if (index < 1 || 16 < index)
+	{
+		processus->pc++;
+		return ;
+	}
+	// ft_printf(1, "INDEX ST = %d\n", (int)index);
+	*(int*)processus->reg[index - 1] = p1;
+	// ft_printf(1, "FINAL VALUE ST %d\n", *(int*)processus->reg[index - 1]);
+	processus->pc++;
+}
+
 void	st(t_proc *processus, t_corewar *corewar)
 {
-	int		p1;
-	int		index;
-	int		*tab;
+	int				p1;
+	int				offset;
+	int				*tab;
+	unsigned int	tmp;
+	int				S;
 
+	tmp = processus->pc;
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
-		// ft_printf(1, "P1 = %d\n", p1);
-		processus->pc++;
-		index = *(char*)(corewar->memory + processus->pc);
-		// ft_printf(1, "INDEX = %d\n", (int)index);
+		// ft_printf(1, "ST VALUE = %d\n", p1);
 		if (tab[1] == 1)
-			ft_memcpy(processus->reg[index], &p1, REG_SIZE);
-		// else if (tab[1] == 10)
-		// 	ft_memcpy(corewar->memory + (index % IDX_MOD), &p1, REG_SIZE);
-		else if (tab[1] == 11)
-			ft_memcpy(corewar->memory + processus->pc + \
-				(index % IDX_MOD), &p1, REG_SIZE);
+			st1(corewar, processus, p1);
+		else if (tab[1] == 3)
+		{
+			offset = get_int_indirect_value(corewar->memory + processus->pc);
+			// ft_printf(1, "VALUE OFFSET PREMS ST: %d\n", offset);
+			S = set_pc(tmp + (offset % IDX_MOD));
+			// ft_printf(1, "OFFSET total ST = %d\n", S);
+			print_bit(corewar->memory + S, p1);
+			// ft_printf(1, "FINAL VALUE ST %d\n", *(int*)(corewar->memory + S));
+			processus->pc += 2;
+		}
 	}
-	processus->pc++;
 }

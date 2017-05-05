@@ -6,12 +6,24 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/04 13:29:53 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:28:52 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
+#include <stdio.h>
+
+void 	print_bit(void *adr, int p1)
+{
+	int		i;
+
+	i = 4;
+	while (i--)
+	{
+		*(unsigned char*)adr++ = (p1 >> (8 * i)) & 0xff;
+	}
+}
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
@@ -20,19 +32,20 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		p1;
 	int		p2;
 	int		p3;
+	int		pc;
 
+	pc = processus->pc;
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
+		// ft_printf(1, "STI VALUE= %d\n", p1);
+		// printf("STI VALUE HEXA = %.4x\n", (int)p1);
 		p2 = get_value(processus, corewar, tab[1], op);
 		p3 = get_value(processus, corewar, tab[2], op);
-		tmp = p2 + p3;
-		if (MEM_SIZE < tmp)
-			tmp = tmp % MEM_SIZE - MEM_SIZE;
-		if (tmp < 0)
-			tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
-		ft_memcpy(corewar->memory + tmp, &p1, REG_SIZE);
+		tmp = set_pc(p2 + p3 + pc);
+		// ft_printf(1, "STIII OFFSET = %d\n", tmp);
+		print_bit(corewar->memory + tmp, p1);
 	}
 	processus->pc++;
 }
