@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 16:47:45 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:23:37 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ typedef struct	s_asm
 	char		**s;
 	char		*name;
 	char		*comment;
-	char		cor[4];
+	unsigned char		cor[4];
+	unsigned char		scor[2];
+	char		ocp;
+	int			icor;
 	int			magic;
 	int			label;
 	int			zero;
