@@ -55,7 +55,7 @@ int		set_index(t_proc *processus, t_corewar *corewar)
 	int		index;
 
 	index = *(char*)(corewar->memory + processus->pc);
-	if (index < 2 || 15 < index)
+	if (index < 1 || 16 < index)
 	{
 		processus->carry = 0;
 		processus->pc++;

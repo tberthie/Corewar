@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-unsigned int	set_pc(int tmp)
+size_t	set_pc(size_t tmp)
 {
 	if (tmp > MEM_SIZE)
 		tmp = tmp % MEM_SIZE - MEM_SIZE;
