@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 15:13:21 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 16:24:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void			setup_visual(t_corewar *visu)
 		error(0, (char*)SDL_GetError());
 	visu->cps = 100;
 	visu->save = ft_memalloc(MEM_SIZE);
+	visu->color = ft_m(MEM_SIZE * 4);
 	ft_memset(visu->color, MEM_SIZE * 4, (char)0x50);
 }
 

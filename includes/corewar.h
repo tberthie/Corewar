@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 15:14:39 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 16:24:31 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct		s_corewar {
 	char			visual;
 	char			play;
 	void			*save;
-	unsigned int	color[MEM_SIZE];
+	unsigned int	*color;
 	unsigned int	cps;
 	unsigned int	step;
 
