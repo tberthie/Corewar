@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 16:24:31 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:28:28 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_champ {
 
 typedef struct		s_proc {
 
-	void			**reg;
+	unsigned int	*reg;
 	int				pc;
 	char			carry;
 
@@ -144,6 +144,6 @@ void			lfork(t_proc *processus, t_corewar *corewar);
 void			aff(t_proc *processus, t_corewar *corewar);
 int				get_int_indirect_value(void *adr);
 void 			print_bit(void *adr, int p1);
-size_t			set_pc(size_t tmp);
+int				set_pc(int tmp);
 
 #endif

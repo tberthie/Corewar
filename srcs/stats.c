@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/05 16:46:04 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:27:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_champ			*get_player(t_corewar *corewar, t_proc *proc)
 	unsigned int	nb;
 	int				i;
 
-	nb = *(char*)(*proc->reg);
+	nb = *proc->reg;
 	i = ft_parrlen((void**)corewar->champs);
 	while (i--)
 	{
@@ -34,8 +34,7 @@ static char		is_alive(t_corewar *corewar, t_champ *champ)
 
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
-		if (*(unsigned int*)(corewar->proc[i]->reg[0]) == champ->number &&
-		corewar->proc[i]->alive)
+		if (*corewar->proc[i]->reg == champ->number && corewar->proc[i]->alive)
 			return (1);
 	return (0);
 }
@@ -56,8 +55,8 @@ static void		player_stats(t_corewar *corewar, int i)
 	j = ft_parrlen((void**)corewar->proc);
 	while (j--)
 	{
-		if (corewar->proc[j]->alive && *(unsigned int*)corewar->proc[j]->reg[0]
-		== champ->number && (proc += 1))
+		if (corewar->proc[j]->alive && *corewar->proc[j]->reg ==
+		champ->number && (proc += 1))
 			lives += corewar->proc[j]->live;
 	}
 	text(corewar, (tmp = ft_itoabase(proc, 10)), 0xa0a0a0,

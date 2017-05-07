@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 16:18:31 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:40:00 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-size_t	set_pc(size_t tmp)
+int		set_pc(int tmp)
 {
 	if (tmp > MEM_SIZE)
-		tmp = tmp % MEM_SIZE - MEM_SIZE;
+		tmp = tmp % MEM_SIZE;
 	if (tmp < 0)
 		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
 	// ft_printf(1, "JUMP = %d\n", tmp);

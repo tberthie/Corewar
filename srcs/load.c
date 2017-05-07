@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 16:14:43 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:07:06 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,8 @@
 
 static void		init_proc(t_proc *proc, unsigned int n, unsigned int offset)
 {
-	int		i;
-	void	*reg;
-
-	i = 0;
-	proc->reg = ft_parrnew();
-	while (i++ < REG_NUMBER)
-	{
-		reg = ft_memalloc(REG_SIZE);
-		ft_parrpush((void***)&proc->reg, reg);
-	}
-	*(unsigned int*)*proc->reg = n;
+	proc->reg = ft_memalloc(4 * REG_NUMBER);
+	proc->reg[0] = n;
 	proc->carry = 1;
 	proc->pc = offset;
 	proc->alive = 1;

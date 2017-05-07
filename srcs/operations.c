@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 16:18:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:38:56 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		get_reg_value(t_proc *processus, t_corewar *corewar)
 	// ft_printf(1, "index :%d\n", index2);
 	if (index2 < 0 || 15 < index2)
 		return (0);
-	value = *(int*)processus->reg[index2];
+	value = processus->reg[index2];
 	// ft_printf(1, "REG VALUE :%d\n", value);
 	processus->pc++;
 	return (value);

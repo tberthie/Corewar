@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 16:19:02 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 17:42:32 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,14 @@
 
 void 	print_bit(void *adr, int p1)
 {
-	int		i;
-
-	i = 4;
-	while (i--)
-	{
-		*(unsigned char*)adr++ = (p1 >> (8 * i)) & 0xff;
-	}
+	*(unsigned int*)adr = rev_int(p1);
 }
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		*tab;
 	int		tmp;
-	int		p1;
+	unsigned int		p1;
 	int		p2;
 	int		p3;
 	int		pc;
@@ -80,13 +74,13 @@ void	add(t_proc *processus, t_corewar *corewar)
 	{
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p1 = *(int*)processus->reg[index];
+		p1 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p2 = *(int*)processus->reg[index];
+		p2 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1 + p2;
+		processus->reg[index] = p1 + p2;
 		processus->carry = 1;
 	}
 	else
@@ -106,13 +100,13 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	{
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p1 = *(int*)processus->reg[index];
+		p1 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p2 = *(int*)processus->reg[index];
+		p2 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1 - p2;
+		processus->reg[index] = p1 - p2;
 		processus->carry = 1;
 	}
 	else
