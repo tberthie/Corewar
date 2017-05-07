@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 16:26:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/07 15:12:57 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		p1;
-	char	index;
+	int		index;
 	int		*tab;
 
 	processus->pc++;
@@ -39,7 +39,7 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		p1;
-	char	index;
+	int		index;
 	int		*tab;
 
 	processus->pc++;
@@ -75,7 +75,7 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 		value = *(int*)(corewar->memory + tmp + (nbr % IDX_MOD));
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1;
+		*(int*)processus->reg[index] = value;
 		processus->carry = 1;
 	}
 	else
@@ -99,11 +99,11 @@ void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 		// ft_printf(1, "P1 = %d\n", p1);
 		nbr += get_value_nm(processus, corewar, tab[1], op);
 		// ft_printf(1, "NBR = %d\n", nbr);
-		nbr = set_pc(nbr + tmp)
+		nbr = set_pc(nbr + tmp);
 		value = *(int*)(corewar->memory + nbr);
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1;
+		*(int*)processus->reg[index] = value;
 		processus->carry = 1;
 	}
 	else
@@ -113,7 +113,7 @@ void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 
 void 	st1(t_corewar *corewar, t_proc *processus, int p1)
 {
-	char	index;
+	int		index;
 
 	if ((index = set_index(processus, corewar)) < 0)
 		return ;
