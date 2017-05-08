@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 17:33:30 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/08 16:49:45 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		cor_hex(t_asm *vasm, char *str)
 	get_cor_size(vasm);
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0600)) == -1)
 		exit(EXIT_FAILURE);
+	ft_lprintf(1, "Writing output program to %s\n", vasm->file_name);
 	get_header(vasm);
 	put_header(vasm, 0);
 	put_asm(vasm);

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 13:22:54 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/08 16:49:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		check_asm(t_asm *vasm, int i, char *inst)
 {
 	while (i < vasm->file_lines)
 	{
-		ft_lprintf(1, "%s\n", vasm->s[i]);
+//		ft_lprintf(1, "%s\n", vasm->s[i]);
 		if (ft_stristr(vasm->s[i], NAME_CMD_STRING) == -1 &&
 				ft_stristr(vasm->s[i], COMMENT_CMD_STRING) == -1 &&
 				vasm->s[i][0] != COMMENT_CHAR)

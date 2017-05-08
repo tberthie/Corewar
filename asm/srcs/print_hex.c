@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 17:27:09 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/08 16:47:49 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		print_cmd(t_asm *vasm, t_inst *node)
 	if (cmd != 1 && cmd != 9 && cmd != 12 && cmd != 15)
 	{
 		vocp = find_ocp(node, 0, 0, 0);
-		ft_lprintf(1, "%x\t", vocp);//write(1, &vocp, 1);
+		ft_lprintf(1, "%d\t", vocp);//write(1, &vocp, 1);
 	}
 }
 
@@ -60,11 +60,11 @@ void		print_dir(t_asm *vasm, t_inst *node, int dir, size_t i)
 		{
 			while (i < node->content_size - 2)
 			{
-				ft_lprintf(1, "\t00");//write(1, &vasm->zero, 1);
+				ft_lprintf(1, "\t0");//write(1, &vasm->zero, 1);
 				++i;
 			}
 			if (dir < 256)
-				ft_lprintf(1, "\t00");//write(1, &vasm->zero, 1);
+				ft_lprintf(1, "\t0");//write(1, &vasm->zero, 1);
 			else
 			{
 				vasm->ret = (dir >> 8) & 0x000000ff;
