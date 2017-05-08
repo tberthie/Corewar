@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 17:40:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:52:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	offset += (0xffff << 16);
 	value = (short)offset;
 	processus2->pc = (processus->pc + (value % IDX_MOD)) % MEM_SIZE;
+	processus2->reg = ft_memalloc(4 * REG_NUMBER);
+	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	// ft_printf(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc += 3;
@@ -103,6 +105,8 @@ void	lfork(t_proc *processus, t_corewar *corewar)
 	offset += (0xffff << 16);
 	value = (short)offset;
 	processus2->pc = processus->pc + value % MEM_SIZE;
+	processus2->reg = ft_memalloc(4 * REG_NUMBER);
+	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc += 3;
 }
