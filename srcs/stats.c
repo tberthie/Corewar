@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 17:27:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:43:59 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void			render_stats(t_corewar *corewar)
 	{
 		if (corewar->proc[i]->alive &&
 		(player = get_player(corewar, corewar->proc[i])))
-			corewar->color[corewar->proc[i]->pc] = player->color + 0x404040;
+			corewar->color[corewar->proc[i]->pc] = player->color;
 	}
 	render_players(corewar);
 	!corewar->play ? text(corewar, "PAUSED", 0xffff00, rec(1395, 20, 0, 0)) : 0;

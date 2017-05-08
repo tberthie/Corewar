@@ -6,27 +6,28 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 17:26:20 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:47:21 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void			execute(t_corewar *corewar, t_proc *proc)
+static void		trail(t_corewar *corewar, t_proc *proc, t_champ *champ, int tmp)
 {
-	unsigned char		op;
-	t_champ				*champ;
+	if (champ && proc->pc > tmp && proc->pc - tmp < TRAIL_SIZE)
+	{
+		while (tmp < proc->pc)
+		{
+			corewar->color[tmp] = multi_color(champ->color,
+			(((unsigned char*)corewar->memory)[tmp] ? 0.7 : 0.6));
+			tmp++;
+		}
+	}
+}
 
-	op = ((unsigned char*)corewar->memory)[proc->pc];
-	if (corewar->visual && (champ = get_player(corewar, proc)))
-		corewar->color[proc->pc] = champ->color * (op ? 1 : 0.75);
-	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
-		proc->pc = 0;
-
-//	op != 1 && op != 9 && op != 12 && op != 13 ? proc->pc += 1 : 0;
-//	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
-
+static void		exec_op(t_proc *proc, t_corewar *corewar, unsigned char op)
+{
 	op == 1 ? live(proc, corewar) : 0;
 	op == 2 ? ld(proc, corewar, op) : 0;
 	op == 3 ? st(proc, corewar) : 0;
@@ -43,12 +44,29 @@ static void			execute(t_corewar *corewar, t_proc *proc)
 	op == 14 ? lldi(proc, corewar, op) : 0;
 	op == 15 ? lfork(proc, corewar) : 0;
 	op == 16 ? aff(proc, corewar) : 0;
-
-	if (corewar->visual && champ)
-		corewar->color[proc->pc] = champ->color;
 }
 
-void				cycles(t_corewar *corewar, t_proc *proc)
+static void		execute(t_corewar *corewar, t_proc *proc)
+{
+	int					tmp;
+	unsigned char		op;
+	t_champ				*champ;
+
+	op = ((unsigned char*)corewar->memory)[proc->pc];
+	champ = 0;
+	if (corewar->visual && (champ = get_player(corewar, proc)))
+		corewar->color[proc->pc] = multi_color(champ->color, op ? 0.8 : 0.5);
+	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
+		proc->pc = 0;
+
+//	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
+
+	tmp = proc->pc;
+	exec_op(proc, corewar, op);
+	trail(corewar, proc, champ, ++tmp);
+}
+
+void			cycles(t_corewar *corewar, t_proc *proc)
 {
 	unsigned char		op;
 
@@ -59,7 +77,7 @@ void				cycles(t_corewar *corewar, t_proc *proc)
 	(op == 14) + 999 * (op == 15) + (op == 16);
 }
 
-void				process(t_corewar *corewar)
+void			process(t_corewar *corewar)
 {
 	unsigned int	i;
 

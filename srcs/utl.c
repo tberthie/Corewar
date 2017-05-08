@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 17:35:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:40:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,15 @@ unsigned int	rev_int(unsigned int nb)
 		bytes--;
 		new |= ((nb >> 8 * bytes) & 0xff) << (8 * (3 - bytes));
 	}
+	return (new);
+}
+
+unsigned int	multi_color(unsigned int color, double ratio)
+{
+	unsigned int new;
+
+	new = (unsigned char)((color >> 16 & 0xff) * ratio) << 16;
+	new += (unsigned char)((color >> 8 & 0xff) * ratio) << 8;
+	new += (unsigned char)(color & 0xff) * ratio;
 	return (new);
 }
