@@ -6,17 +6,32 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 12:52:51 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/07 17:38:55 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void		error(t_asm *vasm)
+void		error(t_asm *vasm, int err)
 {
-	ft_lprintf(2, "ERROR: invalid value in file ");
-	ft_lprintf(2, "for %s instruction on line %d\n", vasm->cmd[vasm->command],
-			vasm->inst_line + 1);
+	if (!err)
+	{
+		ft_lprintf(2, "Usage : ./asm [-a] <sourcefile.s>\n");
+		ft_lprintf(2, "\t-a : Does not create a cor file but display an \n");
+		ft_lprintf(2, "annotated version on the standard output\n");
+	}
+	else if (err == 1)
+		ft_lprintf(2, "Champion name missing : .name %cname%c", '"', '"');
+	else if (err == 2)
+		ft_lprintf(2, "Description missing : .comment %ccomment%c", '"', '"');
+	else if (err == 4)
+		ft_lprintf(2, "Champion size is too big !!\n");
+	else
+	{
+		ft_lprintf(2, "ERROR: invalid value in file ");
+		ft_lprintf(2, "for %s instruction on line %d\n",
+				vasm->cmd[vasm->command], vasm->inst_line + 1);
+	}
 	exit(EXIT_FAILURE);
 }
 

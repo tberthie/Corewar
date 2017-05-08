@@ -6,13 +6,13 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:49:52 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 15:16:14 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/07 17:26:12 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void		put_offset(t_asm *vasm, t_inst *node)
+void		print_offset(t_asm *vasm, t_inst *node)
 {
 	t_inst	*off;
 	int		offset;
@@ -22,46 +22,58 @@ void		put_offset(t_asm *vasm, t_inst *node)
 	while (off && ft_strcmp(node->content + 2, off->content))
 		off = off->next;
 	if (off->line > node->line)
-		offset_pos(vasm, node, off);
+		print_off_pos(vasm, node, off);
 	else
-		offset_neg(vasm, node, off);
+		print_off_neg(vasm, node, off);
 }
 
-void		four_bytes(t_asm *vasm, int val, int offset)
+void		print_four_bytes(t_asm *vasm, int val, int offset)
 {
 	if (offset < 256)
 	{
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &offset, 1);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", offset);
+//		write(1, &val, 1);
+//		write(1, &val, 1);
+//		write(1, &val, 1);
+//		write(1, &offset, 1);
 	}
 	else
 	{
 		vasm->ret = (offset >> 8) & 0x000000ff;
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &vasm->ret, 1);
-		write(vasm->fd, &offset, 1);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", vasm->ret);
+		ft_lprintf(1, "\t%d", offset);
+//		write(1, &val, 1);
+//		write(1, &val, 1);
+//		write(1, &vasm->ret, 1);
+//		write(1, &offset, 1);
 	}
 }
 
-void		two_bytes(t_asm *vasm, int val, int offset)
+void		print_two_bytes(t_asm *vasm, int val, int offset)
 {
 	if (offset < 256)
 	{
-		write(vasm->fd, &val, 1);
-		write(vasm->fd, &offset, 1);
+		ft_lprintf(1, "\t%d", val);
+		ft_lprintf(1, "\t%d", offset);
+//		write(1, &val, 1);
+//		write(1, &offset, 1);
 	}
 	else
 	{
 		vasm->ret = (offset >> 8) & 0x00ff;
-		write(vasm->fd, &vasm->ret, 1);
-		write(vasm->fd, &offset, 1);
+		ft_lprintf(1, "\t%d", vasm->ret);
+		ft_lprintf(1, "\t%d", offset);
+//		write(1, &vasm->ret, 1);
+//		write(1, &offset, 1);
 	}
 }
 
-void		offset_pos(t_asm *vasm, t_inst *node, t_inst *off)
+void		print_off_pos(t_asm *vasm, t_inst *node, t_inst *off)
 {
 	t_inst	*tmp;
 	int		offset;
@@ -79,12 +91,12 @@ void		offset_pos(t_asm *vasm, t_inst *node, t_inst *off)
 		tmp = tmp->next;
 	}
 	if (node->content_size == 4)
-		four_bytes(vasm, vasm->zero, offset);
+		print_four_bytes(vasm, vasm->zero, offset);
 	else
-		two_bytes(vasm, vasm->zero, offset);
+		print_two_bytes(vasm, vasm->zero, offset);
 }
 
-void		offset_neg(t_asm *vasm, t_inst *node, t_inst *off)
+void		print_off_neg(t_asm *vasm, t_inst *node, t_inst *off)
 {
 	t_inst	*tmp;
 	int		offset;
@@ -97,7 +109,7 @@ void		offset_neg(t_asm *vasm, t_inst *node, t_inst *off)
 		tmp = tmp->next;
 	}
 	if (node->content_size == 4)
-		four_bytes(vasm, vasm->ff, offset);
+		print_four_bytes(vasm, vasm->ff, offset);
 	else
-		two_bytes(vasm, vasm->ff, offset);
+		print_two_bytes(vasm, vasm->ff, offset);
 }

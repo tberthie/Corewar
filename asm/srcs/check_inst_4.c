@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:35:38 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 14:36:07 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/07 14:30:14 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_aff(t_asm *vasm, char *inst)
 
 	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
 	if (param)
-		error(vasm);
+		error(vasm, 3);
 	if (!check_reg(inst))
-		error(vasm);
+		error(vasm, 3);
 }

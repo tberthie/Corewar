@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:50:41 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 14:38:12 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/08 13:29:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		get_header(t_asm *vasm)
 	int		tmp;
 
 	tmp = ft_stritabstr(vasm->s, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING));
+	if (tmp == -1)
+		error(vasm, 1);
 	if (!(vasm->name = (char *)malloc(PROG_NAME_LENGTH + 1)))
 		exit(EXIT_FAILURE);
 	ft_bzero(vasm->name, PROG_NAME_LENGTH + 1);
@@ -25,6 +27,8 @@ void		get_header(t_asm *vasm)
 			- 1);
 	tmp = ft_stritabstr(vasm->s, COMMENT_CMD_STRING,
 			ft_strlen(COMMENT_CMD_STRING));
+	if (tmp == -1)
+		error(vasm, 2);
 	if (!(vasm->comment = (char *)malloc(COMMENT_LENGTH + 1)))
 		exit(EXIT_FAILURE);
 	ft_bzero(vasm->comment, COMMENT_LENGTH + 1);

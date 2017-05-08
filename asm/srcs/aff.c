@@ -1,70 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 17:33:30 by gthomas          ###   ########.fr       */
+/*   Created: 2017/05/07 14:52:47 by gthomas           #+#    #+#             */
+/*   Updated: 2017/05/08 13:31:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../includes/asm.h"
 
-int			find_ocp(t_inst *node, int param, int oct, int i)
+void		print_asm(t_asm *vasm)
 {
-	param = node->line;
-	node = node->next;
-	while (node && (int)node->line == param)
-	{
-		oct *= 4;
-		if (node->content[0] == 'r')
-			oct += 1;
-		else if (node->content[0] == '%')
-			oct += 2;
-		else if (ft_nisdigit(node->content, ft_strlen(node->content)))
-			oct += 3;
-		node = node->next;
-		++i;
-	}
-	while (i < 4)
-	{
-		oct *= 4;
-		++i;
-	}
-	return (oct);
-}
-
-void		put_asm(t_asm *vasm)
-{
+	int line;
 	t_inst	*tmp;
+	t_inst	*tmp2;
 
+	line = 0;
 	tmp = vasm->labreg;
+	tmp2 = tmp;
 	while (tmp)
 	{
+
+		if (line != (int)tmp->line)
+		{
+			tmp2 = tmp;
+			line = (int)tmp2->line;
+			while (line == (int)tmp2->line && tmp2)
+			{
+				if (!tmp2->content_size)
+					ft_lprintf(1, "%s :\n", tmp2->content);
+				else
+					ft_lprintf(1, "%s\t", tmp2->content);
+				tmp2 = tmp2->next;
+			}
+			ft_lprintf(1, "\n");
+		}
+//		if (line != (int)tmp->line)
+//		{
+//			line = (int)tmp->line;
+//			ft_lprintf(1, "%s\n", vasm->s[line]);
+//		}
 		if (tmp->content_size)
 		{
 			if (tmp->content[0] == 'r')
-				put_reg(vasm, tmp);
+				print_reg(tmp);
 			else if (ft_nisdigit(tmp->content, ft_strlen(tmp->content)))
-				put_ind(vasm, tmp, 0);
+				print_ind(vasm, tmp, 0);
 			else if (tmp->content[0] == DIRECT_CHAR)
-				put_dir(vasm, tmp, 0, 0);
+				print_dir(vasm, tmp, 0, 0);
 			else
 			{
 				vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
 						ft_strlen(tmp->content));
 				vasm->instruct = tmp;
 				if (vasm->command >= 0)
-					put_cmd(vasm, tmp);
+				{
+					ft_lprintf(1, "\n");
+					print_cmd(vasm, tmp);
+				}
 			}
 		}
 		tmp = tmp->next;
 	}
 }
 
-void		cor_hex(t_asm *vasm, char *str)
+void		print_hex(t_asm *vasm, char *str)
 {
 	vasm->s = ft_strsplit(str, '\n');
 	vasm->file_lines = ft_ptrlen(vasm->s);
@@ -75,13 +78,15 @@ void		cor_hex(t_asm *vasm, char *str)
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0600)) == -1)
 		exit(EXIT_FAILURE);
 	get_header(vasm);
-	put_header(vasm, 0);
-	put_asm(vasm);
+	ft_lprintf(1, "Dumping annotated program on standard output\n");
+	ft_lprintf(1, "Program size : %d bytes\n", vasm->cor_size);
+	print_header(vasm, 0);
+	print_asm(vasm);
 	close(vasm->fd);
 	free_all(vasm);
 }
 
-void		parse(t_asm *vasm, char *str)
+void		aff_parse(t_asm *vasm, char *str)
 {
 	char	*tmp;
 
@@ -93,32 +98,7 @@ void		parse(t_asm *vasm, char *str)
 	if (!(tmp = ft_parse(str)))
 		exit(EXIT_FAILURE);
 	init_cmd(vasm);
-	cor_hex(vasm, tmp);
+	print_hex(vasm, tmp);
 	if (tmp)
 		free(tmp);
-}
-
-int			main(int ac, char **av)
-{
-	t_asm	vasm;
-
-	vasm.zero = 0;
-	vasm.ff = 255;
-	if (ac == 2)
-	{
-		if (ft_stristr(av[1], ".s") == -1)
-			return (-1);
-		vasm.file = av[1];
-		parse(&vasm, av[1]);
-	}
-	else if (ac == 3)
-	{
-		if (ft_strcmp(av[1], "-a"))
-			error(&vasm, 0);
-		if (ft_stristr(av[2], ".s") == -1)
-			error(&vasm, 0);
-		vasm.file = av[2];
-		aff_parse(&vasm, av[2]);
-	}
-	return (0);
 }

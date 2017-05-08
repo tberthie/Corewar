@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/04 14:34:49 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/07 15:26:32 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct	s_asm
 	t_inst		*instruct;
 }				t_asm;
 
-void			error(t_asm *v_asm);
+void			error(t_asm *v_asm, int err);
 void			put_asm(t_asm *vasm);
 void			get_labels(t_asm *vasm, int i, int lbl, char *inst);
 int				ft_lstntabstr(t_inst **begin, char *str, int size, int nb);
@@ -75,7 +75,7 @@ void			check_lfork(t_asm *vasm, char *inst);
 void			check_aff(t_asm *vasm, char *inst);
 int				check_reg(char *inst);
 int				check_dir(t_asm *vasm, char *inst);
-int				check_ind(char *inst);
+int				check_ind(t_asm *vasm, char *inst);
 void			check_label(t_asm *vasm, int i);
 void			check_header(t_asm *vasm, int i);
 void			check_asm(t_asm *vasm, int i, char *inst);
@@ -101,5 +101,15 @@ void			put_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			put_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			put_reg(t_asm *vasm, t_inst *node);
 void			put_cmd(t_asm *vasm, t_inst *node);
+void			aff_parse(t_asm *vasm, char *str);
+void			print_header(t_asm *vasm, int i);
+void			print_ind(t_asm *vasm, t_inst *node, int ind);
+void			print_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
+void			print_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
+void			print_reg(t_inst *node);
+void			print_cmd(t_asm *vasm, t_inst *node);
+void			print_offset(t_asm *vasm, t_inst *node);
+void			print_off_pos(t_asm *vasm, t_inst *node, t_inst *off);
+void			print_off_neg(t_asm *vasm, t_inst *node, t_inst *off);
 
 #endif

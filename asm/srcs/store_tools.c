@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 17:56:39 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/07 14:49:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,6 @@ void		get_cor_size(t_asm *vasm)
 		vasm->cor_size += tmp->content_size;
 		tmp = tmp->next;
 	}
+	if (vasm->cor_size > CHAMP_MAX_SIZE)
+		error(vasm, 4);
 }

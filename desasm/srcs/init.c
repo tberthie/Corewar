@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 16:48:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 18:01:19 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/08 16:39:48 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,9 @@
 void		init_asm(t_asm *vasm)
 {
 	vasm->cmd = NULL;
-	vasm->s = NULL;
 	vasm->name = NULL;
 	vasm->comment = NULL;
 	vasm->file_name = NULL;
-	vasm->file = NULL;
-	vasm->labreg = NULL;
-	vasm->instruct = NULL;
-	if (!(vasm->labreg = (t_inst *)malloc(sizeof(t_inst))))
-		exit(EXIT_FAILURE);
-	vasm->labreg->content = NULL;
-}
-
-void		init_checktab(t_asm *vasm)
-{
-	vasm->checktab[0] = &check_none;
-	vasm->checktab[1] = &check_live;
-	vasm->checktab[2] = &check_ld;
-	vasm->checktab[3] = &check_st;
-	vasm->checktab[4] = &check_add;
-	vasm->checktab[5] = &check_sub;
-	vasm->checktab[6] = &check_and;
-	vasm->checktab[7] = &check_or;
-	vasm->checktab[8] = &check_xor;
-	vasm->checktab[9] = &check_zjmp;
-	vasm->checktab[10] = &check_ldi;
-	vasm->checktab[11] = &check_sti;
-	vasm->checktab[12] = &check_fork;
-	vasm->checktab[13] = &check_lld;
-	vasm->checktab[14] = &check_lldi;
-	vasm->checktab[15] = &check_lfork;
-	vasm->checktab[16] = &check_aff;
 }
 
 static void	alloc_cmd(t_asm *vasm)

@@ -1,5 +1,4 @@
-SRC=$(addsuffix .c, main error init check_inst check_inst_1 check_inst_2 \
-	check_inst_3 check_inst_4 store_asm copy_hex check header offset store_tools)
+SRC=$(addsuffix .c, main error init print print_1 get_header)
 OBJ=$(addprefix obj/,$(SRC:.c=.o))
 NAME=desasm
 LIBFT=libft/libft.a
