@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/08 16:43:59 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 03:48:44 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ t_champ			*get_player(t_corewar *corewar, t_proc *proc)
 	nb = *proc->reg;
 	i = ft_parrlen((void**)corewar->champs);
 	while (i--)
-	{
 		if (corewar->champs[i]->number == nb)
 			return (corewar->champs[i]);
-	}
 	return (0);
 }
 
