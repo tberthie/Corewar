@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 03:43:24 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:42:00 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	live(t_proc *processus, t_corewar *corewar)
 			ft_print(1, "A process says player %d(%s) is alive\n",
 			champ->number, champ->name);
 	}
-	processus->pc += 5;
+	processus->pc = (processus->pc + 5) % MEM_SIZE;
 }
 
 void	*get_pc(t_proc *processus, t_corewar *corewar)
@@ -53,7 +53,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, corewar, tab[1], op);
 		// ft_printf(1, "2 = %d\n", p2);
 		index = *(char*)(corewar->memory + processus->pc);
-		if (index < 2 || 15 < index)
+		if (index < 1 || 16 < index)
 			return ;
 		// ft_printf(1, "index = %d\n", (int)index);
 		processus->reg[(int)index - 1] = p1 & p2;

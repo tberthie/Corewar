@@ -1,3 +1,3 @@
 Live pc overflow (check?)
-Reg alloc Reg on fork
+alloc Reg on fork
 PC overflow in run (check live -> color -> proc->pc)

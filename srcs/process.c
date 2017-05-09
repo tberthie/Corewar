@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 03:50:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:45:08 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void		execute(t_corewar *corewar, t_proc *proc)
 
 	tmp = proc->pc;
 	exec_op(proc, corewar, op);
-	trail(corewar, proc, champ, ++tmp);
+	if (corewar->visual)
+		trail(corewar, proc, champ, ++tmp);
 }
 
 void			cycles(t_corewar *corewar, t_proc *proc)

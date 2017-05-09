@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 17:39:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:39:46 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar)
 	}
 	value = (int)tmp;
 	processus->pc = (processus->pc + 2) % MEM_SIZE;
-	// ft_printf(1, "VALUE INDIR : %d\n", (int)value);
+	// ft_print(1, "VALUE INDIR : %d\n", (int)value);
 	return (value);
 }
 
@@ -90,7 +90,7 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar)
 	tmp += (0xffff << 16);
 	value = (short)tmp;
 	processus->pc = (processus->pc + 2) % MEM_SIZE;
-	// ft_printf(1, "VALUE INDIR : %d\n", (int)value);
+	// ft_print(1, "VALUE INDIR : %d\n", (int)value);
 	return ((int)value);
 }
 

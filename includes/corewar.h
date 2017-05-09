@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/08 16:40:39 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:37:35 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,6 @@ void			lfork(t_proc *processus, t_corewar *corewar);
 void			aff(t_proc *processus, t_corewar *corewar);
 int				get_int_indirect_value(void *adr);
 void 			print_bit(void *adr, int p1);
-int				set_pc(int tmp);
+unsigned int	set_pc(int tmp);
 
 #endif

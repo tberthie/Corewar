@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/08 22:23:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:39:28 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-int		set_pc(int tmp)
+unsigned int	set_pc(int tmp)
 {
 	if (tmp > MEM_SIZE)
 		tmp = tmp % MEM_SIZE;
 	if (tmp < 0)
 		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
-	// ft_printf(1, "JUMP = %d\n", tmp);
+	// ft_print(1, "JUMP = %d\n", tmp);
 	return(tmp);
 }
 
@@ -74,10 +74,12 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	}
 	offset += (0xffff << 16);
 	value = (short)offset;
-	processus2->pc = (processus->pc + (value % IDX_MOD)) % MEM_SIZE;
+	// ft_print(1, "NEW PC FORK1 = %d\n", value);
+	processus2->pc = (processus->pc + value);
+	// ft_print(1, "NEW PC FORK2 = %d\n", processus2->pc);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
-	// ft_printf(1, "PC2 = %d\n", processus2->pc);
+	// ft_print(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc += 3;
 }

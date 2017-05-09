@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/08 16:51:06 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:39:16 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
-		// ft_printf(1, "STI VALUE= %d\n", p1);
 		// printf("STI VALUE HEXA = %.4x\n", (int)p1);
 		p2 = get_value(processus, corewar, tab[1], op);
+		// p2 = get_value(processus, corewar, 2, op);
+
 		p3 = get_value(processus, corewar, tab[2], op);
+		// p3 = get_value(processus, corewar, 2, op);
 		tmp = set_pc(p2 + p3 + pc);
-		// ft_printf(1, "STIII OFFSET = %d\n", tmp);
 		print_bit(corewar->memory + tmp, p1);
 	}
-	processus->pc++;
+	else
+		processus->pc++;
 }
 
 int		set_index(t_proc *processus, t_corewar *corewar)

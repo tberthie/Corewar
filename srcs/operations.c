@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/07 17:38:56 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:39:37 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,22 @@ int		get_direct_value(t_proc *proc, t_corewar *corewar, unsigned char op)
 		value = get_int_direct_value(adr);
 	}
 	proc->pc = (proc->pc + (mv + 1)) % MEM_SIZE;
-	// ft_printf(1, "VALUE DIR : %d\n", (int)value);
+	// ft_print(1, "VALUE DIR : %d\n", (int)value);
 	return (value);
 }
 
 int		get_reg_value(t_proc *processus, t_corewar *corewar)
 {
 	char	index;
-	int		value;
+	unsigned int		value;
 	int		index2;
 
 	index = *(char*)(corewar->memory + processus->pc);
 	index2 = (int)index - 1;
-	// ft_printf(1, "index :%d\n", index2);
+	// ft_print(1, "index :%d\n", index2);
 	if (index2 < 0 || 15 < index2)
 		return (0);
 	value = processus->reg[index2];
-	// ft_printf(1, "REG VALUE :%d\n", value);
 	processus->pc++;
 	return (value);
 }
@@ -102,9 +101,9 @@ int		get_value(t_proc *proc, t_corewar *corewar, int nbr, unsigned char op)
 {
 	int		p1;
 
-	if (nbr == DIR_CODE)
+	if (nbr == 2)
 		p1 = get_direct_value(proc, corewar, op);
-	else if (nbr == IND_CODE)
+	else if (nbr == 3)
 		p1 = get_indirect_value(proc, corewar);
 	else
 		p1 = get_reg_value(proc, corewar);
