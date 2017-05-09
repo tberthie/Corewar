@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 12:44:27 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:24:01 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, corewar, tab[1], op);
 		// ft_printf(1, "2 = %d\n", p2);
 		index = *(char*)(corewar->memory + processus->pc);
-		if (index < 2 || 15 < index)
+		if (index < 1 || 16 < index)
 			return ;
 		// ft_printf(1, "index = %d\n", (int)index);
-		*(unsigned int*)processus->reg[(int)index - 1] = p1 & p2;
+		processus->reg[(int)index - 1] = p1 & p2;
 		processus->carry = 1;
 	}
 	else
@@ -76,10 +76,11 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
 		p2 = get_value(processus, corewar, tab[1], op);
+		ft_printf(1, "VALUE OR : %d %d\n", p1, p2);
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 15 < index)
 			return ;
-		*(unsigned int*)processus->reg[(int)index - 1] = p1 | p2;
+		processus->reg[(int)index - 1] = p1 | p2;
 		processus->carry = 1;
 	}
 	else
@@ -102,7 +103,7 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 15 < index)
 			return ;
-		*(unsigned int*)processus->reg[(int)index - 1] = p1 ^ p2;
+		processus->reg[(int)index - 1] = p1 ^ p2;
 		processus->carry = 1;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 12:56:24 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 15:29:07 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		*byte_analysis(t_proc *processus, t_corewar *corewar)
 	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
 	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
 	processus->pc = (processus->pc + 1) % MEM_SIZE;
+	ft_printf(1, "tab1=%d tab2=%d tab3=%d\n", nbr[0], nbr[1], nbr[2]);
 	if ((1 <= nbr[0] && nbr[0] <= 3) && (1 <= nbr[1] && nbr[1] <= 3))
 		return (nbr);
 	return (NULL);
