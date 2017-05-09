@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:36:40 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:47:51 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	live(t_proc *processus, t_corewar *corewar)
 	{
 		corewar->last_alive = champ->number;
 		if (!corewar->visual)
-			ft_printf(1, "A process says player %d(%s) is alive\n",
+			ft_print(1, "A process says player %d(%s) is alive\n",
 			champ->number, champ->name);
 	}
-	processus->pc = (processus->pc + 5) % MEM_SIZE;
+	processus->pc = set_pc(processus->pc + 5);
 }
 
 void	*get_pc(t_proc *processus, t_corewar *corewar)
@@ -61,7 +61,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -76,7 +76,6 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
 		p2 = get_value(processus, corewar, tab[1], op);
-		ft_printf(1, "VALUE OR : %d %d\n", p1, p2);
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 15 < index)
 			return ;
@@ -85,7 +84,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -108,5 +107,5 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }

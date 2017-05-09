@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:10:13 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 19:52:29 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ unsigned int	set_pc(int tmp)
 		tmp = tmp % MEM_SIZE;
 	if (tmp < 0)
 		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
-	// ft_printf(1, "JUMP = %d\n", tmp);
+	// ft_print(1, "JUMP = %d\n", tmp);
 	return(tmp);
 }
 
@@ -42,18 +42,15 @@ void	zjmp(t_proc *processus, t_corewar *corewar)
 		adr++;
 	}
 	offset += (0xffff << 16);
-	ft_printf(1, "OFFSET %d\n", offset);
 	value = (short)offset;
-	ft_printf(1, "Value : %d\n", value);
 	if (processus->carry == 1)
 	{
 		tmp = tmp + (value % IDX_MOD);
-		ft_printf(1, "TMP : %d\n", tmp);
 		processus->pc = set_pc(tmp);
-		ft_printf(1, "JUMP = %d\n", processus->pc);
+		ft_print(1, "JUMP = %d\n", processus->pc);
 	}
 	else
-		processus->pc += 2;
+		processus->pc = set_pc(processus->pc + 2);
 }
 
 void	c_fork(t_proc *processus, t_corewar *corewar)
@@ -78,14 +75,14 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	}
 	offset += (0xffff << 16);
 	value = (short)offset;
-	// ft_printf(1, "NEW PC FORK1 = %d\n", value);
+	// ft_print(1, "NEW PC FORK1 = %d\n", value);
 	processus2->pc = (processus->pc + value);
-	// ft_printf(1, "NEW PC FORK2 = %d\n", processus2->pc);
+	// ft_print(1, "NEW PC FORK2 = %d\n", processus2->pc);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
-	// ft_printf(1, "PC2 = %d\n", processus2->pc);
+	// ft_print(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc += 3;
+	processus->pc = set_pc(processus->pc + 3);
 }
 
 void	lfork(t_proc *processus, t_corewar *corewar)
@@ -110,11 +107,11 @@ void	lfork(t_proc *processus, t_corewar *corewar)
 	}
 	offset += (0xffff << 16);
 	value = (short)offset;
-	processus2->pc = processus->pc + value % MEM_SIZE;
+	processus2->pc = set_pc(processus->pc + value);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc += 3;
+	processus->pc = set_pc(processus->pc + 3);
 }
 
 void	aff(t_proc *processus, t_corewar *corewar)
@@ -131,5 +128,5 @@ void	aff(t_proc *processus, t_corewar *corewar)
 		aff = value % 256;
 		ft_putchar(aff);
 	}
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }
