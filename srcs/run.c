@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/07 16:39:11 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 02:52:51 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static void				result(t_corewar *corewar)
 	{
 		if (corewar->champs[i]->number == corewar->last_alive)
 		{
-			ft_printf(1, GREEN"Player %d(%s) won\n"EOC, corewar->last_alive,
+			ft_print(1, GREEN"Player %d(%s) won\n"EOC, corewar->last_alive,
 			corewar->champs[i]->name);
-			ft_printf(1, "Duration: %d cycles\n", corewar->cycle);
+			ft_print(1, "Duration: %d cycles\n", corewar->cycle);
 			return ;
 		}
 		i++;
@@ -77,14 +77,14 @@ static void				dump(t_corewar *corewar)
 		hex_dump(*(unsigned char*)corewar->memory++);
 		if (!--pad)
 		{
-			ft_printf(1, "\n");
+			ft_print(1, "\n");
 			pad = 32;
 		}
 		else
-			ft_printf(1, " ");
+			ft_print(1, " ");
 	}
 	if (pad)
-		ft_printf(1, "\n");
+		ft_print(1, "\n");
 	exit(0);
 }
 

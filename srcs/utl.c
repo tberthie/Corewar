@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/08 16:40:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 02:53:03 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void			error(char *file, char *msg)
 {
 	if (file)
 	{
-		ft_printf(2, "corewar: %s\n", file);
-		ft_printf(2, RED"%s\n"EOC, msg);
+		ft_print(2, "corewar: %s\n", file);
+		ft_print(2, RED"%s\n"EOC, msg);
 	}
 	else
 	{
-		ft_printf(2, "corewar: execution error\n", file);
-		ft_printf(2, RED"%s\n"EOC, msg);
+		ft_print(2, "corewar: execution error\n", file);
+		ft_print(2, RED"%s\n"EOC, msg);
 	}
 	exit(1);
 }
