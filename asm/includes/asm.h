@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 15:26:32 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/09 11:51:10 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct	s_asm
 	char		*name;
 	char		*comment;
 	char		cor[4];
+	unsigned char acor;
+	short int	sicor;
+	int			icor;
 	int			label;
 	int			zero;
 	int			ff;
@@ -104,11 +107,14 @@ void			put_cmd(t_asm *vasm, t_inst *node);
 void			aff_parse(t_asm *vasm, char *str);
 void			print_header(t_asm *vasm, int i);
 void			print_ind(t_asm *vasm, t_inst *node, int ind);
+void			print_ind_int(t_asm *vasm, t_inst *node, int ind);
 void			print_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			print_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
+void			print_dir_int(t_asm *vasm, t_inst *node, int dir);
 void			print_reg(t_inst *node);
 void			print_cmd(t_asm *vasm, t_inst *node);
 void			print_offset(t_asm *vasm, t_inst *node);
+void			print_offset_int(t_asm *vasm, t_inst *node);
 void			print_off_pos(t_asm *vasm, t_inst *node, t_inst *off);
 void			print_off_neg(t_asm *vasm, t_inst *node, t_inst *off);
 
