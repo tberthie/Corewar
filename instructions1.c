@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:24:01 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:36:40 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	live(t_proc *processus, t_corewar *corewar)
 			ft_printf(1, "A process says player %d(%s) is alive\n",
 			champ->number, champ->name);
 	}
-	processus->pc += 5;
+	processus->pc = (processus->pc + 5) % MEM_SIZE;
 }
 
 void	*get_pc(t_proc *processus, t_corewar *corewar)
