@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 14:22:40 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 12:44:27 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	live(t_proc *processus, t_corewar *corewar)
 	if ((champ = get_player(corewar, processus)))
 	{
 		corewar->last_alive = champ->number;
-		ft_printf(1, "A process says player %d(%s) is alive\n", champ->number,
-		champ->name);
+		if (!corewar->visual)
+			ft_printf(1, "A process says player %d(%s) is alive\n",
+			champ->number, champ->name);
 	}
 	processus->pc += 5;
 }
@@ -55,7 +56,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 		if (index < 2 || 15 < index)
 			return ;
 		// ft_printf(1, "index = %d\n", (int)index);
-		*(int*)processus->reg[(int)index - 1] = p1 & p2;
+		*(unsigned int*)processus->reg[(int)index - 1] = p1 & p2;
 		processus->carry = 1;
 	}
 	else
@@ -78,7 +79,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 15 < index)
 			return ;
-		*(int*)processus->reg[(int)index - 1] = p1 | p2;
+		*(unsigned int*)processus->reg[(int)index - 1] = p1 | p2;
 		processus->carry = 1;
 	}
 	else
@@ -101,7 +102,7 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 		index = *(char*)(corewar->memory + processus->pc);
 		if (index < 2 || 15 < index)
 			return ;
-		*(int*)processus->reg[(int)index - 1] = p1 ^ p2;
+		*(unsigned int*)processus->reg[(int)index - 1] = p1 ^ p2;
 		processus->carry = 1;
 	}
 	else

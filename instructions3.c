@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 14:58:53 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 14:31:58 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,20 @@
 
 void 	print_bit(void *adr, int p1)
 {
-	char	tab[4];
-	int		i;
-
-	i = 3;
-	ft_memcpy(tab, &p1, sizeof(int));
-	while (0 <= i)
-	{
-		*(char*)adr = tab[i];
-		adr++;
-		i--;
-	}
-	// ft_strdel(&tab);
+	*(unsigned int*)adr = rev_int(p1);
 }
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	int		*tab;
 	int		tmp;
-	int		p1;
+	unsigned int		p1;
 	int		p2;
 	int		p3;
 	int		pc;
 
 	pc = processus->pc;
+	ft_printf(1, "PROC PC = %d\n", pc);
 	processus->pc++;
 	if ((tab = byte_analysis(processus, corewar)))
 	{
@@ -49,10 +39,11 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, corewar, tab[1], op);
 		p3 = get_value(processus, corewar, tab[2], op);
 		tmp = set_pc(p2 + p3 + pc);
-		// ft_printf(1, "STIII OFFSET = %d\n", tmp);
+		ft_printf(1, "STIII OFFSET = %d\n", tmp);
 		print_bit(corewar->memory + tmp, p1);
 	}
-	processus->pc++;
+	else
+		processus->pc++;
 }
 
 int		set_index(t_proc *processus, t_corewar *corewar)
@@ -60,7 +51,7 @@ int		set_index(t_proc *processus, t_corewar *corewar)
 	int		index;
 
 	index = *(char*)(corewar->memory + processus->pc);
-	if (index < 2 || 15 < index)
+	if (index < 1 || 16 < index)
 	{
 		processus->carry = 0;
 		processus->pc++;
@@ -85,13 +76,13 @@ void	add(t_proc *processus, t_corewar *corewar)
 	{
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p1 = *(int*)processus->reg[index];
+		p1 = *(unsigned int*)processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p2 = *(int*)processus->reg[index];
+		p2 = *(unsigned int*)processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1 + p2;
+		*(unsigned int*)processus->reg[index] = p1 + p2;
 		processus->carry = 1;
 	}
 	else
@@ -111,13 +102,13 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	{
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p1 = *(int*)processus->reg[index];
+		p1 = *(unsigned int*)processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		p2 = *(int*)processus->reg[index];
+		p2 = *(unsigned int*)processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
-		*(int*)processus->reg[index] = p1 - p2;
+		*(unsigned int*)processus->reg[index] = p1 - p2;
 		processus->carry = 1;
 	}
 	else

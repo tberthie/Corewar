@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 14:29:43 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 14:52:35 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 unsigned int	set_pc(int tmp)
 {
 	if (tmp > MEM_SIZE)
-		tmp = tmp % MEM_SIZE - MEM_SIZE;
+		tmp = tmp % MEM_SIZE;
 	if (tmp < 0)
 		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
 	// ft_printf(1, "JUMP = %d\n", tmp);
@@ -74,7 +74,11 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	}
 	offset += (0xffff << 16);
 	value = (short)offset;
-	processus2->pc = (processus->pc + (value % IDX_MOD)) % MEM_SIZE;
+	// ft_printf(1, "NEW PC FORK1 = %d\n", value);
+	processus2->pc = (processus->pc + value);
+	// ft_printf(1, "NEW PC FORK2 = %d\n", processus2->pc);
+	// processus2->reg = ft_memalloc(4 * REG_NUMBER);
+	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	// ft_printf(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc += 3;
@@ -103,6 +107,8 @@ void	lfork(t_proc *processus, t_corewar *corewar)
 	offset += (0xffff << 16);
 	value = (short)offset;
 	processus2->pc = processus->pc + value % MEM_SIZE;
+	// processus2->reg = ft_memalloc(4 * REG_NUMBER);
+	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc += 3;
 }

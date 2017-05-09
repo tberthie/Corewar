@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/05 14:53:51 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/09 12:42:47 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		get_direct_value(t_proc *proc, t_corewar *corewar, unsigned char op)
 int		get_reg_value(t_proc *processus, t_corewar *corewar)
 {
 	char	index;
-	int		value;
+	unsigned int		value;
 	int		index2;
 
 	index = *(char*)(corewar->memory + processus->pc);
@@ -92,7 +92,7 @@ int		get_reg_value(t_proc *processus, t_corewar *corewar)
 	// ft_printf(1, "index :%d\n", index2);
 	if (index2 < 0 || 15 < index2)
 		return (0);
-	value = *(int*)processus->reg[index2];
+	value = *(unsigned int*)processus->reg[index2];
 	// ft_printf(1, "REG VALUE :%d\n", value);
 	processus->pc++;
 	return (value);
