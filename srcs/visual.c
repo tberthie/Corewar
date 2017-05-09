@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 03:51:41 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 00:19:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			visual_run(t_corewar *corewar)
 
 	cycle = 0;
 	corewar->step = 0;
-	while (alive_proc(corewar->proc))
+	while (ft_parrlen((void**)corewar->proc))
 	{
 		set_visual(corewar);
 		if (corewar->play)

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 18:44:01 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 00:21:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		is_alive(t_corewar *corewar, t_champ *champ)
 
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
-		if (*corewar->proc[i]->reg == champ->number && corewar->proc[i]->alive)
+		if (*corewar->proc[i]->reg == champ->number)
 			return (1);
 	return (0);
 }
@@ -52,11 +52,8 @@ static void		player_stats(t_corewar *corewar, int i)
 	text(corewar, "Live", 0xffffff, rec(1200, 200 * (i + 1) + 75, 0, 0));
 	j = ft_parrlen((void**)corewar->proc);
 	while (j--)
-	{
-		if (corewar->proc[j]->alive && *corewar->proc[j]->reg ==
-		champ->number && (proc += 1))
+		if (*corewar->proc[j]->reg == champ->number && (proc += 1))
 			lives += corewar->proc[j]->live;
-	}
 	text(corewar, (tmp = ft_itoabase(proc, 10)), 0xa0a0a0,
 	rec(1350, 200 * (i + 1) + 50, 0, 0));
 	free(tmp);
@@ -102,8 +99,7 @@ void			render_stats(t_corewar *corewar)
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
 	{
-		if (corewar->proc[i]->alive &&
-		(player = get_player(corewar, corewar->proc[i])))
+		if ((player = get_player(corewar, corewar->proc[i])))
 			corewar->color[corewar->proc[i]->pc] = player->color;
 	}
 	render_players(corewar);

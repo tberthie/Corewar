@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 18:45:08 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 00:27:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ static void		execute(t_corewar *corewar, t_proc *proc)
 		corewar->color[proc->pc] = multi_color(champ->color, op ? 0.8 : 0.5);
 	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
 		proc->pc = 0;
-
-//	printf("@ %u\tlive %d\trun #%d\n", proc->pc, proc->live, op);
-
 	tmp = proc->pc;
 	exec_op(proc, corewar, op);
 	if (corewar->visual)
@@ -85,15 +82,12 @@ void			process(t_corewar *corewar)
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
 	{
-		if (corewar->proc[i]->alive)
+		if (corewar->proc[i]->wait)
+			corewar->proc[i]->wait--;
+		if (!corewar->proc[i]->wait)
 		{
-			if (corewar->proc[i]->wait)
-				corewar->proc[i]->wait--;
-			if (!corewar->proc[i]->wait)
-			{
-				execute(corewar, corewar->proc[i]);
-				cycles(corewar, corewar->proc[i]);
-			}
+			execute(corewar, corewar->proc[i]);
+			cycles(corewar, corewar->proc[i]);
 		}
 	}
 }
