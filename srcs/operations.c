@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:39:37 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 13:06:26 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		get_direct_value(t_proc *proc, t_corewar *corewar, unsigned char op)
 		mv = 3;
 		value = get_int_direct_value(adr);
 	}
-	proc->pc = (proc->pc + (mv + 1)) % MEM_SIZE;
+	proc->pc = set_pc(proc->pc + mv + 1);
 	// ft_print(1, "VALUE DIR : %d\n", (int)value);
 	return (value);
 }
@@ -89,11 +89,13 @@ int		get_reg_value(t_proc *processus, t_corewar *corewar)
 
 	index = *(char*)(corewar->memory + processus->pc);
 	index2 = (int)index - 1;
-	// ft_print(1, "index :%d\n", index2);
+	ft_print(1, "index :%d\n", index2);
 	if (index2 < 0 || 15 < index2)
 		return (0);
+	// if (index2 == 0)
+	// 	return(-1);
 	value = processus->reg[index2];
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	return (value);
 }
 

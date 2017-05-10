@@ -6,12 +6,10 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:39:05 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:22:35 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// proteger tous les index
-// mettre a la norme
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
@@ -22,18 +20,27 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		index;
 	int		*tab;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
+	// ft_print(1, "PC = %d\n", processus->pc);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
+		// ft_print(1, "PC2 = %d\n", processus->pc);
 		p1 = get_value(processus, corewar, tab[0], op);
+		ft_print(1, "LD VALUE = %d\n", p1);
 		if ((index = set_index(processus, corewar)) < 0)
+		{
+			processus->carry = 0;
 			return ;
+		}
+
+		// ft_print(1, "PC4 = %d\n", processus->pc);
+		ft_print(1, "INDEX = %d\n", index);
 		processus->reg[index] = p1;
 		processus->carry = 1;
 	}
 	else
 	{
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
 	}
 
@@ -46,7 +53,7 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		index;
 	int		*tab;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value_nm(processus, corewar, tab[0], op);
@@ -57,7 +64,7 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 	{
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
 	}
 }
@@ -71,7 +78,7 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	unsigned	int tmp;
 
 	tmp = processus->pc;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		nbr = get_value(processus, corewar, tab[0], op);
@@ -86,7 +93,7 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 	{
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
 	}
 }
@@ -100,7 +107,7 @@ void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	unsigned	int tmp;
 
 	tmp = processus->pc;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		nbr = get_value_nm(processus, corewar, tab[0], op);
@@ -116,7 +123,7 @@ void	lldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 	{
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
 	}
 	//processus->pc++;
@@ -143,10 +150,11 @@ void	st(t_proc *processus, t_corewar *corewar)
 	int				S;
 
 	tmp = processus->pc;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
+		ft_print(1, "P1 ST = %d\n", p1);
 		if (tab[1] == 1)
 			st1(corewar, processus, p1);
 		else if (tab[1] == 3)
@@ -154,12 +162,12 @@ void	st(t_proc *processus, t_corewar *corewar)
 			offset = get_int_indirect_value(corewar->memory + processus->pc);
 			// ft_print(1, "VALUE OFFSET PREMS ST: %d\n", offset);
 			S = set_pc(tmp + (offset % IDX_MOD));
-			// ft_print(1, "PC before Offset = %d\n", tmp);
+			ft_print(1, "Offset ST = %d\n", S);
 			print_bit(corewar->memory + S, p1);
 			// ft_print(1, "FINAL VALUE ST %d\n", *(int*)(corewar->memory + S));
-			processus->pc += 2;
+			processus->pc = set_pc(processus->pc + 2);
 		}
 	}
 	else
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 }

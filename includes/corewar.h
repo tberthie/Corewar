@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 00:27:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 15:00:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct		s_champ {
 
 	char			*name;
 	char			*comment;
-	unsigned int	number;
+	int				number;
 
 	unsigned int	size;
 	void			*content;
@@ -73,7 +73,7 @@ typedef struct		s_corewar {
 	unsigned int	cycle;
 	unsigned int	ctd;
 	int				check;
-	unsigned int	last_alive;
+	int				last_alive;
 
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
@@ -107,7 +107,7 @@ void				render_stats(t_corewar *corewar);
 t_champ				*get_player(t_corewar *corewar, t_proc *proc);
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
-char				find_champion(t_champ **champs, unsigned int n);
+char				find_champion(t_champ **champs, int n);
 void				cycles(t_corewar *corewar, t_proc *proc);
 char				alive_proc(t_proc **proc);
 unsigned int		check_live(t_corewar *corewar, t_proc **proc);

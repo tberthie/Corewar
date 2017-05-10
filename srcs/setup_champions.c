@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 03:47:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 15:00:39 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		init_champion(t_corewar *corewar, t_champ *champ,
 	color == 2 || color == 3) + (0xff << 16) * (color == 0 || color == 2);
 }
 
-char			find_champion(t_champ **champs, unsigned int n)
+char			find_champion(t_champ **champs, int n)
 {
 	t_champ **tmp;
 
@@ -66,15 +66,15 @@ char			find_champion(t_champ **champs, unsigned int n)
 
 static void		set_number(t_corewar *corewar, t_champ *champ)
 {
-	unsigned int	i;
+	int		i;
 
-	i = 1;
+	i = -1;
 	if (corewar->next > 0 && !find_champion(corewar->champs, corewar->next))
 		champ->number = corewar->next;
 	else
 	{
 		while (find_champion(corewar->champs, i))
-			i++;
+			i--;
 		champ->number = i;
 	}
 	corewar->next = 0;

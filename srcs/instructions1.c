@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:42:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:15:36 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	live(t_proc *processus, t_corewar *corewar)
 			ft_print(1, "A process says player %d(%s) is alive\n",
 			champ->number, champ->name);
 	}
-	processus->pc = (processus->pc + 5) % MEM_SIZE;
+	processus->pc = set_pc(processus->pc + 5);
 }
 
 void	*get_pc(t_proc *processus, t_corewar *corewar)
@@ -45,7 +45,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	char	index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
@@ -61,7 +61,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -71,7 +71,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	int		index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
@@ -84,7 +84,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -94,7 +94,7 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	char	index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
@@ -107,5 +107,5 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->carry = 0;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }

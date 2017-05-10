@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:39:28 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:16:40 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	zjmp(t_proc *processus, t_corewar *corewar)
 	{
 		tmp = tmp + (value % IDX_MOD);
 		processus->pc = set_pc(tmp);
+		ft_print(1, "JUMP = %d\n", processus->pc);
 	}
 	else
-		processus->pc += 2;
+		processus->pc = set_pc(processus->pc + 2);
 }
 
 void	c_fork(t_proc *processus, t_corewar *corewar)
@@ -75,13 +76,13 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	offset += (0xffff << 16);
 	value = (short)offset;
 	// ft_print(1, "NEW PC FORK1 = %d\n", value);
-	processus2->pc = (processus->pc + value);
+	processus2->pc = set_pc(processus->pc + value);
 	// ft_print(1, "NEW PC FORK2 = %d\n", processus2->pc);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	// ft_print(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc += 3;
+	processus->pc = set_pc(processus->pc + 3);
 }
 
 void	lfork(t_proc *processus, t_corewar *corewar)
@@ -106,11 +107,11 @@ void	lfork(t_proc *processus, t_corewar *corewar)
 	}
 	offset += (0xffff << 16);
 	value = (short)offset;
-	processus2->pc = processus->pc + value % MEM_SIZE;
+	processus2->pc = set_pc(processus->pc + value);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	ft_parrpush((void***)&corewar->proc, processus2);
-	processus->pc += 3;
+	processus->pc = set_pc(processus->pc + 3);
 }
 
 void	aff(t_proc *processus, t_corewar *corewar)
@@ -127,5 +128,5 @@ void	aff(t_proc *processus, t_corewar *corewar)
 		aff = value % 256;
 		ft_putchar(aff);
 	}
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 }

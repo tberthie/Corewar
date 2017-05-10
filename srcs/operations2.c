@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:39:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:17:27 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		*byte_analysis(t_proc *processus, t_corewar *corewar)
 	nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
 	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
 	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
-	processus->pc = (processus->pc + 1) % MEM_SIZE;
+	processus->pc = set_pc(processus->pc + 1);
+	ft_print(1, "tab0=%d tab1=%d\n", nbr[0], nbr[1]);
 	if ((1 <= nbr[0] && nbr[0] <= 3) && (1 <= nbr[1] && nbr[1] <= 3))
 		return (nbr);
 	return (NULL);
@@ -56,7 +57,7 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar)
 		adr++;
 	}
 	value = (int)tmp;
-	processus->pc = (processus->pc + 2) % MEM_SIZE;
+	processus->pc = set_pc(processus->pc + 2);
 	// ft_print(1, "VALUE INDIR : %d\n", (int)value);
 	return (value);
 }
@@ -89,7 +90,7 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar)
 	}
 	tmp += (0xffff << 16);
 	value = (short)tmp;
-	processus->pc = (processus->pc + 2) % MEM_SIZE;
+	processus->pc = set_pc(processus->pc + 2);
 	// ft_print(1, "VALUE INDIR : %d\n", (int)value);
 	return ((int)value);
 }

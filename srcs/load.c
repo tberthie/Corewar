@@ -6,14 +6,14 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 00:16:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 15:00:08 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		init_proc(t_proc *proc, unsigned int n, unsigned int offset)
+static void		init_proc(t_proc *proc, int n, unsigned int offset)
 {
 	proc->reg = ft_memalloc(4 * REG_NUMBER);
 	proc->reg[0] = n;
@@ -41,10 +41,10 @@ void			load(t_corewar *corewar)
 	t_champ			**champs;
 	unsigned int	count;
 	unsigned int	i;
-	unsigned int	n;
+	int				n;
 
 	count = 0;
-	n = 1;
+	n = -1;
 	champs = corewar->champs;
 	while (ft_parrlen((void**)corewar->proc) !=
 	ft_parrlen((void**)corewar->champs))
@@ -56,6 +56,6 @@ void			load(t_corewar *corewar)
 				load_champion(corewar, i, count++);
 			i++;
 		}
-		n++;
+		n--;
 	}
 }

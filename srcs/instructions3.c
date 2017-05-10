@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 18:39:16 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:21:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		pc;
 
 	pc = processus->pc;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
@@ -43,7 +43,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		print_bit(corewar->memory + tmp, p1);
 	}
 	else
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 }
 
 int		set_index(t_proc *processus, t_corewar *corewar)
@@ -54,12 +54,12 @@ int		set_index(t_proc *processus, t_corewar *corewar)
 	if (index < 1 || 16 < index)
 	{
 		processus->carry = 0;
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		return (-1);
 	}
 	else
 	{
-		processus->pc++;
+		processus->pc = set_pc(processus->pc + 1);
 		return (index - 1);
 	}
 }
@@ -86,8 +86,11 @@ void	add(t_proc *processus, t_corewar *corewar)
 		processus->carry = 1;
 	}
 	else
+	{
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
-	processus->pc++;
+	}
+	// processus->pc++;
 }
 
 void	sub(t_proc *processus, t_corewar *corewar)
@@ -97,7 +100,7 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	int		p2;
 	int		*tab;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		if ((index = set_index(processus, corewar)) < 0)
@@ -112,6 +115,9 @@ void	sub(t_proc *processus, t_corewar *corewar)
 		processus->carry = 1;
 	}
 	else
+	{
+		processus->pc = set_pc(processus->pc + 1);
 		processus->carry = 0;
-	processus->pc++;
+	}
+	// processus->pc++;
 }
