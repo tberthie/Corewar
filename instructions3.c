@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 19:11:36 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:15:14 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void 	print_bit(void *adr, int p1)
 {
+	if (p1 == 1)
+		p1 = -1;
 	*(unsigned int*)adr = rev_int(p1);
 }
 
@@ -29,7 +31,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		pc;
 
 	pc = processus->pc;
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_reg_value(processus, corewar);
@@ -100,7 +102,7 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	int		p2;
 	int		*tab;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		if ((index = set_index(processus, corewar)) < 0)

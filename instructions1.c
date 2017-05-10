@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 20:47:51 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:15:36 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	char	index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
@@ -71,7 +71,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	int		index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
@@ -94,7 +94,7 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int		*tab;
 	char	index;
 
-	processus->pc++;
+	processus->pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);

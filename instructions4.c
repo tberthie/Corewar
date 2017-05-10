@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/09 19:52:29 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/10 14:16:40 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	offset += (0xffff << 16);
 	value = (short)offset;
 	// ft_print(1, "NEW PC FORK1 = %d\n", value);
-	processus2->pc = (processus->pc + value);
+	processus2->pc = set_pc(processus->pc + value);
 	// ft_print(1, "NEW PC FORK2 = %d\n", processus2->pc);
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
