@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:58:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 13:44:28 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/10 15:03:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		keyboard(t_corewar *corewar)
 	status = SDL_GetKeyboardState(0);
 	status[SDL_SCANCODE_ESCAPE] ? quit() : 0;
 	status[SDL_SCANCODE_Q] ? corewar->cps -= corewar->cps > 1 : 0;
-	status[SDL_SCANCODE_E] ? corewar->cps += !(corewar->cps >= 1000) :  0;
+	status[SDL_SCANCODE_E] ? corewar->cps += !(corewar->cps >= 1000) : 0;
 	status[SDL_SCANCODE_Q] || status[SDL_SCANCODE_E] ? corewar->play = 0 : 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 15:00:49 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/11 15:43:20 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_champ {
 
 typedef struct		s_proc {
 
+	t_champ			*champ;
 	unsigned int	*reg;
 	int				pc;
 	char			carry;
@@ -104,7 +105,6 @@ void				text(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
 void				event(t_corewar *corewar);
 void				render_stats(t_corewar *corewar);
 
-t_champ				*get_player(t_corewar *corewar, t_proc *proc);
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);
 char				find_champion(t_champ **champs, int n);

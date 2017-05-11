@@ -6,25 +6,12 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 15:03:05 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/11 15:48:15 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
-
-t_champ			*get_player(t_corewar *corewar, t_proc *proc)
-{
-	int				nb;
-	int				i;
-
-	nb = (int)*proc->reg;
-	i = ft_parrlen((void**)corewar->champs);
-	while (i--)
-		if (corewar->champs[i]->number == nb)
-			return (corewar->champs[i]);
-	return (0);
-}
 
 static char		is_alive(t_corewar *corewar, t_champ *champ)
 {
@@ -32,7 +19,7 @@ static char		is_alive(t_corewar *corewar, t_champ *champ)
 
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
-		if (*corewar->proc[i]->reg == (unsigned int)champ->number)
+		if (corewar->proc[i]->champ == champ)
 			return (1);
 	return (0);
 }
@@ -52,8 +39,7 @@ static void		player_stats(t_corewar *corewar, int i)
 	text(corewar, "Live", 0xffffff, rec(1200, 200 * (i + 1) + 75, 0, 0));
 	j = ft_parrlen((void**)corewar->proc);
 	while (j--)
-		if (*corewar->proc[j]->reg == (unsigned int)champ->number
-		&& (proc += 1))
+		if (corewar->proc[j]->champ == champ && (proc += 1))
 			lives += corewar->proc[j]->live;
 	text(corewar, (tmp = ft_itoabase(proc, 10)), 0xa0a0a0,
 	rec(1350, 200 * (i + 1) + 50, 0, 0));
@@ -93,16 +79,12 @@ static void		render_players(t_corewar *corewar)
 
 void			render_stats(t_corewar *corewar)
 {
-	t_champ		*player;
 	char		*tmp;
 	int			i;
 
 	i = ft_parrlen((void**)corewar->proc);
 	while (i--)
-	{
-		if ((player = get_player(corewar, corewar->proc[i])))
-			corewar->color[corewar->proc[i]->pc] = player->color;
-	}
+		corewar->color[corewar->proc[i]->pc] = corewar->proc[i]->champ->color;
 	render_players(corewar);
 	!corewar->play ? text(corewar, "PAUSED", 0xffff00, rec(1395, 20, 0, 0)) : 0;
 	text(corewar, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,

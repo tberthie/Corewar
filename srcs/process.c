@@ -6,20 +6,20 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 00:27:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/11 15:47:42 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		trail(t_corewar *corewar, t_proc *proc, t_champ *champ, int tmp)
+static void		trail(t_corewar *corewar, t_proc *proc, int tmp)
 {
-	if (champ && proc->pc > tmp && proc->pc - tmp < TRAIL_SIZE)
+	if (proc->pc > tmp && proc->pc - tmp < TRAIL_SIZE)
 	{
 		while (tmp < proc->pc)
 		{
-			corewar->color[tmp] = multi_color(champ->color,
+			corewar->color[tmp] = multi_color(proc->champ->color,
 			(((unsigned char*)corewar->memory)[tmp] ? 0.7 : 0.6));
 			tmp++;
 		}
@@ -50,18 +50,17 @@ static void		execute(t_corewar *corewar, t_proc *proc)
 {
 	int					tmp;
 	unsigned char		op;
-	t_champ				*champ;
 
 	op = ((unsigned char*)corewar->memory)[proc->pc];
-	champ = 0;
-	if (corewar->visual && (champ = get_player(corewar, proc)))
-		corewar->color[proc->pc] = multi_color(champ->color, op ? 0.8 : 0.5);
+	if (corewar->visual)
+		corewar->color[proc->pc] = multi_color(proc->champ->color, op ?
+		0.8 : 0.5);
 	if ((!op || op > 16) && (proc->pc += 1) == MEM_SIZE)
 		proc->pc = 0;
 	tmp = proc->pc;
 	exec_op(proc, corewar, op);
 	if (corewar->visual)
-		trail(corewar, proc, champ, ++tmp);
+		trail(corewar, proc, ++tmp);
 }
 
 void			cycles(t_corewar *corewar, t_proc *proc)
