@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 16:39:19 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 13:01:22 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char		*get_file(int *j, char *str, char *tmp, char *buf)
 	i = 0;
 	chmod(str, 0666);
 	if ((fd = open(str, O_RDONLY)) == -1)
+	{
+		ft_lprintf(2, "Error in openning %s file", str);
 		exit(EXIT_FAILURE);
+	}
 	while ((ret = read(fd, buf, 4095)))
 	{
 		ft_realloc(&tmp, ret);

@@ -6,17 +6,17 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 15:52:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/02 17:18:14 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 12:47:54 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/libft.h"
 #include "./includes/get_next_line.h"
 
-char	*get_file(int fd, char *buf, char *tmp)
+char		*get_file(int fd, char *buf, char *tmp)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = -1;
@@ -37,11 +37,11 @@ char	*get_file(int fd, char *buf, char *tmp)
 	return (tmp);
 }
 
-char	*ft_parse(char *file_name)
+char		*ft_parse(char *file_name)
 {
-	char *buf;
-	char *tmp;
-	int fd;
+	char	*buf;
+	char	*tmp;
+	int		fd;
 
 	buf = NULL;
 	tmp = NULL;

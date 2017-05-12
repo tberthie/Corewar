@@ -6,14 +6,14 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 13:34:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:49:05 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 12:52:47 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/libft.h"
 #include <stdarg.h>
 
-void			d_parse(va_list ap, char *fmt, int prec, int fd)
+void			d_parse(va_list ap, char *fmt, int fd)
 {
 	int			i;
 
@@ -23,14 +23,7 @@ void			d_parse(va_list ap, char *fmt, int prec, int fd)
 	else if (fmt[0] == 'c')
 		ft_putchar_fd((char)va_arg(ap, int), fd);
 	else if (fmt[0] == 'd')
-	{
-		while (i < prec)
-		{
-			ft_putchar_fd(' ', fd);
-			++i;
-		}
 		ft_putnbr_fd(va_arg(ap, int), fd);
-	}
 	else if (fmt[0] == 'x')
 		ft_putnbr_hex_fd(va_arg(ap, unsigned long int), fd);
 	else if (fmt[0] == 'p')
@@ -43,7 +36,6 @@ void			d_parse(va_list ap, char *fmt, int prec, int fd)
 void			ft_parsing(va_list ap, char *fmt, int fd)
 {
 	int			i;
-	int			prec;
 
 	i = 0;
 	while (fmt[i] != '\0')
@@ -51,7 +43,7 @@ void			ft_parsing(va_list ap, char *fmt, int fd)
 		if (fmt[i] && fmt[i] == '%')
 		{
 			++i;
-			d_parse(ap, fmt + i, prec, fd);
+			d_parse(ap, fmt + i, fd);
 		}
 		else if (fmt[i] && fmt[i] != '\0' && fmt[i] != '%')
 		{

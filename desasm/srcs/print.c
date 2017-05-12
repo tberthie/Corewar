@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 15:24:52 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 16:39:37 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 13:01:23 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int		header(t_asm *vasm, char *str)
 
 	i = 0;
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0666)) == -1)
+	{
+		ft_lprintf(2, "Error in openning / creating %s file", vasm->file_name);
 		exit(EXIT_FAILURE);
+	}
 	get_magic_number(vasm, str);
 	get_name(vasm, str);
 	get_prog_size(vasm, str);
@@ -69,6 +72,8 @@ void	print_hex(t_asm *vasm, char *str, int nb)
 			cmd = (int)str[i];
 			ft_lprintf(vasm->fd, "%s ", vasm->cmd[cmd]);
 		}
+		else
+			error(vasm);
 		if (str[i] != 1 && str[i] != 9 && str[i] != 12 && str[i] != 15)
 			print_ocp(vasm, str, &i, cmd);
 		else
