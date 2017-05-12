@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/10 14:15:14 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/12 16:41:44 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void 	print_bit(void *adr, int p1)
 {
-	if (p1 == 1)
-		p1 = -1;
 	*(unsigned int*)adr = rev_int(p1);
 }
 
@@ -43,6 +41,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		// p3 = get_value(processus, corewar, 2, op);
 		tmp = set_pc(p2 + p3 + pc);
 		print_bit(corewar->memory + tmp, p1);
+		change_carry(processus, p1);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -55,7 +54,8 @@ int		set_index(t_proc *processus, t_corewar *corewar)
 	index = *(char*)(corewar->memory + processus->pc);
 	if (index < 1 || 16 < index)
 	{
-		processus->carry = 0;
+		// processus->carry = 0;
+		// change_carry(processus);
 		processus->pc = set_pc(processus->pc + 1);
 		return (-1);
 	}
@@ -84,15 +84,18 @@ void	add(t_proc *processus, t_corewar *corewar)
 		p2 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
+		ft_print(1, "P1 = %d && P2 = %d dans le registre: %d\n", p1, p2, index + 1);
 		processus->reg[index] = p1 + p2;
-		processus->carry = 1;
+		change_carry(processus, p1 + p2);
+		// processus->carry = 1;
 	}
 	else
 	{
 		processus->pc = set_pc(processus->pc + 1);
-		processus->carry = 0;
+		// processus->carry = 0;
 	}
 	// processus->pc++;
+
 }
 
 void	sub(t_proc *processus, t_corewar *corewar)
@@ -113,13 +116,15 @@ void	sub(t_proc *processus, t_corewar *corewar)
 		p2 = processus->reg[index];
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
+		ft_print(1, "P1 = %d && P2 = %d dans le registre: %d\n", p1, p2, index + 1);
 		processus->reg[index] = p1 - p2;
-		processus->carry = 1;
+		change_carry(processus, p1 - p2);
+		// processus->carry = 1;
 	}
 	else
 	{
 		processus->pc = set_pc(processus->pc + 1);
-		processus->carry = 0;
+		// processus->carry = 0;
 	}
 	// processus->pc++;
 }

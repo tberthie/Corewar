@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/10 14:15:36 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/12 16:32:08 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	live(t_proc *processus, t_corewar *corewar)
 	t_champ	*champ;
 
 	processus->live++;
-	if ((champ = get_player(corewar, processus)))
-	{
-		corewar->last_alive = champ->number;
-		if (!corewar->visual)
-			ft_print(1, "A process says player %d(%s) is alive\n",
-			champ->number, champ->name);
-	}
+	champ = processus->champ;
+	corewar->last_alive = champ->number;
+	if (!corewar->visual)
+		ft_print(1, "A process says player %d(%s) is alive\n",
+		champ->number, champ->name);
 	processus->pc = set_pc(processus->pc + 5);
 }
 
@@ -57,10 +55,11 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 			return ;
 		// ft_printf(1, "index = %d\n", (int)index);
 		processus->reg[(int)index - 1] = p1 & p2;
-		processus->carry = 1;
+		change_carry(processus, p1 & p2);
+		// processus->carry = 1;
 	}
 	else
-		processus->carry = 0;
+		// processus->carry = 0;
 	processus->pc = set_pc(processus->pc + 1);
 }
 
@@ -75,16 +74,20 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(processus, corewar)))
 	{
 		p1 = get_value(processus, corewar, tab[0], op);
+		ft_print(1, "PC = %d\n", processus->pc);
 		p2 = get_value(processus, corewar, tab[1], op);
+		ft_print(1, "PC1 = %d\n", processus->pc);
 		index = *(char*)(corewar->memory + processus->pc);
-		if (index < 2 || 15 < index)
+		if (index < 1 || 16 < index)
 			return ;
 		processus->reg[(int)index - 1] = p1 | p2;
-		processus->carry = 1;
+		change_carry(processus, p1 | p2);
+		// processus->carry = 1;
 	}
 	else
-		processus->carry = 0;
+		// processus->carry = 0;
 	processus->pc = set_pc(processus->pc + 1);
+
 }
 
 void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -100,12 +103,13 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p1 = get_value(processus, corewar, tab[0], op);
 		p2 = get_value(processus, corewar, tab[1], op);
 		index = *(char*)(corewar->memory + processus->pc);
-		if (index < 2 || 15 < index)
+		if (index < 1 || 16 < index)
 			return ;
 		processus->reg[(int)index - 1] = p1 ^ p2;
-		processus->carry = 1;
+		change_carry(processus, p1 ^ p2);
+		// processus->carry = 1;
 	}
 	else
-		processus->carry = 0;
+		// processus->carry = 0;
 	processus->pc = set_pc(processus->pc + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/10 14:17:27 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/11 17:07:06 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@
 int		*byte_analysis(t_proc *processus, t_corewar *corewar)
 {
 	int		*nbr;
-	char	byte;
+	unsigned char	byte;
 
-	byte = *(char*)(corewar->memory + processus->pc);
+	byte = *(unsigned char*)(corewar->memory + processus->pc);
+	ft_print(1, "OCTET CODAGE = %d\n", byte);
 	nbr = (int*)malloc(sizeof(int) * 3);
 	nbr[0] = (byte >> 6) & (REG_CODE | DIR_CODE | IND_CODE);
 	nbr[1] = (byte >> 4) & (REG_CODE | DIR_CODE | IND_CODE);
 	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
 	processus->pc = set_pc(processus->pc + 1);
-	ft_print(1, "tab0=%d tab1=%d\n", nbr[0], nbr[1]);
+	ft_print(1, "tab0=%d tab1=%d tab2=%d\n", nbr[0], nbr[1], nbr[2]);
 	if ((1 <= nbr[0] && nbr[0] <= 3) && (1 <= nbr[1] && nbr[1] <= 3))
 		return (nbr);
 	return (NULL);
