@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 14:49:02 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 10:06:30 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		get_cor_size(t_asm *vasm)
 	t_inst	*tmp;
 
 	tmp = vasm->labreg;
+	if (!tmp)
 	vasm->cor_size = 0;
 	while (tmp)
 	{

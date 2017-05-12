@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/09 11:51:10 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 11:00:50 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ typedef struct	s_asm
 	char		*tmp;
 	char		*file;
 	int			fd;
+	int			bytes;
+	int			size;
 	int			inst;
 	int			command;
+	int			len;
 	int			file_lines;
 	int			inst_line;
 	int			cor_size;
@@ -117,5 +120,8 @@ void			print_offset(t_asm *vasm, t_inst *node);
 void			print_offset_int(t_asm *vasm, t_inst *node);
 void			print_off_pos(t_asm *vasm, t_inst *node, t_inst *off);
 void			print_off_neg(t_asm *vasm, t_inst *node, t_inst *off);
+void			print_asm(t_asm *vasm);
+void			print_four_bytes(t_asm *vasm, int offset);
+void			print_two_bytes(t_asm *vasm, int offset);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 16:49:45 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 10:06:19 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,27 @@ void		parse(t_asm *vasm, char *str)
 
 int			main(int ac, char **av)
 {
-	t_asm	vasm;
+	t_asm	*vasm;
 
-	vasm.zero = 0;
-	vasm.ff = 255;
+	if (!(vasm = (t_asm *)malloc(sizeof(t_asm))))
+		exit(EXIT_FAILURE);
+	vasm->zero = 0;
+	vasm->ff = 255;
 	if (ac == 2)
 	{
 		if (ft_stristr(av[1], ".s") == -1)
-			return (-1);
-		vasm.file = av[1];
-		parse(&vasm, av[1]);
+			error(vasm, 0);
+		vasm->file = av[1];
+		parse(vasm, av[1]);
 	}
 	else if (ac == 3)
 	{
 		if (ft_strcmp(av[1], "-a"))
-			error(&vasm, 0);
+			error(vasm, 0);
 		if (ft_stristr(av[2], ".s") == -1)
-			error(&vasm, 0);
-		vasm.file = av[2];
-		aff_parse(&vasm, av[2]);
+			error(vasm, 0);
+		vasm->file = av[2];
+		aff_parse(vasm, av[2]);
 	}
 	return (0);
 }
