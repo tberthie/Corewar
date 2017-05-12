@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/11 15:43:20 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/12 13:48:20 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_corewar {
 	t_champ			**champs;
 
 	unsigned int	cycle;
+	unsigned int	tot_cycle;
 	unsigned int	ctd;
 	int				check;
 	int				last_alive;
@@ -104,6 +105,9 @@ void				dhex(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
 void				text(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
 void				event(t_corewar *corewar);
 void				render_stats(t_corewar *corewar);
+void				set_visual(t_corewar *corewar);
+void				set_ctd(t_corewar *corewar, unsigned int cycle);
+void				display(t_corewar *corewar);
 
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);

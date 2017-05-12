@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/11 15:50:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/12 13:48:09 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			render_stats(t_corewar *corewar)
 		corewar->color[corewar->proc[i]->pc] = corewar->proc[i]->champ->color;
 	render_players(corewar);
 	!corewar->play ? text(corewar, "PAUSED", 0xffff00, rec(1395, 20, 0, 0)) : 0;
-	text(corewar, (tmp = ft_utoabase(corewar->cycle, 10)), 0xa0a0a0,
+	text(corewar, (tmp = ft_utoabase(corewar->tot_cycle, 10)), 0xa0a0a0,
 	rec(1330, 60, 0, 0));
 	free(tmp);
 	text(corewar, (tmp = ft_utoabase(corewar->ctd, 10)), 0xa0a0a0,

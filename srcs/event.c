@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:58:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/12 13:44:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/12 13:48:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void		step(t_corewar *corewar)
 		corewar->play = 0;
 		set_visual(corewar);
 		process(corewar);
+		corewar->tot_cycle++;
 		set_ctd(corewar, ++corewar->cycle);
 		corewar->cycle = corewar->cycle >= corewar->ctd ? 0 : corewar->cycle;
 		display(corewar);
