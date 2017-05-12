@@ -6,59 +6,11 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 11:40:20 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 11:07:27 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 12:05:18 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
-
-void		print_size(t_asm *vasm, t_inst *tmp2, t_inst *tmp, int label)
-{
-	while (tmp2 && vasm->inst_line == (int)tmp2->line)
-	{
-		vasm->size += tmp2->content_size;
-		tmp2 = tmp2->next;
-	}
-	tmp2 = tmp;
-	if (vasm->inst_line == (int)tmp2->line && !tmp2->content_size)
-	{
-		if (tmp == vasm->labreg)
-			ft_lprintf(1, "%d", vasm->bytes);
-		else
-			ft_lprintf(1, "\n\n%d", vasm->bytes);
-		ft_lprintf(1, "\t :   %s:\n", tmp2->content);
-		label = 1;
-		tmp2 = tmp2->next;
-	}
-	if (tmp2 && vasm->inst_line == (int)tmp2->line && tmp2->content_size)
-	{
-		if (!label)
-			ft_lprintf(1, "\n\n%d", vasm->bytes);
-		else
-			ft_lprintf(1, "%d", vasm->bytes);
-		vasm->bytes += vasm->size;
-		label = 0;
-		if (vasm->size >= 10)
-		{
-			if (vasm->bytes >= 100)
-				ft_lprintf(1, " (%d) :", vasm->size);
-			else if (vasm->bytes >= 10)
-				ft_lprintf(1, "  (%d) :", vasm->size);
-			else
-				ft_lprintf(1, "   (%d) :", vasm->size);
-		}
-		else
-		{
-			if (vasm->bytes >= 100)
-				ft_lprintf(1, " (%d ) :", vasm->size);
-			else if (vasm->bytes >= 10)
-				ft_lprintf(1, "  (%d ) :", vasm->size);
-			else
-				ft_lprintf(1, "   (%d ) :", vasm->size);
-		}
-	}
-	vasm->size = 0;
-}
 
 void		print_inst(t_asm *vasm, t_inst *tmp2, t_inst *tmp)
 {
@@ -70,9 +22,7 @@ void		print_inst(t_asm *vasm, t_inst *tmp2, t_inst *tmp)
 					!ft_isdigit(tmp2->content[0]))
 				ft_lprintf(1, "\t%s", tmp2->content);
 			else
-			{
 				ft_lprintf(1, "\t\t%s", tmp2->content);
-			}
 		}
 		tmp2 = tmp2->next;
 	}

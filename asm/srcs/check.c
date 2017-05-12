@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 16:49:59 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/12 12:10:06 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void		check_label(t_asm *vasm, int i)
 
 void		check_header(t_asm *vasm, int i)
 {
-//	ft_lprintf(1, "Je rentre ici\n");
 	if (!ft_strncmp(vasm->s[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 	{
 		if (ft_strichr_cnt(vasm->s[i], '"') != 2)
@@ -63,7 +62,6 @@ void		check_asm(t_asm *vasm, int i, char *inst)
 {
 	while (i < vasm->file_lines)
 	{
-//		ft_lprintf(1, "%s\n", vasm->s[i]);
 		if (ft_stristr(vasm->s[i], NAME_CMD_STRING) == -1 &&
 				ft_stristr(vasm->s[i], COMMENT_CMD_STRING) == -1 &&
 				vasm->s[i][0] != COMMENT_CHAR)
