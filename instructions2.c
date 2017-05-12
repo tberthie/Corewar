@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/12 16:41:21 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:20:58 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,16 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		// ft_print(1, "PC2 = %d\n", processus->pc);
 		p1 = get_value(processus, corewar, tab[0], op);
-
-		ft_print(1, "LD VALUE = %d\n", p1);
+		// ft_print(1, "LD VALUE = %d\n", p1);
 		if ((index = set_index(processus, corewar)) < 0)
 			return ;
 		// ft_print(1, "PC4 = %d\n", processus->pc);
-		ft_print(1, "INDEX = %d\n", index);
+		// ft_print(1, "INDEX = %d\n", index);
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
-		// processus->carry = 1;
 	}
 	else
-	{
 		processus->pc = set_pc(processus->pc + 1);
-		// processus->carry = 0;
-	}
-	// change_carry(processus);
-
 
 }
 

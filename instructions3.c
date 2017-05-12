@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/12 16:41:44 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:40:22 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void 	print_bit(void *adr, int p1)
 {
 	*(unsigned int*)adr = rev_int(p1);
+	// *(unsigned int*)adr = p1;
 }
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -38,8 +39,10 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		// p2 = get_value(processus, corewar, 2, op);
 
 		p3 = get_value(processus, corewar, tab[2], op);
+		// ft_print(1, "Offset STI1: %d  Offsset STI2: %d\n", p2, p3);
 		// p3 = get_value(processus, corewar, 2, op);
 		tmp = set_pc(p2 + p3 + pc);
+		// ft_print(1, "OFFSET STI= %d\n", tmp);
 		print_bit(corewar->memory + tmp, p1);
 		change_carry(processus, p1);
 	}
