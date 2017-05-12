@@ -6,16 +6,30 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:58:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 15:03:55 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/12 13:44:10 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "libft.h"
 
 static void		quit(void)
 {
 	SDL_Quit();
 	exit(0);
+}
+
+static void		step(t_corewar *corewar)
+{
+	if (ft_parrlen((void**)corewar->proc))
+	{
+		corewar->play = 0;
+		set_visual(corewar);
+		process(corewar);
+		set_ctd(corewar, ++corewar->cycle);
+		corewar->cycle = corewar->cycle >= corewar->ctd ? 0 : corewar->cycle;
+		display(corewar);
+	}
 }
 
 static void		process_event(SDL_Event ev, t_corewar *corewar)
@@ -26,6 +40,8 @@ static void		process_event(SDL_Event ev, t_corewar *corewar)
 	{
 		if (ev.key.keysym.sym == SDLK_SPACE)
 			corewar->play = !corewar->play;
+		else if (ev.key.keysym.sym == SDLK_w)
+			step(corewar);
 	}
 }
 

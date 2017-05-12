@@ -6,26 +6,26 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 00:19:30 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/12 13:33:03 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-static void		set_visual(t_corewar *corewar)
+void			set_visual(t_corewar *corewar)
 {
 	SDL_Rect	rc;
 
-	event(corewar);
 	ft_memcpy(corewar->save, corewar->memory, MEM_SIZE);
 	rc = rec(0, 0, 1500, 1000);
 	SDL_FillRect(corewar->sf, &rc, 0);
 	rc = rec(15, 15, 1162, 970);
 	SDL_FillRect(corewar->sf, &rc, 0x505050);
+	event(corewar);
 }
 
-static void		display(t_corewar *corewar)
+void			display(t_corewar *corewar)
 {
 	SDL_Texture		*tx;
 
@@ -59,7 +59,7 @@ static void		calc_cps(t_corewar *corewar)
 	}
 }
 
-static void		set_ctd(t_corewar *corewar, unsigned int cycle)
+void			set_ctd(t_corewar *corewar, unsigned int cycle)
 {
 	if (cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
 	>= NBR_LIVE || corewar->check <= 0))
@@ -74,9 +74,6 @@ static void		set_ctd(t_corewar *corewar, unsigned int cycle)
 
 void			visual_run(t_corewar *corewar)
 {
-	unsigned int	cycle;
-
-	cycle = 0;
 	corewar->step = 0;
 	while (ft_parrlen((void**)corewar->proc))
 	{
@@ -84,9 +81,9 @@ void			visual_run(t_corewar *corewar)
 		if (corewar->play)
 		{
 			process(corewar);
-			corewar->cycle++;
-			set_ctd(corewar, ++cycle);
-			cycle = cycle >= corewar->ctd ? 0 : cycle;
+			set_ctd(corewar, ++corewar->cycle);
+			corewar->cycle = corewar->cycle >= corewar->ctd ? 0 :
+			corewar->cycle;
 		}
 		corewar->play ? calc_cps(corewar) : display(corewar);
 	}
