@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/15 16:08:15 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/16 00:12:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ static void				dump(t_corewar *corewar)
 
 	pad = 32;
 	i = 0;
+	ft_print(1, "0x%p | ", corewar->memory);
 	while (i++ < MEM_SIZE)
 	{
 		hex_dump(*(unsigned char*)corewar->memory++);
-		if (!--pad)
+		if (!--pad && i != MEM_SIZE)
 		{
-			ft_print(1, "\n");
+			ft_print(1, "\n0x%p | ", corewar->memory);
 			pad = 32;
 		}
 		else

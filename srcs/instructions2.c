@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 14:53:51 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 19:34:44 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		// ft_print(1, "LD REG = %d\n", index + 1);
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
-		ft_print(1, "%d %d \n", processus->pc, pc);
+		// ft_print(1, "%d %d \n", processus->pc, pc);
 		processus->pc = set_pc(pc + 1);
-		ft_print(1, "PROC PC FIN DE LD = %d\n", processus->pc);
+		// ft_print(1, "PROC PC FIN DE LD = %d\n", processus->pc);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -157,6 +157,8 @@ void 	st1(t_corewar *corewar, t_proc *processus, int p1, unsigned int pc)
 		return ;
 
 	processus->reg[index] = p1;
+	change_carry(processus, p1);
+	processus->pc = set_pc(pc + 1);
 	// ft_print(1, "INDEX ST = %d\n", (int)index);
 	// ft_print(1, "FINAL VALUE ST %d\n", *(int*)processus->reg[index - 1]);
 	//processus->pc++;
@@ -173,22 +175,25 @@ void	st(t_proc *processus, t_corewar *corewar)
 	pc = processus->pc + 1;
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		pc += 1;
+		pc++;
 		p1 = get_reg_value(processus, corewar->memory + pc);
-		pc += 1;
+		pc++;
 		// ft_print(1, "P1 ST = %d\n", p1);
 		if (tab[1] == 1)
+		{
 			st1(corewar, processus, p1, pc);
+		}
+
 		else if (tab[1] == 3)
 		{
 			offset = get_int_indirect_value(corewar->memory + pc);
-			// ft_print(1, "VALUE OFFSET PREMS ST: %d\n", offset);
+			// ft_print(1, "VALUE OFFSET ST: %d\n", offset);
 			S = set_pc(processus->pc + (offset % IDX_MOD));
-			// ft_print(1, "Offset ST = %d\n", S);
-			print_bit(corewar->memory + S, p1);
+			// ft_print(1, "OffSET FINAL ST = %d\n", S);
+			print_bit(corewar, S, p1);
 			// ft_print(1, "FINAL VALUE ST %d\n", *(int*)(corewar->memory + S));
 			processus->pc = set_pc(pc + 2);
-			change_carry(processus, p1);
+			// change_carry(processus, p1);
 		}
 	}
 	else
