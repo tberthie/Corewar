@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/15 15:13:55 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:08:15 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void				dump(t_corewar *corewar)
 		else
 			ft_print(1, " ");
 	}
-	if (pad)
+	if (!pad)
 		ft_print(1, "\n");
 	exit(0);
 }
