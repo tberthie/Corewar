@@ -6,7 +6,7 @@
 #    By: gthomas <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:18:38 by gthomas           #+#    #+#              #
-#    Updated: 2017/05/01 16:02:15 by gthomas          ###   ########.fr        #
+#    Updated: 2017/05/15 15:37:29 by gthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,8 @@ SRCS = ft_atoi.c \
 	   ft_putnbr_hex_fd.c \
 	   ft_trim.c \
 	   ft_nisdigit.c \
-	   ft_parse.c
+	   ft_parse.c \
+	   ft_revint.c
 
 OBJS = $(SRCS:.c=.o)
 

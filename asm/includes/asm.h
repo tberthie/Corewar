@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:12:06 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 15:16:01 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,48 @@
 # include <sys/stat.h>
 # include "../../resources/example/op.h"
 
-typedef struct	s_inst
+typedef struct		s_inst
 {
-	char		*content;
-	size_t		content_size;
-	size_t		line;
+	char			*content;
+	size_t			content_size;
+	size_t			line;
 	struct s_inst	*next;
-}				t_inst;
+}					t_inst;
 
-typedef struct	s_asm
+typedef struct		s_asm
 {
-	char		**cmd;
-	char		**s;
-	char		*name;
-	char		*comment;
-	char		cor[4];
-	unsigned char acor;
-	short int	sicor;
-	int			icor;
-	int			label;
-	int			zero;
-	int			ff;
-	int			ret;
-	char		*file_name;
-	char		*tmp;
-	char		*file;
-	int			fd;
-	int			bytes;
-	int			size;
-	int			inst;
-	int			command;
-	int			len;
-	int			file_lines;
-	int			inst_line;
-	int			cor_size;
-	void		(*insttab[17])(struct s_asm *, char *);
-	void		(*checktab[17])(struct s_asm *, char *);
-	t_inst		*labreg;
-	t_inst		*instruct;
-}				t_asm;
+	char			**cmd;
+	char			**s;
+	char			*name;
+	char			*comment;
+	char			cor[4];
+	unsigned char	acor;
+	short int		sicor;
+	int				icor;
+	int				label;
+	int				zero;
+	int				ff;
+	int				ret;
+	char			*file_name;
+	char			*tmp;
+	char			*file;
+	int				fd;
+	int				bytes;
+	int				size;
+	int				inst;
+	int				command;
+	int				len;
+	int				file_lines;
+	int				inst_line;
+	int				name_line;
+	int				comment_line;
+	int				first_inst_line;
+	int				cor_size;
+	void			(*insttab[17])(struct s_asm *, char *);
+	void			(*checktab[17])(struct s_asm *, char *);
+	t_inst			*labreg;
+	t_inst			*instruct;
+}					t_asm;
 
 void			error(t_asm *v_asm, int err);
 void			put_asm(t_asm *vasm);
@@ -93,7 +96,7 @@ void			free_all(t_asm *vasm);
 void			get_header(t_asm *vasm);
 void			put_four_zero(t_asm *vasm);
 void			put_magic(t_asm *vasm);
-void			put_header(t_asm *vasm, int i);
+void			put_header(t_asm *vasm/*, int i*/);
 void			offset_pos(t_asm *vasm, t_inst *node, t_inst *off);
 void			offset_neg(t_asm *vasm, t_inst *node, t_inst *off);
 void			put_offset(t_asm *vasm, t_inst *node);

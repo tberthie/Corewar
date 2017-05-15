@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/07 17:38:55 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 13:32:25 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ void		error(t_asm *vasm, int err)
 		ft_lprintf(2, "annotated version on the standard output\n");
 	}
 	else if (err == 1)
-		ft_lprintf(2, "Champion name missing : .name %cname%c", '"', '"');
+		ft_lprintf(2, "Champion name missing : .name %cname%c\n", '"', '"');
 	else if (err == 2)
-		ft_lprintf(2, "Description missing : .comment %ccomment%c", '"', '"');
+		ft_lprintf(2, "Description missing : .comment %ccomment%c\n", '"', '"');
 	else if (err == 4)
 		ft_lprintf(2, "Champion size is too big !!\n");
+	else if (err == 5)
+		ft_lprintf(2, "%s file is empty\n", vasm->file);
+	else if (err == 6)
+		ft_lprintf(2, "Order of commands are not respected\n");
 	else
 	{
 		ft_lprintf(2, "ERROR: invalid value in file ");

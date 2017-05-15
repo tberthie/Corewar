@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 11:40:20 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:05:18 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 15:46:32 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void		print_asm(t_asm *vasm)
 		}
 		tmp = print_cor_int(vasm, tmp);
 	}
+	ft_lprintf(1, "\n");
 }

@@ -6,13 +6,13 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 11:09:55 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:05:05 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 10:59:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void		print_inst_size(t_asm *vasm, t_inst *tmp2, int label)
+void		print_inst_size(t_asm *vasm, int label)
 {
 	if (!label)
 		ft_lprintf(1, "\n\n%d", vasm->bytes);
@@ -59,6 +59,6 @@ void		print_size(t_asm *vasm, t_inst *tmp2, t_inst *tmp, int label)
 		tmp2 = tmp2->next;
 	}
 	if (tmp2 && vasm->inst_line == (int)tmp2->line && tmp2->content_size)
-		print_inst_size(vasm, tmp2, label);
+		print_inst_size(vasm, label);
 	vasm->size = 0;
 }

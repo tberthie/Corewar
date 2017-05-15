@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 08:54:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/01 16:08:37 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 15:37:11 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void				ft_putnbr_hex_fd(uintmax_t nb, int fd);
 int					ft_trim(char *str);
 int					ft_nisdigit(char *s, int n);
 char				*ft_parse(char *file_name);
+unsigned int		ft_revint(unsigned int nb);
 
 #endif

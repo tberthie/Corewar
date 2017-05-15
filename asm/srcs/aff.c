@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 14:52:47 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:12:38 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 15:46:54 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		print_hex(t_asm *vasm, char *str)
 	ft_lprintf(1, "Dumping annotated program on standard output\n");
 	ft_lprintf(1, "Program size : %d bytes\n", vasm->cor_size);
 	print_header(vasm, 0, 0);
+	vasm->inst_line = 0;
 	print_asm(vasm);
 	free_all(vasm);
 }
@@ -34,7 +35,7 @@ void		aff_parse(t_asm *vasm, char *str)
 
 	init_asm(vasm);
 	if (!(tmp = ft_parse(str)))
-		exit(EXIT_FAILURE);
+		error(vasm, 5);
 	init_cmd(vasm);
 	print_hex(vasm, tmp);
 	if (tmp)

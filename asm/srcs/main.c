@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 10:06:19 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 15:44:45 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,12 @@ void		cor_hex(t_asm *vasm, char *str)
 	vasm->file_lines = ft_ptrlen(vasm->s);
 	get_labels(vasm, -1, 0, NULL);
 	init_checktab(vasm);
-	check_asm(vasm, 0, NULL);
+	check_asm(vasm, 0, vasm->tmp);
 	get_cor_size(vasm);
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0600)) == -1)
 		exit(EXIT_FAILURE);
 	ft_lprintf(1, "Writing output program to %s\n", vasm->file_name);
-	get_header(vasm);
-	put_header(vasm, 0);
+	put_header(vasm);
 	put_asm(vasm);
 	close(vasm->fd);
 	free_all(vasm);
@@ -92,7 +91,7 @@ void		parse(t_asm *vasm, char *str)
 	ft_strncpy(vasm->file_name, str, ft_strlen(str) - 1);
 	vasm->file_name = ft_strcat(vasm->file_name, "cor");
 	if (!(tmp = ft_parse(str)))
-		exit(EXIT_FAILURE);
+		error(vasm, 5);
 	init_cmd(vasm);
 	cor_hex(vasm, tmp);
 	if (tmp)

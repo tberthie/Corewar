@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 16:48:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/10 15:51:36 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 14:14:34 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void		init_asm(t_asm *vasm)
 	vasm->name = NULL;
 	vasm->comment = NULL;
 	vasm->file_name = NULL;
-	vasm->file = NULL;
 	vasm->instruct = NULL;
 	if (!(vasm->labreg = (t_inst *)malloc(sizeof(t_inst))))
 		exit(EXIT_FAILURE);
@@ -28,6 +27,9 @@ void		init_asm(t_asm *vasm)
 	vasm->bytes = 0;
 	vasm->size = 0;
 	vasm->cor_size = 0;
+	vasm->name_line = -1;
+	vasm->comment_line = -1;
+	vasm->first_inst_line = -1;
 }
 
 void		init_checktab(t_asm *vasm)
@@ -49,6 +51,7 @@ void		init_checktab(t_asm *vasm)
 	vasm->checktab[14] = &check_lldi;
 	vasm->checktab[15] = &check_lfork;
 	vasm->checktab[16] = &check_aff;
+	vasm->inst_line = -1;
 }
 
 static void	alloc_cmd(t_asm *vasm)

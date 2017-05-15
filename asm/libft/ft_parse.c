@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 15:52:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:47:54 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/15 11:15:33 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char		*get_file(int fd, char *buf, char *tmp)
 	j = -1;
 	while (get_next_line(fd, &buf))
 	{
-		ft_realloc(&tmp, (int)ft_strlen(buf) + 1);
 		++j;
+		ft_realloc(&tmp, (int)ft_strlen(buf) + 1);
 		while (buf[i])
 			tmp[j++] = buf[i++];
 		tmp[j] = '\n';
@@ -31,7 +31,8 @@ char		*get_file(int fd, char *buf, char *tmp)
 			free(buf);
 		i = 0;
 	}
-	tmp[j] = '\0';
+	if (j >= 0)
+		tmp[j] = '\0';
 	if (buf)
 		free(buf);
 	return (tmp);
