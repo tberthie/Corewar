@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 14:15:05 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:09:37 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	cycles(corewar, processus2);
+	if (processus->live)
+		processus2->safe = 1;
+	processus2->live = 0;
 	// ft_print(1, "PC2 = %d\n", processus2->pc);
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc = set_pc(processus->pc + 3);

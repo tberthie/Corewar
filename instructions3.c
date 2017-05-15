@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 14:44:41 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:51:22 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void 	print_bit(void *adr, int p1)
 {
-	*(unsigned int*)adr = rev_int(p1);
-	// *(unsigned int*)adr = p1;
+	// *(unsigned int*)adr = rev_int(p1);
+	*(unsigned int*)adr = p1;
 }
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -37,7 +37,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		p2 += get_value(processus, corewar, tab[2], op, corewar->memory + pc);
-		tmp = set_pc(p2 + pc);
+		tmp = set_pc(p2 + processus->pc);
 		print_bit(corewar->memory + tmp, p1);
 		change_carry(processus, p1);
 		processus->pc = set_pc(pc + move_pc(tab[2], op));
@@ -57,6 +57,7 @@ void	add(t_proc *processus, t_corewar *corewar)
 	pc = processus->pc + 1;
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
+		pc++;
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return ;
 		pc++;
@@ -87,6 +88,7 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	pc = processus->pc + 1;
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
+		pc++;
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return ;
 		pc++;

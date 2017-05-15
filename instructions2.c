@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 14:53:51 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:26:31 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,9 +173,9 @@ void	st(t_proc *processus, t_corewar *corewar)
 	pc = processus->pc + 1;
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		pc += 1;
+		pc++;
 		p1 = get_reg_value(processus, corewar->memory + pc);
-		pc += 1;
+		pc++;
 		// ft_print(1, "P1 ST = %d\n", p1);
 		if (tab[1] == 1)
 			st1(corewar, processus, p1, pc);
