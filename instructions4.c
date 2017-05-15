@@ -6,23 +6,13 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/12 17:40:34 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 14:15:05 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 #include <stdio.h>
-
-unsigned int	set_pc(int tmp)
-{
-	if (tmp > MEM_SIZE)
-		tmp = tmp % MEM_SIZE;
-	if (tmp < 0)
-		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
-	// ft_print(1, "JUMP = %d\n", tmp);
-	return(tmp);
-}
 
 void	zjmp(t_proc *processus, t_corewar *corewar)
 {
@@ -124,15 +114,18 @@ void	aff(t_proc *processus, t_corewar *corewar)
 	char	aff;
 	int		value;
 	int		*tab;
+	int		pc;
 
-	processus->pc++;
-	if ((tab = byte_analysis(processus, corewar)))
+	pc = processus->pc + 1;
+	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		processus->pc++;
-		value = get_reg_value(processus, corewar);
+		pc++;
+		value = get_reg_value(processus, corewar->memory + pc);
+		pc++;
 		aff = value % 256;
 		ft_putchar(aff);
 		change_carry(processus, (int)aff);
+		processus->pc = set_pc(processus->pc + pc);
 	}
 	processus->pc = set_pc(processus->pc + 1);
 }
