@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:59:57 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 15:10:34 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 19:40:09 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int					get_indirect_value(t_proc *processus, t_corewar *corewar,
 int					get_value(t_proc *proc, t_corewar *corewar, int nbr,
 					unsigned char op, void *adr);
 int					get_indirect_value_nm(t_proc *processus, t_corewar *corewar,
-					 void *adr);
+					void *adr);
 int					get_value_nm(t_proc *proc, t_corewar *cr, int nbr,
 					unsigned char op, void *adr);
 void				live(t_proc *proc, t_corewar *corewar);
@@ -40,7 +40,7 @@ void				c_fork(t_proc *proc, t_corewar *corewar);
 void				lfork(t_proc *proc, t_corewar *corewar);
 void				aff(t_proc *proc, t_corewar *corewar);
 int					get_int_indirect_value(void *adr);
-void				print_bit(void *adr, int p1);
+void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
-void 				change_carry(t_proc *processus, int p1);
+void				change_carry(t_proc *processus, int p1);
 int					move_pc(int	tab, unsigned char op);
