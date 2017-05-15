@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 14:39:09 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/15 18:55:18 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,10 @@ void	*get_pc(int	index, t_corewar *corewar)
 
 unsigned int	set_pc(int tmp)
 {
-	if (tmp > MEM_SIZE)
+	if (tmp > MEM_SIZE - 1)
 		tmp = tmp % MEM_SIZE;
 	if (tmp < 0)
-		tmp = MEM_SIZE - 1 + tmp % -MEM_SIZE;
+		tmp = MEM_SIZE + tmp % -MEM_SIZE;
 	// ft_print(1, "JUMP = %d\n", tmp);
 	return(tmp);
 }
