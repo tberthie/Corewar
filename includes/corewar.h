@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/12 13:48:20 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:20:47 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_proc {
 	int				pc;
 	char			carry;
 
+	char			safe;
 	unsigned int	live;
 	unsigned int	wait;
 
@@ -121,18 +122,19 @@ unsigned int		rev_int(unsigned int nb);
 void				hex_dump(unsigned char hex);
 unsigned int		multi_color(unsigned int color, double ratio);
 
-int					*byte_analysis(t_proc *proc, t_corewar *corewar);
-int					get_direct_value(t_proc *proc, t_corewar *corewar,
-					unsigned char op);
-int					get_indirect_value(t_proc *proc, t_corewar *corewar);
-int					get_reg_value(t_proc *proc, t_corewar *corewar);
+int					*byte_analysis(void *adr);
+int					get_direct_value(unsigned char op, void *adr);
+int					get_reg_value(t_proc *processus, void *adr);
+int					get_indirect_value(t_proc *processus, t_corewar *corewar,
+					void *adr);
 int					get_value(t_proc *proc, t_corewar *corewar, int nbr,
-					unsigned char op);
-int					get_indirect_value_nm(t_proc *proc, t_corewar *corewar);
+					unsigned char op, void *adr);
+int					get_indirect_value_nm(t_proc *processus, t_corewar *corewar,
+					void *adr);
 int					get_value_nm(t_proc *proc, t_corewar *cr, int nbr,
-					unsigned char op);
+					unsigned char op, void *adr);
 void				live(t_proc *proc, t_corewar *corewar);
-void				*get_pc(t_proc *proc, t_corewar *corewar);
+void				*get_pc(int	index, t_corewar *corewar);
 void				c_and(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				c_or(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				c_xor(t_proc *proc, t_corewar *corewar, unsigned char op);
@@ -142,7 +144,7 @@ void				ldi(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				lldi(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				st(t_proc *proc, t_corewar *corewar);
 void				sti(t_proc *proc, t_corewar *corewar, unsigned char op);
-int					set_index(t_proc *proc, t_corewar *corewar);
+int					set_index(void *adr);
 void				add(t_proc *proc, t_corewar *corewar);
 void				sub(t_proc *proc, t_corewar *corewar);
 void				zjmp(t_proc *proc, t_corewar *corewar);
@@ -152,5 +154,7 @@ void				aff(t_proc *proc, t_corewar *corewar);
 int					get_int_indirect_value(void *adr);
 void				print_bit(void *adr, int p1);
 unsigned int		set_pc(int tmp);
+void				change_carry(t_proc *processus, int p1);
+int					move_pc(int	tab, unsigned char op);
 
 #endif

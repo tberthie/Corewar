@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:27:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/11 15:49:48 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:18:31 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void		init_proc(t_proc *proc, t_champ *champ, unsigned int offset)
 	proc->reg = ft_memalloc(4 * REG_NUMBER);
 	proc->reg[0] = (unsigned int)champ->number;
 	proc->champ = champ;
-	proc->carry = 1;
 	proc->pc = offset;
 }
 

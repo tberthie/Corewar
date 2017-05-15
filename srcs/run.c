@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/11 15:50:11 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:13:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ unsigned int			check_live(t_corewar *corewar, t_proc **proc)
 	total = 0;
 	while (*proc)
 	{
-		if (!(*proc)->live)
+		if (!(*proc)->live && !(*proc)->safe)
 		{
 			if (corewar->visual)
 				corewar->color[(*proc)->pc] =
@@ -31,6 +31,7 @@ unsigned int			check_live(t_corewar *corewar, t_proc **proc)
 		{
 			total += (*proc)->live;
 			(*proc)->live = 0;
+			(*proc)->safe = 0;
 			proc++;
 		}
 	}
