@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 18:58:20 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/16 19:05:54 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar, void *adr)
 
 	i = 0;
 	offset = 0;
-	value = 0;
 	tmp = 0;
 	while (i++ < IND_SIZE)
 	{
@@ -50,7 +49,6 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar, void *adr)
 
 	i = 0;
 	offset = 0;
-	value = 0;
 	tmp = 0;
 	while (i++ < IND_SIZE)
 	{
