@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/16 00:00:49 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/16 16:08:50 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define E_FORMAT "Not a valid champion file"
 # define E_READ "Invalid champion file"
+# define E_DIFF "Champion size differs from the header"
 # define E_SIZE "This champion exceeds size limit"
 # define E_ARG "Invalid argument"
 # define E_EXP "Argument expected"

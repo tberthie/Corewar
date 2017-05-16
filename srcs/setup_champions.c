@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/10 15:00:39 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/16 16:08:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void			*parse_champion(int fd, char *path)
 	ft_memcpy(data, buffer, sizeof(t_header));
 	if (read(fd, data + sizeof(t_header), rev_int(header->prog_size)) !=
 	rev_int(header->prog_size))
-		error(path, E_READ);
+		error(path, E_DIFF);
 	ft_free(buffer);
 	return (data);
 }
