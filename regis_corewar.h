@@ -6,21 +6,17 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:59:57 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 19:40:09 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 13:07:19 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int					*byte_analysis(void *adr);
 int					get_direct_value(unsigned char op, void *adr);
 int					get_reg_value(t_proc *processus, void *adr);
-int					get_indirect_value(t_proc *processus, t_corewar *corewar,
-					void *adr);
-int					get_value(t_proc *proc, t_corewar *corewar, int nbr,
-					unsigned char op, void *adr);
-int					get_indirect_value_nm(t_proc *processus, t_corewar *corewar,
-					void *adr);
-int					get_value_nm(t_proc *proc, t_corewar *cr, int nbr,
-					unsigned char op, void *adr);
+int					get_indirect_value(t_proc *processus, void *adr);
+int					get_value(t_proc *proc, int nbr, unsigned char op, void *adr);
+int					get_indirect_value_nm(t_proc *processus, void *adr);
+int					get_value_nm(t_proc *proc, int nbr, unsigned char op, void *adr);
 void				live(t_proc *proc, t_corewar *corewar);
 void				*get_pc(int	index, t_corewar *corewar);
 void				c_and(t_proc *proc, t_corewar *corewar, unsigned char op);
@@ -44,3 +40,4 @@ void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
 void				change_carry(t_proc *processus, int p1);
 int					move_pc(int	tab, unsigned char op);
+void 				return_error(t_proc *processus);
