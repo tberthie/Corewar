@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/15 15:13:03 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:20:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void		exec_op(t_proc *proc, t_corewar *corewar, unsigned char op)
 	op == 9 ? zjmp(proc, corewar) : 0;
 	op == 10 ? ldi(proc, corewar, op) : 0;
 	op == 11 ? sti(proc, corewar, op) : 0;
-	op == 12 ? c_fork(proc, corewar) : 0;
+	op == 12 ? c_fork(proc, corewar, op) : 0;
 	op == 13 ? lld(proc, corewar, op) : 0;
 	op == 14 ? lldi(proc, corewar, op) : 0;
-	op == 15 ? lfork(proc, corewar) : 0;
+	op == 15 ? lfork(proc, corewar, op) : 0;
 	op == 16 ? aff(proc, corewar) : 0;
 }
 

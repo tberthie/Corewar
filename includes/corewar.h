@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 14:44:09 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:21:37 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 typedef struct		s_champ {
 
 	char			*name;
-	char			*comment;
 	int				number;
 
 	unsigned int	size;
@@ -87,6 +86,7 @@ typedef struct		s_corewar {
 	SDL_Surface		*sf;
 	TTF_Font		*hex_font;
 	TTF_Font		*font;
+	TTF_Font		*subfont;
 
 	char			visual;
 	char			play;
@@ -108,6 +108,8 @@ SDL_Rect			rec(int x, int y, int w, int h);
 void				render_hex(t_corewar *corewar);
 void				dhex(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
 void				text(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
+void				subtext(t_corewar *cw, char *tx, unsigned int c,
+					SDL_Rect rc);
 void				event(t_corewar *corewar);
 void				render_stats(t_corewar *corewar);
 void				set_visual(t_corewar *corewar);
@@ -150,8 +152,8 @@ int					set_index(void *adr);
 void				add(t_proc *proc, t_corewar *corewar);
 void				sub(t_proc *proc, t_corewar *corewar);
 void				zjmp(t_proc *proc, t_corewar *corewar);
-void				c_fork(t_proc *proc, t_corewar *corewar);
-void				lfork(t_proc *proc, t_corewar *corewar);
+void				c_fork(t_proc *proc, t_corewar *corewar, unsigned char op);
+void				lfork(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				aff(t_proc *proc, t_corewar *corewar);
 int					get_int_indirect_value(void *adr);
 void				print_bit(t_corewar *corewar, int pc, int p1);

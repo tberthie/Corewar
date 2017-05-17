@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 14:55:06 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:11:00 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		player_stats(t_corewar *corewar, int i)
 	text(corewar, (tmp = ft_itoabase(lives, 10)), 0xa0a0a0,
 	rec(1350, 200 * (i + 1) + 75, 0, 0));
 	free(tmp);
-	text(corewar, corewar->champs[i]->aff, 0xa0a0a0,
+	subtext(corewar, corewar->champs[i]->aff, 0xa0a0a0,
 	rec(1200, 200 * (i + 1) + 125, 0, 0));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 12:33:34 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:07:29 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -62,6 +63,7 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -88,8 +90,8 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[index] = value;
-		change_carry(processus, value);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -118,6 +120,7 @@ void	lldi(t_proc *processus, t_corewar *cor, unsigned char op)
 		processus->reg[index] = value;
 		change_carry(processus, value);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
