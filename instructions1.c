@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 16:32:00 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 11:54:44 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
@@ -64,9 +64,9 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
@@ -90,9 +90,9 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));

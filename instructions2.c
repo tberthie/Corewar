@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 19:00:22 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 12:33:34 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		pc++;
 		adr = get_pc(pc, corewar);
-		p1 = get_value(processus, corewar, tab[0], op, adr);
+		p1 = get_value(processus, tab[0], op, adr);
 		pc += move_pc(tab[0], op);
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
@@ -54,7 +54,7 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		pc += 1;
 		adr = get_pc(pc, corewar);
-		p1 = get_value_nm(processus, corewar, tab[0], op, adr);
+		p1 = get_value_nm(processus, tab[0], op, adr);
 		pc += move_pc(tab[0], op);
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
@@ -79,9 +79,9 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc += 1;
-		nbr = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		nbr = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		nbr += get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		nbr += get_value(processus, tab[1], op, corewar->memory + pc);
 		value = *(unsigned int*)(corewar->memory + processus->pc + \
 				(nbr % IDX_MOD));
 		pc += move_pc(tab[1], op);
@@ -107,9 +107,9 @@ void	lldi(t_proc *processus, t_corewar *cor, unsigned char op)
 	if ((tab = byte_analysis(cor->memory + pc)))
 	{
 		pc += 1;
-		nbr = get_value_nm(processus, cor, tab[0], op, cor->memory + pc);
+		nbr = get_value_nm(processus, tab[0], op, cor->memory + pc);
 		pc += move_pc(tab[0], op);
-		nbr += get_value_nm(processus, cor, tab[1], op, cor->memory + pc);
+		nbr += get_value_nm(processus, tab[1], op, cor->memory + pc);
 		value = *(unsigned int*)(cor->memory + processus->pc + \
 				(nbr % IDX_MOD));
 		pc += move_pc(tab[1], op);

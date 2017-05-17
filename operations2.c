@@ -6,14 +6,14 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 19:05:54 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 12:37:33 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
-int		get_indirect_value(t_proc *processus, t_corewar *corewar, void *adr)
+int				get_indirect_value(t_proc *proc, void *adr)
 {
 	void			*adr2;
 	unsigned short	offset;
@@ -30,7 +30,7 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar, void *adr)
 		adr++;
 	}
 	offset += (0xffff << 16);
-	adr2 = corewar->memory + processus->pc + ((short)offset % IDX_MOD);
+	adr2 = proc->corewar->memory + proc->pc + ((short)offset % IDX_MOD);
 	i = 0;
 	while (i++ < 4)
 	{
@@ -40,7 +40,7 @@ int		get_indirect_value(t_proc *processus, t_corewar *corewar, void *adr)
 	return ((int)tmp);
 }
 
-int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar, void *adr)
+int				get_indirect_value_nm(t_proc *processus, void *adr)
 {
 	void			*adr2;
 	unsigned short	offset;
@@ -57,7 +57,7 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar, void *adr)
 		adr++;
 	}
 	offset += (0xffff << 16);
-	adr2 = corewar->memory + processus->pc + ((short)offset);
+	adr2 = processus->corewar->memory + processus->pc + ((short)offset);
 	i = 0;
 	while (i++ < 4)
 	{
@@ -67,20 +67,20 @@ int		get_indirect_value_nm(t_proc *processus, t_corewar *corewar, void *adr)
 	return ((int)tmp);
 }
 
-int		get_value_nm(t_proc *proc, t_corewar *cr, int nbr, unsigned char op, void *adr)
+int				get_value_nm(t_proc *proc, int nbr, unsigned char op, void *adr)
 {
 	int		p1;
 
 	if (nbr == DIR_CODE)
 		p1 = get_direct_value(op, adr);
 	else if (nbr == IND_CODE)
-		p1 = get_indirect_value_nm(proc, cr, adr);
+		p1 = get_indirect_value_nm(proc, adr);
 	else
-		p1 = get_reg_value(proc, cr);
+		p1 = get_reg_value(proc, adr);
 	return (p1);
 }
 
-void	*get_pc(int index, t_corewar *corewar)
+void			*get_pc(int index, t_corewar *corewar)
 {
 	void	*adr;
 	int		pc;

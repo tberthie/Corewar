@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 19:30:36 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 11:56:11 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	{
 		p1 = get_reg_value(processus, corewar->memory + pc);
 		pc++;
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
-		p2 += get_value(processus, corewar, tab[2], op, corewar->memory + pc);
+		p2 += get_value(processus, tab[2], op, corewar->memory + pc);
 		tmp = set_pc(p2 + processus->pc);
 		if (processus->carry == 1)
 			print_bit(corewar, tmp, p1);

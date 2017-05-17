@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 18:53:53 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 12:30:06 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ int		get_reg_value(t_proc *processus, void *adr)
 	return (value);
 }
 
-int		get_value(t_proc *proc, t_corewar *corewar, int nbr, unsigned char op, void *adr)
+int		get_value(t_proc *proc, int nbr, unsigned char op, void *adr)
 {
 	int		p1;
 
 	if (nbr == 2)
 		p1 = get_direct_value(op, adr);
 	else if (nbr == 3)
-		p1 = get_indirect_value(proc, corewar, adr);
+		p1 = get_indirect_value(proc, adr);
 	else
 		p1 = get_reg_value(proc, adr);
 	return (p1);

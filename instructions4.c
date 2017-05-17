@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 19:00:02 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 12:41:37 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	processus_fork(t_proc *processus, t_proc *processus2, short value)
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	processus2->live = 0;
 }
+
 void	c_fork(t_proc *processus, t_corewar *corewar)
 {
 	t_proc			*processus2;
