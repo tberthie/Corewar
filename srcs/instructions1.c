@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 19:19:04 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 11:54:44 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,18 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		// ft_printf(1, "1 = %d\n", p1);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
-		// ft_printf(1, "2 = %d\n", p2);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
-		// ft_printf(1, "index = %d\n", (int)index);
+			return (return_error(processus));
 		processus->reg[(int)index - 1] = p1 & p2;
 		change_carry(processus, p1 & p2);
 		processus->pc = set_pc(pc + 1);
-		// processus->carry = 1;
 	}
 	else
-		// processus->carry = 0;
-	processus->pc = set_pc(processus->pc + 1);
+		processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -69,23 +64,18 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		// ft_printf(1, "1 = %d\n", p1);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
-		// ft_printf(1, "2 = %d\n", p2);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
-		// ft_printf(1, "index = %d\n", (int)index);
+			return (return_error(processus));
 		processus->reg[(int)index - 1] = p1 | p2;
 		change_carry(processus, p1 | p2);
 		processus->pc = set_pc(pc + 1);
-		// processus->carry = 1;
 	}
 	else
-		// processus->carry = 0;
-	processus->pc = set_pc(processus->pc + 1);
+		processus->pc = set_pc(processus->pc + 1);
 }
 
 void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -100,21 +90,16 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc++;
-		p1 = get_value(processus, corewar, tab[0], op, corewar->memory + pc);
+		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
 		pc += move_pc(tab[0], op);
-		// ft_printf(1, "1 = %d\n", p1);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
-		// ft_printf(1, "2 = %d\n", p2);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
-		// ft_printf(1, "index = %d\n", (int)index);
+			return (return_error(processus));
 		processus->reg[(int)index - 1] = p1 ^ p2;
 		change_carry(processus, p1 ^ p2);
 		processus->pc = set_pc(pc + 1);
-		// processus->carry = 1;
 	}
 	else
-		// processus->carry = 0;
-	processus->pc = set_pc(processus->pc + 1);
+		processus->pc = set_pc(processus->pc + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/16 16:08:50 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 13:13:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,16 @@ typedef struct		s_champ {
 
 typedef struct		s_proc {
 
-	t_champ			*champ;
-	unsigned int	*reg;
-	int				pc;
-	char			carry;
+	t_champ				*champ;
+	unsigned int		*reg;
+	int					pc;
+	char				carry;
 
-	char			safe;
-	unsigned int	live;
-	unsigned int	wait;
+	char				safe;
+	unsigned int		live;
+	unsigned int		wait;
+
+	struct s_corewar	*corewar;
 
 }					t_proc;
 
@@ -126,14 +128,12 @@ unsigned int		multi_color(unsigned int color, double ratio);
 int					*byte_analysis(void *adr);
 int					get_direct_value(unsigned char op, void *adr);
 int					get_reg_value(t_proc *processus, void *adr);
-int					get_indirect_value(t_proc *processus, t_corewar *corewar,
+int					get_indirect_value(t_proc *processus, void *adr);
+int					get_value(t_proc *proc, int nbr, unsigned char op,
 					void *adr);
-int					get_value(t_proc *proc, t_corewar *corewar, int nbr,
-					unsigned char op, void *adr);
-int					get_indirect_value_nm(t_proc *processus, t_corewar *corewar,
+int					get_indirect_value_nm(t_proc *processus, void *adr);
+int					get_value_nm(t_proc *proc, int nbr, unsigned char op,
 					void *adr);
-int					get_value_nm(t_proc *proc, t_corewar *cr, int nbr,
-					unsigned char op, void *adr);
 void				live(t_proc *proc, t_corewar *corewar);
 void				*get_pc(int	index, t_corewar *corewar);
 void				c_and(t_proc *proc, t_corewar *corewar, unsigned char op);
@@ -157,5 +157,6 @@ void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
 void				change_carry(t_proc *processus, int p1);
 int					move_pc(int	tab, unsigned char op);
+void				return_error(t_proc *processus);
 
 #endif

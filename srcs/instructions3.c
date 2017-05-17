@@ -6,52 +6,34 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/15 19:35:02 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 11:56:11 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
-#include <stdio.h>
-
-void 	print_bit(t_corewar *corewar, int pc, int p1)
-{
-	char			tab[4];
-	int				i;
-	int				rev;
-
-	// rev = rev_int(p1);
-	rev = p1;
-	ft_memcpy(tab, &rev, sizeof(int));
-	i = 4;
-	while (0 <= --i)
-	{
-		pc = set_pc(pc);
-		*(unsigned char*)(corewar->memory + pc) = tab[i];
-		pc++;
-	}
-}
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
-	int		*tab;
-	int		tmp;
-	unsigned int		p1;
-	int		p2;
-	int		pc;
+	int				*tab;
+	int				tmp;
+	unsigned int	p1;
+	int				p2;
+	int				pc;
 
 	pc = processus->pc + 1;
-	if ((tab = byte_analysis(corewar->memory + pc)))
+	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
-		pc++;
 		p1 = get_reg_value(processus, corewar->memory + pc);
 		pc++;
-		ft_print(1, "VALUE STI = %d\n", p1);
-		p2 = get_value(processus, corewar, tab[1], op, corewar->memory + pc);
+		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
-		p2 += get_value(processus, corewar, tab[2], op, corewar->memory + pc);
+		p2 += get_value(processus, tab[2], op, corewar->memory + pc);
 		tmp = set_pc(p2 + processus->pc);
-		print_bit(corewar, tmp, p1);
+		if (processus->carry == 1)
+			print_bit(corewar, tmp, p1);
+		else
+			print_bit(corewar, tmp, rev_int(p1));
 		processus->pc = set_pc(pc + move_pc(tab[2], op));
 	}
 	else
@@ -67,20 +49,18 @@ void	add(t_proc *processus, t_corewar *corewar)
 	int		pc;
 
 	pc = processus->pc + 1;
-	if ((tab = byte_analysis(corewar->memory + pc)))
+	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
-		pc++;
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
+			return (return_error(processus));
 		pc++;
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
+			return (return_error(processus));
 		pc++;
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
-		// ft_print(1, "P1 = %d && P2 = %d dans le registre: %d\n", p1, p2, index + 1);
+			return (return_error(processus));
 		processus->reg[index] = p1 + p2;
 		change_carry(processus, p1 + p2);
 		processus->pc = set_pc(pc + 1);
@@ -98,23 +78,61 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	int		pc;
 
 	pc = processus->pc + 1;
-	if ((tab = byte_analysis(corewar->memory + pc)))
+	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
-		pc++;
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
+			return (return_error(processus));
 		pc++;
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
+			return (return_error(processus));
 		pc++;
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return ;
-		// ft_print(1, "P1 = %d && P2 = %d dans le registre: %d\n", p1, p2, index + 1);
+			return (return_error(processus));
 		processus->reg[index] = p1 - p2;
 		change_carry(processus, p1 - p2);
 		processus->pc = set_pc(pc + 1);
+	}
+	else
+		processus->pc = set_pc(processus->pc + 1);
+}
+
+void	st1(t_corewar *corewar, t_proc *processus, int p1, unsigned int pc)
+{
+	int		index;
+
+	if ((index = set_index(corewar->memory + pc)) < 0)
+		return (return_error(processus));
+	processus->reg[index] = p1;
+	change_carry(processus, p1);
+	processus->pc = set_pc(pc + 1);
+}
+
+void	st(t_proc *processus, t_corewar *corewar)
+{
+	int				p1;
+	int				offset;
+	int				*tab;
+	unsigned int	pc;
+	int				s;
+
+	pc = processus->pc + 1;
+	if ((tab = byte_analysis(corewar->memory + pc++)))
+	{
+		p1 = get_reg_value(processus, corewar->memory + pc++);
+		if (tab[1] == 1)
+			st1(corewar, processus, p1, pc);
+		else if (tab[1] == 3)
+		{
+			offset = get_int_indirect_value(corewar->memory + pc);
+			s = set_pc(processus->pc + (offset % IDX_MOD));
+			if (processus->carry == 1)
+				print_bit(corewar, s, p1);
+			else
+				print_bit(corewar, s, rev_int(p1));
+			processus->pc = set_pc(pc + 2);
+		}
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
