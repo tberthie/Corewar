@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 16:10:23 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:28:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void				render_stats(t_corewar *corewar);
 void				set_visual(t_corewar *corewar);
 void				set_ctd(t_corewar *corewar, unsigned int cycle);
 void				display(t_corewar *corewar);
+void				live_bar(t_corewar *corewar);
 
 void				add_champion(t_corewar *corewar, char *path);
 void				*parse_champion(int fd, char *path);

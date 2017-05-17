@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 17:03:22 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:31:22 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ static void		render_players(t_corewar *corewar, int i)
 		rec(1200, 200 * (i + 1) + 20, 0, 0));
 		if (corewar->champs[i]->number == corewar->last_alive)
 		{
-			text(corewar, "#", corewar->champs[i]->color, rec(1330, 145, 0, 0));
 			text(corewar, (tmp = ft_itoabase(corewar->champs[i]->number, 10)),
-			corewar->champs[i]->color, rec(1350, 145, 0, 0));
+			corewar->champs[i]->color, rec(1330, 145, 0, 0));
 			free(tmp);
 		}
 		!alive ? text(corewar, "DEAD", 0xff0000, rec(1415, 200 * (i + 1) + 45,
@@ -111,6 +110,7 @@ void			render_stats(t_corewar *corewar)
 	while (i--)
 		corewar->color[corewar->proc[i]->pc] = corewar->proc[i]->champ->color;
 	render_players(corewar, ft_parrlen((void**)corewar->champs));
+	live_bar(corewar);
 	!corewar->play ? text(corewar, "PAUSED", 0xffff00, rec(1395, 20, 0, 0)) : 0;
 	text(corewar, (tmp = ft_utoabase(corewar->tot_cycle, 10)), 0xa0a0a0,
 	rec(1330, 60, 0, 0));
