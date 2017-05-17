@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/16 00:12:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:10:36 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned int			check_live(t_corewar *corewar, t_proc **proc)
 			if (corewar->visual)
 				corewar->color[(*proc)->pc] =
 				multi_color((*proc)->champ->color, 0.8);
+			ft_free((*proc)->reg);
 			ft_parrprem((void**)proc, (*proc));
 		}
 		else

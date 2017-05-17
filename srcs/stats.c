@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 00:39:10 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 16:50:03 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:03:22 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static void		render_players(t_corewar *corewar, int i)
 			corewar->champs[i]->color, rec(1350, 145, 0, 0));
 			free(tmp);
 		}
-		!alive ? text(corewar, "DEAD", 0xff0000, rec(1415, 200 * (i + 1), 0, 0))
-		: player_stats(corewar, i);
+		!alive ? text(corewar, "DEAD", 0xff0000, rec(1415, 200 * (i + 1) + 45,
+		0, 0)) : player_stats(corewar, i);
 	}
 }
 
