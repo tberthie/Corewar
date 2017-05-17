@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 18:48:56 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 14:38:23 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:54:23 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int		set_index(void *adr)
 		return (index - 1);
 }
 
-void	return_error(t_proc *processus)
+void	return_error(t_proc *processus, int *tab)
 {
 	processus->pc = set_pc(processus->pc + 1);
+	free(tab);
 }
 
 void	change_carry(t_proc *processus, int p1)

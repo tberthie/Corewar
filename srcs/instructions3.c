@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 16:52:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:15:36 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	add(t_proc *processus, t_corewar *corewar)
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		pc++;
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc++)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = p1 + p2;
 		change_carry(processus, p1 + p2);
 		processus->pc = set_pc(pc + 1);
@@ -79,14 +79,14 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		pc++;
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc++)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = p1 - p2;
 		change_carry(processus, p1 + p2);
 		processus->pc = set_pc(pc + 1);
@@ -101,7 +101,10 @@ void	st1(t_corewar *corewar, t_proc *processus, int p1, unsigned int pc)
 	int		index;
 
 	if ((index = set_index(corewar->memory + pc)) < 0)
-		return (return_error(processus));
+	{
+		processus->pc = set_pc(processus->pc + 1);
+		return ;
+	}
 	processus->reg[index] = p1;
 	change_carry(processus, p1);
 	processus->pc = set_pc(pc + 1);

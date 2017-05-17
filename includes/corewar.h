@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 17:41:53 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:52:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,6 @@ void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
 void				change_carry(t_proc *processus, int p1);
 int					move_pc(int	tab, unsigned char op);
-void				return_error(t_proc *processus);
+void				return_error(t_proc *processus, int *tab);
 
 #endif

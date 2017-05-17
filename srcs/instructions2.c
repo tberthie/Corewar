@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 15:07:29 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:54:06 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		pc += move_pc(tab[0], op);
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
 		processus->pc = set_pc(pc + 1);
@@ -59,7 +59,7 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 		pc += move_pc(tab[0], op);
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = p1;
 		change_carry(processus, p1);
 		processus->pc = set_pc(pc + 1);
@@ -88,7 +88,7 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 				(nbr % IDX_MOD));
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = value;
 		processus->pc = set_pc(pc + 1);
 		free(tab);
@@ -116,7 +116,7 @@ void	lldi(t_proc *processus, t_corewar *cor, unsigned char op)
 				(nbr % IDX_MOD));
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(cor->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[index] = value;
 		change_carry(processus, value);
 		processus->pc = set_pc(pc + 1);
