@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 14:53:01 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:41:01 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	live(t_proc *processus, t_corewar *corewar)
 {
 	t_champ	*champ;
+	// char	*str;
 
 	processus->live++;
 	champ = processus->champ;
@@ -23,6 +24,7 @@ void	live(t_proc *processus, t_corewar *corewar)
 	if (!corewar->visual)
 		ft_print(1, "A process says player %d(%s) is alive\n",
 		champ->number, champ->name);
+	// str = ft_strdup("live");
 	processus->pc = set_pc(processus->pc + 5);
 }
 
@@ -43,7 +45,7 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 & p2;
 		change_carry(processus, p1 & p2);
 		processus->pc = set_pc(pc + 1);
@@ -70,7 +72,7 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 | p2;
 		change_carry(processus, p1 | p2);
 		processus->pc = set_pc(pc + 1);
@@ -97,7 +99,7 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(corewar->memory + pc)) < 0)
-			return (return_error(processus));
+			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 ^ p2;
 		change_carry(processus, p1 ^ p2);
 		processus->pc = set_pc(pc + 1);
