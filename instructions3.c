@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 14:00:03 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:50:41 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		tmp = set_pc(p2 + processus->pc);
 		print_bit(corewar, tmp, p1);
 		processus->pc = set_pc(pc + move_pc(tab[2], op));
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -52,15 +53,15 @@ void	add(t_proc *processus, t_corewar *corewar)
 			return (return_error(processus));
 		pc++;
 		p1 = processus->reg[index];
-		if ((index = set_index(corewar->memory + pc)) < 0)
+		if ((index = set_index(corewar->memory + pc++)) < 0)
 			return (return_error(processus));
-		pc++;
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[index] = p1 + p2;
 		change_carry(processus, p1 + p2);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -81,14 +82,15 @@ void	sub(t_proc *processus, t_corewar *corewar)
 			return (return_error(processus));
 		pc++;
 		p1 = processus->reg[index];
-		if ((index = set_index(corewar->memory + pc)) < 0)
+		if ((index = set_index(corewar->memory + pc++)) < 0)
 			return (return_error(processus));
-		pc++;
 		p2 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[index] = p1 - p2;
+		change_carry(processus, p1 + p2);
 		processus->pc = set_pc(pc + 1);
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
@@ -126,6 +128,7 @@ void	st(t_proc *processus, t_corewar *corewar)
 			print_bit(corewar, s, p1);
 			processus->pc = set_pc(pc + 2);
 		}
+		free(tab);
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);

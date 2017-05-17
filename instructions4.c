@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 14:03:27 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:11:24 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,19 @@ void	zjmp(t_proc *processus, t_corewar *corewar)
 		processus->pc = set_pc(processus->pc + 3);
 }
 
-void	processus_fork(t_proc *processus, t_proc *processus2, short value)
+void	processus_fork(t_proc *processus, t_proc *processus2, short value, \
+						unsigned char op)
 {
-	processus2->pc = set_pc(processus->pc + (value % IDX_MOD));
+	if (op == 12)
+		processus2->pc = set_pc(processus->pc + (value % IDX_MOD));
+	else
+		processus2->pc = set_pc(processus->pc + value);
 	processus2->carry = processus->carry;
 	processus2->reg = ft_memalloc(4 * REG_NUMBER);
 	processus2->live = 0;
 }
 
-void	c_fork(t_proc *processus, t_corewar *corewar)
+void	c_fork(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	t_proc			*processus2;
 	short			value;
@@ -70,8 +74,8 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	}
 	off += (0xffff << 16);
 	value = (short)off;
+	processus_fork(processus, processus2, value, op);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
-	processus_fork(processus, processus2, value);
 	cycles(corewar, processus2);
 	if (processus->live)
 		processus2->safe = 1;
@@ -79,7 +83,7 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	processus->pc = set_pc(processus->pc + 3);
 }
 
-void	lfork(t_proc *processus, t_corewar *corewar)
+void	lfork(t_proc *processus, t_corewar *corewar, unsigned char op)
 {
 	t_proc			*processus2;
 	short			value;
@@ -99,7 +103,7 @@ void	lfork(t_proc *processus, t_corewar *corewar)
 	}
 	off += (0xffff << 16);
 	value = (short)off;
-	processus_fork(processus, processus2, value);
+	processus_fork(processus, processus2, value, op);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
 	cycles(corewar, processus2);
 	if (processus->live)
@@ -122,7 +126,13 @@ void	aff(t_proc *processus, t_corewar *corewar)
 		value = get_reg_value(processus, corewar->memory + pc);
 		pc++;
 		aff = value % 256;
-		ft_putchar(aff);
+		if (corewar->visual)
+		{
+			ft_memcpy(processus->champ->aff + 1, processus->champ->aff, 14);
+			processus->champ->aff[0] = aff;
+		}
+		else
+			ft_putchar(aff);
 		processus->pc = set_pc(processus->pc + pc);
 	}
 	processus->pc = set_pc(processus->pc + 1);
