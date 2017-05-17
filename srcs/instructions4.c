@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 12:41:37 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:55:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,13 @@ void	aff(t_proc *processus, t_corewar *corewar)
 		value = get_reg_value(processus, corewar->memory + pc);
 		pc++;
 		aff = value % 256;
-		ft_putchar(aff);
+		if (corewar->visual)
+		{
+			ft_memcpy(processus->champ->aff + 1, processus->champ->aff, 14);
+			processus->champ->aff[0] = aff;
+		}
+		else
+			ft_putchar(aff);
 		processus->pc = set_pc(processus->pc + pc);
 	}
 	processus->pc = set_pc(processus->pc + 1);
