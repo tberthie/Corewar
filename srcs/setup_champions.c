@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 17:34:33 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:37:40 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static void		set_number(t_corewar *corewar, t_champ *champ)
 			i--;
 		champ->number = i;
 	}
+	if (champ->number >= 0)
+		error(0, "Champion number overflow");
 	corewar->next = 0;
 }
 
