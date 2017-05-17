@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 11:56:11 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:00:03 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 		pc += move_pc(tab[1], op);
 		p2 += get_value(processus, tab[2], op, corewar->memory + pc);
 		tmp = set_pc(p2 + processus->pc);
-		if (processus->carry == 1)
-			print_bit(corewar, tmp, p1);
-		else
-			print_bit(corewar, tmp, rev_int(p1));
+		print_bit(corewar, tmp, p1);
 		processus->pc = set_pc(pc + move_pc(tab[2], op));
 	}
 	else
@@ -91,7 +88,6 @@ void	sub(t_proc *processus, t_corewar *corewar)
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[index] = p1 - p2;
-		change_carry(processus, p1 - p2);
 		processus->pc = set_pc(pc + 1);
 	}
 	else
@@ -127,10 +123,7 @@ void	st(t_proc *processus, t_corewar *corewar)
 		{
 			offset = get_int_indirect_value(corewar->memory + pc);
 			s = set_pc(processus->pc + (offset % IDX_MOD));
-			if (processus->carry == 1)
-				print_bit(corewar, s, p1);
-			else
-				print_bit(corewar, s, rev_int(p1));
+			print_bit(corewar, s, p1);
 			processus->pc = set_pc(pc + 2);
 		}
 	}

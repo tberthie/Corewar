@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 18:48:56 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/16 18:55:21 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:38:23 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		*byte_analysis(void *adr)
 	nbr[2] = (byte >> 2) & (REG_CODE | DIR_CODE | IND_CODE);
 	if ((1 <= nbr[0] && nbr[0] <= 3) && (1 <= nbr[1] && nbr[1] <= 3))
 		return (nbr);
+	free(nbr);
 	return (NULL);
 }
 

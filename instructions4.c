@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 12:41:37 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:03:27 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	c_fork(t_proc *processus, t_corewar *corewar)
 	}
 	off += (0xffff << 16);
 	value = (short)off;
-	processus_fork(processus, processus2, value);
 	ft_memcpy(processus2->reg, processus->reg, 4 * REG_NUMBER);
+	processus_fork(processus, processus2, value);
 	cycles(corewar, processus2);
 	if (processus->live)
 		processus2->safe = 1;

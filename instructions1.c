@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 11:54:44 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 13:58:39 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[(int)index - 1] = p1 | p2;
-		change_carry(processus, p1 | p2);
 		processus->pc = set_pc(pc + 1);
 	}
 	else
@@ -97,7 +96,6 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus));
 		processus->reg[(int)index - 1] = p1 ^ p2;
-		change_carry(processus, p1 ^ p2);
 		processus->pc = set_pc(pc + 1);
 	}
 	else
