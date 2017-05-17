@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:22:22 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 15:11:01 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:10:39 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ void			text(t_corewar *corewar, char *txt, unsigned int color,
 	SDL_FreeSurface(sf);
 }
 
-void			subtext(t_corewar *corewar, char *txt, unsigned int color,
-				SDL_Rect rc)
+void			subtext(t_corewar *corewar, char *txt, SDL_Rect rc)
 {
 	SDL_Surface		*sf;
 
-	sf = TTF_RenderText_Shaded(corewar->subfont, txt, get_color(color),
+	sf = TTF_RenderText_Shaded(corewar->subfont, txt, get_color(0xa0a0a0),
 	get_color(0));
 	SDL_BlitSurface(sf, 0, corewar->sf, &rc);
 	SDL_FreeSurface(sf);

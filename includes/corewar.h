@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 15:21:37 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:10:23 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@
 typedef struct		s_champ {
 
 	char			*name;
+	char			*comment;
+	char			*aff;
 	int				number;
 
 	unsigned int	size;
 	void			*content;
 
 	unsigned int	color;
-	char			*aff;
 
 }					t_champ;
 
@@ -108,8 +109,7 @@ SDL_Rect			rec(int x, int y, int w, int h);
 void				render_hex(t_corewar *corewar);
 void				dhex(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
 void				text(t_corewar *cw, char *tx, unsigned int c, SDL_Rect rc);
-void				subtext(t_corewar *cw, char *tx, unsigned int c,
-					SDL_Rect rc);
+void				subtext(t_corewar *cw, char *tx, SDL_Rect rc);
 void				event(t_corewar *corewar);
 void				render_stats(t_corewar *corewar);
 void				set_visual(t_corewar *corewar);

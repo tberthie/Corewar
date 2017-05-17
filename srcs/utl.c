@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/15 15:33:23 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:02:54 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ unsigned int	multi_color(unsigned int color, double ratio)
 {
 	unsigned int new;
 
+	ratio = ratio > 1 ? 1 : ratio;
 	new = (unsigned char)((color >> 16 & 0xff) * ratio) << 16;
 	new += (unsigned char)((color >> 8 & 0xff) * ratio) << 8;
 	new += (unsigned char)(color & 0xff) * ratio;
