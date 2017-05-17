@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 16:41:40 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:36:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		calc_cps(t_corewar *corewar)
 
 void			set_ctd(t_corewar *corewar, unsigned int cycle)
 {
-	if (cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
+	if (cycle >= corewar->ctd && (check_live(corewar)
 	>= NBR_LIVE || corewar->check <= 0))
 	{
 		corewar->ctd -= CYCLE_DELTA > corewar->ctd ?

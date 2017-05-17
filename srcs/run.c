@@ -6,34 +6,37 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 17:10:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:44:46 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-unsigned int			check_live(t_corewar *corewar, t_proc **proc)
+unsigned int			check_live(t_corewar *corewar)
 {
 	unsigned int	total;
+	unsigned int	i;
+	t_proc			*proc;
 
 	total = 0;
-	while (*proc)
+	i = 0;
+	while (i < ft_parrlen((void**)corewar->proc))
 	{
-		if (!(*proc)->live && !(*proc)->safe)
+		proc = corewar->proc[i];
+		if (!proc->live && !proc->safe)
 		{
-			if (corewar->visual)
-				corewar->color[(*proc)->pc] =
-				multi_color((*proc)->champ->color, 0.8);
-			ft_free((*proc)->reg);
-			ft_parrprem((void**)proc, (*proc));
+			corewar->visual ? corewar->color[proc->pc] =
+			multi_color(proc->champ->color, 0.8) : 0;
+			free(proc->reg);
+			ft_parrprem((void**)corewar->proc, proc);
 		}
 		else
 		{
-			total += (*proc)->live;
-			(*proc)->live = 0;
-			(*proc)->safe = 0;
-			proc++;
+			total += proc->live;
+			proc->live = 0;
+			proc->safe = 0;
+			i++;
 		}
 	}
 	return (total);
@@ -93,7 +96,7 @@ void					run(t_corewar *corewar)
 		process(corewar);
 		if (++corewar->cycle == corewar->dump)
 			dump(corewar);
-		if (++cycle >= corewar->ctd && (check_live(corewar, corewar->proc)
+		if (++cycle >= corewar->ctd && (check_live(corewar)
 		>= NBR_LIVE || corewar->check <= 0))
 		{
 			corewar->ctd -= CYCLE_DELTA > corewar->ctd ?
