@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 17:18:22 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:35:07 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	c_fork(t_proc *processus, t_corewar *corewar, unsigned char op)
 		processus2->safe = 1;
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc = set_pc(processus->pc + 3);
-	g_lol++;
 }
 
 void	lfork(t_proc *processus, t_corewar *corewar, unsigned char op)
@@ -111,7 +110,6 @@ void	lfork(t_proc *processus, t_corewar *corewar, unsigned char op)
 		processus2->safe = 1;
 	ft_parrpush((void***)&corewar->proc, processus2);
 	processus->pc = set_pc(processus->pc + 3);
-	g_lol++;
 }
 
 void	aff(t_proc *processus, t_corewar *corewar)
