@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 17:15:36 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/18 11:13:12 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	sub(t_proc *processus, t_corewar *corewar)
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
 		processus->reg[index] = p1 - p2;
-		change_carry(processus, p1 + p2);
+		change_carry(processus, p1 - p2);
 		processus->pc = set_pc(pc + 1);
 		free(tab);
 	}
