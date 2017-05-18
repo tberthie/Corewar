@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 14:16:35 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/18 17:51:15 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int		get_reg_value(t_proc *processus, void *adr)
 	index = *(char*)(adr);
 	index2 = (int)index - 1;
 	if (index2 < 0 || 15 < index2)
+	{
+		processus->pc = set_pc(processus->pc + 1);
 		return (0);
+	}
 	value = processus->reg[index2];
 	return (value);
 }
