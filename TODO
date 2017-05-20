@@ -1,2 +1,1 @@
-Check every instructions for memory overflow
-Check every PC moves
+Check every instructions for memory overflow (PC overflow in ld, st, etc)
