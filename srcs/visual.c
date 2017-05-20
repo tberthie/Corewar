@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 18:36:55 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/18 13:51:29 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void			set_visual(t_corewar *corewar)
 {
 	SDL_Rect	rc;
 
-	ft_memcpy(corewar->save, corewar->memory, MEM_SIZE);
 	rc = rec(0, 0, 1500, 1000);
 	SDL_FillRect(corewar->sf, &rc, 0);
 	rc = rec(15, 15, 1162, 970);

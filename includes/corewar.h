@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 18:22:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/18 13:51:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct		s_corewar {
 
 	char			visual;
 	char			play;
-	void			*save;
 	unsigned int	*color;
 	unsigned int	cps;
 	unsigned int	step;

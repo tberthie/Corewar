@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 18:35:07 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/20 13:26:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,10 @@ void	aff(t_proc *processus, t_corewar *corewar)
 {
 	char	aff;
 	int		value;
-	int		*tab;
 	int		pc;
 
 	pc = processus->pc + 1;
-	if ((tab = byte_analysis(corewar->memory + pc)))
+	if (*(unsigned char*)(corewar->memory + pc) == 64)
 	{
 		pc++;
 		value = get_reg_value(processus, corewar->memory + pc);
@@ -130,7 +129,8 @@ void	aff(t_proc *processus, t_corewar *corewar)
 			ft_strpush(&processus->champ->aff, aff);
 		else
 			ft_putchar(aff);
-		processus->pc = set_pc(processus->pc + pc);
+		processus->pc = set_pc(pc);
 	}
-	processus->pc = set_pc(processus->pc + 1);
+	else
+		processus->pc = set_pc(processus->pc + 1);
 }

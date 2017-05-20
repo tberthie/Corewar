@@ -6,12 +6,19 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 18:44:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/20 13:24:45 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
+
+static void				remove_proc(t_corewar *corewar, t_proc *proc)
+{
+	ft_parrprem((void**)corewar->proc, proc);
+	free(proc->reg);
+	free(proc);
+}
 
 unsigned int			check_live(t_corewar *corewar)
 {
@@ -26,10 +33,9 @@ unsigned int			check_live(t_corewar *corewar)
 		proc = corewar->proc[i];
 		if (!proc->live && !proc->safe)
 		{
-			corewar->visual ? corewar->color[proc->pc] =
-			multi_color(proc->champ->color, 0.8) : 0;
-			free(proc->reg);
-			ft_parrprem((void**)corewar->proc, proc);
+			if (corewar->visual)
+				corewar->color[proc->pc] = multi_color(proc->champ->color, 0.8);
+			remove_proc(corewar, proc);
 		}
 		else
 		{
