@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 18:29:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 16:53:16 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/20 14:43:25 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-# define TRAIL_SIZE				16
+# define TRAIL_SIZE				8
 
 typedef struct		s_header
 {
