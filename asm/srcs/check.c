@@ -6,121 +6,117 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:25:00 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:28:00 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void		check_label(t_asm *vasm, int i)
+t_inst		*first_inst(t_asm *vasm)
 {
-	int		j;
-	int		size;
+	t_inst	*tmp;
 
-	j = 0;
-	size = ft_strichr(vasm->s[i], LABEL_CHAR);
-	if (!size || size > T_LAB + 1)
-		error(vasm, 3);
-	while (j < size)
+	tmp = vasm->labreg;
+	while (tmp)
 	{
-		if (ft_strichr(LABEL_CHARS, vasm->s[i][j]) == -1)
-			error(vasm, 3);
-		++j;
+		if (!ft_stritabstr(vasm->cmd, tmp->content, ft_strlen(tmp->content)))
+			break ;
+		tmp = tmp->next;
 	}
+	return (tmp);
 }
 
-void		is_header(t_asm *vasm)
+t_inst		*check_name(t_asm *vasm, t_inst *tmp)
 {
-	int line;
-	int i;
-	int name;
-	int comment;
-
-	line = vasm->labreg->line;
-	i = 0;
-	name = 0;
-	comment = 0;
-	while (i < line)
-	{
-		if (!ft_strncmp(vasm->s[i], NAME_CMD_STRING,
-					ft_strlen(NAME_CMD_STRING)))
-			++name;
-		if (!ft_strncmp(vasm->s[i], COMMENT_CMD_STRING,
-					ft_strlen(COMMENT_CMD_STRING)))
-			++comment;
-		++i;
-	}
-	if (name != 1)
+	if (ft_strichr_cnt(tmp->content, '"') != 2 ||
+			ft_strichr_last(tmp->content, '"') -
+			ft_strichr(tmp->content, '"') == 1 ||
+			ft_strichr_last(tmp->content, '"') -
+			ft_strichr(tmp->content, '"') > PROG_NAME_LENGTH)
 		error(vasm, 1);
-	if (comment != 1)
-		error(vasm, 2);
+	return (tmp);
 }
 
-void		check_header(t_asm *vasm, int i)
+void		check_header_data(t_asm *vasm, t_inst *tmp, int i)
 {
-	is_header(vasm);
-	if (!ft_strncmp(vasm->s[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+	while ((int)tmp->line < vasm->first_line)
 	{
-		vasm->name_line = i;
-		if (ft_strichr_cnt(vasm->s[i], '"') != 2 || ft_strichr_last(vasm->s[i],
-					'"') - ft_strichr(vasm->s[i], '"') == 1 ||
-				ft_strichr_last(vasm->s[i], '"') - ft_strichr(vasm->s[i], '"')
-				> PROG_NAME_LENGTH || vasm->s[i][ft_strichr_last(vasm->s[i],
-					'"') + 1] != '\0')
-			error(vasm, 1);
-	}
-	else if (!ft_strncmp(vasm->s[i], COMMENT_CMD_STRING,
-				ft_strlen(COMMENT_CMD_STRING)))
-	{
-		vasm->comment_line = i;
-		if (ft_strichr_cnt(vasm->s[i], '"') != 2 || ft_strichr_last(vasm->s[i],
-					'"') - ft_strichr(vasm->s[i], '"') == 1 ||
-				ft_strichr_last(vasm->s[i], '"') - ft_strichr(vasm->s[i], '"')
-				> COMMENT_LENGTH || vasm->s[i][ft_strichr_last(vasm->s[i],
-					'"') + 1] != '\0')
-			error(vasm, 2);
-	}
-}
-
-void		check_order(t_asm *vasm)
-{
-	if (vasm->name_line >= 0 && vasm->comment_line >= 0 &&
-			vasm->inst_line >= 0)
-	{
-		if (vasm->name_line >= vasm->comment_line || vasm->inst_line <=
-				vasm->name_line || vasm->inst_line <= vasm->comment_line)
-			error(vasm, 6);
-	}
-	else if (vasm->inst_line >= 0 && (vasm->name_line == -1 ||
-				vasm->comment_line == -1))
-		error(vasm, 6);
-}
-
-void		check_asm(t_asm *vasm, int i, char *inst)
-{
-	while (i < vasm->file_lines)
-	{
-		check_order(vasm);
-		if (ft_stristr(vasm->s[i], NAME_CMD_STRING) == -1 &&
-				ft_stristr(vasm->s[i], COMMENT_CMD_STRING) == -1 &&
-				vasm->s[i][0] != COMMENT_CHAR)
+		while ((int)tmp->line == i)
 		{
-			vasm->inst_line = i;
-			inst = vasm->s[i];
-			if (ft_strichr(vasm->s[i], LABEL_CHAR) != -1 &&
-					vasm->s[i][ft_strichr(vasm->s[i], LABEL_CHAR) + 1] == ' ')
+			i = tmp->line;
+			if (!ft_strcmp(NAME_CMD_STRING, tmp->content))
 			{
-				check_label(vasm, i);
-				inst = vasm->s[i] + ft_strichr(vasm->s[i], LABEL_CHAR) + 1;
-				inst += ft_trim(inst);
+				tmp = check_name(vasm, tmp->next);
+				if ((int)tmp->line != i)
+					error(vasm, 9);
 			}
-			vasm->command = ft_stritabstr(vasm->cmd, inst,
-			ft_strichr(inst, ' '));
-			vasm->checktab[vasm->command](vasm, inst +
-			ft_strichr(inst, ' ') + 1);
+			if (!ft_strcmp(COMMENT_CMD_STRING, tmp->content))
+			{
+				tmp = tmp->next;
+				if (ft_strichr_cnt(tmp->content, '"') != 2 ||
+						ft_strichr_last(tmp->content, '"') -
+						ft_strichr(tmp->content, '"') > COMMENT_LENGTH)
+					error(vasm, 2);
+				if ((int)tmp->line != i)
+					error(vasm, 10);
+			}
+			tmp = tmp->next;
 		}
-		else if (vasm->s[i][0] != COMMENT_CHAR)
-			check_header(vasm, i);
-		++i;
+		i = tmp->line;
+	}
+}
+
+t_inst		*check_header(t_asm *vasm, int name, int comment)
+{
+	t_inst	*tmp;
+
+	tmp = vasm->labreg;
+	while (tmp && !vasm->first_line)
+	{
+		if (!ft_strcmp(NAME_CMD_STRING, tmp->content))
+			name = tmp->line;
+		else if (!ft_strcmp(COMMENT_CMD_STRING, tmp->content))
+			comment = tmp->line;
+		else if (tmp->content[0] != '"')
+			vasm->first_line = tmp->line;
+		tmp = tmp->next;
+	}
+	if (!name)
+		error(vasm, 1);
+	if (!comment)
+		error(vasm, 2);
+	if (!vasm->first_line)
+		error(vasm, 7);
+	if (name >= comment || vasm->first_line <= name ||
+			vasm->first_line <= comment)
+		error(vasm, 6);
+	check_header_data(vasm, vasm->labreg, 1);
+	return (tmp);
+}
+
+void		check_asm(t_asm *vasm, t_inst *tmp, t_inst *tmp2)
+{
+	tmp = check_header(vasm, 0, 0);
+	while (tmp)
+	{
+		vasm->inst_line = tmp->line;
+		if (!tmp->content_size && tmp->content[ft_strlen(tmp->content) - 1] ==
+				LABEL_CHAR)
+		{
+			check_label(vasm, tmp);
+			tmp = tmp->next;
+		}
+		else
+		{
+			vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
+					ft_strlen(tmp->content));
+			if (vasm->command == -1)
+				error(vasm, 3);
+			tmp2 = tmp;
+			tmp = tmp->next;
+			tmp = vasm->checktab[vasm->command](vasm, tmp);
+			if (tmp2->line != vasm->instruct->line)
+				error(vasm, 8);
+		}
 	}
 }

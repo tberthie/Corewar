@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_inst_4.c                                     :+:      :+:    :+:   */
+/*   ft_m.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/02 14:35:38 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 12:05:53 by gthomas          ###   ########.fr       */
+/*   Created: 2017/05/16 12:39:13 by gthomas           #+#    #+#             */
+/*   Updated: 2017/05/16 12:45:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "./includes/libft.h"
 
-t_inst		*check_none(t_asm *vasm, t_inst *tmp)
+void		ft_m(void **s, size_t size)
 {
-	if (tmp || !tmp)
-		error(vasm, 3);
-	return (tmp);
-}
-
-t_inst		*check_aff(t_asm *vasm, t_inst *tmp)
-{
-	int		param;
-	int		i;
-
-	param = get_param(tmp);
-	i = 0;
-	if (param != 1)
-		error(vasm, 3);
-	if (!check_reg(tmp->content))
-		error(vasm, 3);
-	vasm->instruct = tmp;
-	return (tmp->next);
+	if (!(*s = (void *)malloc((size + 1) * sizeof(void))))
+		exit(EXIT_FAILURE);
 }

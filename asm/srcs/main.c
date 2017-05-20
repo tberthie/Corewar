@@ -6,11 +6,11 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:44:45 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 14:35:20 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../includes/asm.h"
 
 int			find_ocp(t_inst *node, int param, int oct, int i)
 {
@@ -18,15 +18,18 @@ int			find_ocp(t_inst *node, int param, int oct, int i)
 	node = node->next;
 	while (node && (int)node->line == param)
 	{
-		oct *= 4;
-		if (node->content[0] == 'r')
-			oct += 1;
-		else if (node->content[0] == '%')
-			oct += 2;
-		else if (ft_nisdigit(node->content, ft_strlen(node->content)))
-			oct += 3;
+		if (node->content_size)
+		{
+			oct *= 4;
+			if (node->content[0] == 'r')
+				oct += 1;
+			else if (node->content[0] == '%')
+				oct += 2;
+			else if (ft_nisdigit(node->content, ft_strlen(node->content)))
+				oct += 3;
+			++i;
+		}
 		node = node->next;
-		++i;
 	}
 	while (i < 4)
 	{
@@ -41,6 +44,7 @@ void		put_asm(t_asm *vasm)
 	t_inst	*tmp;
 
 	tmp = vasm->labreg;
+	tmp = tmp->next->next->next->next;
 	while (tmp)
 	{
 		if (tmp->content_size)
@@ -68,9 +72,9 @@ void		cor_hex(t_asm *vasm, char *str)
 {
 	vasm->s = ft_strsplit(str, '\n');
 	vasm->file_lines = ft_ptrlen(vasm->s);
-	get_labels(vasm, -1, 0, NULL);
+	get_labels(vasm, 0, 0, NULL);
 	init_checktab(vasm);
-	check_asm(vasm, 0, vasm->tmp);
+	check_asm(vasm, vasm->labreg, vasm->labreg);
 	get_cor_size(vasm);
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0600)) == -1)
 		exit(EXIT_FAILURE);
@@ -78,7 +82,6 @@ void		cor_hex(t_asm *vasm, char *str)
 	put_header(vasm);
 	put_asm(vasm);
 	close(vasm->fd);
-	free_all(vasm);
 }
 
 void		parse(t_asm *vasm, char *str)
@@ -103,7 +106,7 @@ int			main(int ac, char **av)
 	t_asm	*vasm;
 
 	if (!(vasm = (t_asm *)malloc(sizeof(t_asm))))
-		exit(EXIT_FAILURE);
+		return (-1);
 	vasm->zero = 0;
 	vasm->ff = 255;
 	if (ac == 2)
@@ -122,5 +125,7 @@ int			main(int ac, char **av)
 		vasm->file = av[2];
 		aff_parse(vasm, av[2]);
 	}
+	free_all(vasm);
+	free(vasm);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 11:40:20 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:46:32 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 14:32:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void		print_inst(t_asm *vasm, t_inst *tmp2, t_inst *tmp)
 		if (tmp2->content_size)
 		{
 			if (tmp2->content[0] != 'r' && tmp2->content[0] != DIRECT_CHAR &&
-					!ft_isdigit(tmp2->content[0]))
+					!ft_isdigit(tmp2->content[0]) && tmp2->content[0] != ',')
 				ft_lprintf(1, "\t%s", tmp2->content);
-			else
+			else if (tmp2->content[0] != ',')
 				ft_lprintf(1, "\t\t%s", tmp2->content);
 		}
 		tmp2 = tmp2->next;
@@ -41,7 +41,7 @@ void		print_data(t_asm *vasm, t_inst *tmp2, t_inst *tmp)
 				print_ind(vasm, tmp2, 0);
 			else if (tmp2->content[0] == DIRECT_CHAR)
 				print_dir(vasm, tmp2, 0, 0);
-			else
+			else if (tmp2->content[0] != ',')
 			{
 				vasm->command = ft_stritabstr(vasm->cmd, tmp2->content,
 						ft_strlen(tmp2->content));
@@ -64,7 +64,7 @@ t_inst		*print_cor_int(t_asm *vasm, t_inst *tmp)
 			print_ind_int(vasm, tmp, 0);
 		else if (tmp->content[0] == DIRECT_CHAR)
 			print_dir_int(vasm, tmp, 0);
-		else
+		else if (tmp->content[0] != ',')
 		{
 			vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
 					ft_strlen(tmp->content));
@@ -77,13 +77,28 @@ t_inst		*print_cor_int(t_asm *vasm, t_inst *tmp)
 	return (tmp);
 }
 
+t_inst		*get_after_header(t_asm *vasm)
+{
+	t_inst	*tmp;
+
+	tmp = vasm->labreg;
+	while (tmp)
+	{
+		if (ft_strcmp(NAME_CMD_STRING, tmp->content) &&
+				ft_strcmp(COMMENT_CMD_STRING, tmp->content) &&
+				tmp->content[0] != '"')
+			break ;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
 void		print_asm(t_asm *vasm)
 {
 	t_inst	*tmp;
 	t_inst	*tmp2;
 
-	tmp = vasm->labreg;
-	tmp2 = tmp;
+	tmp = get_after_header(vasm);
 	while (tmp)
 	{
 		if (vasm->inst_line != (int)tmp->line)

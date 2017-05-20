@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 11:09:55 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 10:59:59 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:59:34 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		print_size(t_asm *vasm, t_inst *tmp2, t_inst *tmp, int label)
 			ft_lprintf(1, "%d", vasm->bytes);
 		else
 			ft_lprintf(1, "\n\n%d", vasm->bytes);
-		ft_lprintf(1, "\t :   %s:\n", tmp2->content);
+		ft_lprintf(1, "\t :   %s\n", tmp2->content);
 		label = 1;
 		tmp2 = tmp2->next;
 	}

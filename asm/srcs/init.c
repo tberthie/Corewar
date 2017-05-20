@@ -6,11 +6,11 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 16:48:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 14:14:34 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:25:49 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../includes/asm.h"
 
 void		init_asm(t_asm *vasm)
 {
@@ -27,9 +27,7 @@ void		init_asm(t_asm *vasm)
 	vasm->bytes = 0;
 	vasm->size = 0;
 	vasm->cor_size = 0;
-	vasm->name_line = -1;
-	vasm->comment_line = -1;
-	vasm->first_inst_line = -1;
+	vasm->command = 0;
 }
 
 void		init_checktab(t_asm *vasm)
@@ -63,10 +61,32 @@ static void	alloc_cmd(t_asm *vasm)
 		exit(EXIT_FAILURE);
 	while (i < 17)
 	{
-		if (!(vasm->cmd[i] = (char *)malloc(5)))
+		if (!(vasm->cmd[i] = (char *)malloc(6)))
 			exit(EXIT_FAILURE);
+		ft_bzero(vasm->cmd[i], 6);
 		++i;
 	}
+}
+
+void		init_icmd(t_asm *vasm)
+{
+	vasm->icmd[0] = 0;
+	vasm->icmd[1] = 1;
+	vasm->icmd[2] = 3;
+	vasm->icmd[3] = 3;
+	vasm->icmd[4] = 5;
+	vasm->icmd[5] = 5;
+	vasm->icmd[6] = 5;
+	vasm->icmd[7] = 5;
+	vasm->icmd[8] = 5;
+	vasm->icmd[9] = 1;
+	vasm->icmd[10] = 5;
+	vasm->icmd[11] = 5;
+	vasm->icmd[12] = 1;
+	vasm->icmd[13] = 3;
+	vasm->icmd[14] = 5;
+	vasm->icmd[15] = 1;
+	vasm->icmd[16] = 1;
 }
 
 void		init_cmd(t_asm *vasm)
@@ -89,4 +109,6 @@ void		init_cmd(t_asm *vasm)
 	ft_strcpy(vasm->cmd[14], "lldi");
 	ft_strcpy(vasm->cmd[15], "lfork");
 	ft_strcpy(vasm->cmd[16], "aff");
+	vasm->cmd[17] = NULL;
+	init_icmd(vasm);
 }

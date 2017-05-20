@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:25:29 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:27:51 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		first_node(t_asm *vasm, int i, int size)
 	if (!(vasm->labreg->content = (char *)malloc(size + 1)))
 		exit(EXIT_FAILURE);
 	vasm->labreg->content_size = 0;
-	vasm->labreg->line = i;
+	vasm->labreg->line = i + 1;
 	vasm->labreg->next = NULL;
 }
 
@@ -41,7 +41,7 @@ t_inst		*other_node(t_inst *tmp, int i, int size)
 	if (!(tmp->content = (char *)malloc(size + 1)))
 		exit(EXIT_FAILURE);
 	tmp->content_size = 0;
-	tmp->line = i;
+	tmp->line = i + 1;
 	tmp->next = NULL;
 	return (tmp);
 }
@@ -50,7 +50,8 @@ void		store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst)
 {
 	int		cmd;
 
-	cmd = ft_stritabstr(vasm->cmd, vasm->tmp, ft_strlen(vasm->tmp));
+	i = 0;
+	cmd = vasm->command;
 	if (inst[0] == 'r')
 	{
 		tmp->content_size = 1;
@@ -72,7 +73,6 @@ void		store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst)
 	}
 	else if (ft_isdigit(inst[0]))
 		tmp->content_size = 2;
-	tmp->line = i;
 }
 
 void		get_cor_size(t_asm *vasm)

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 12:13:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:13:20 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 14:33:30 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		print_off_pos_int(t_asm *vasm, t_inst *off)
 		offset += tmp->content_size;
 		tmp = tmp->next;
 	}
-	while (tmp && ft_strcmp(tmp->content, off->content))
+	while (tmp && ft_strncmp(tmp->content, off->content,
+			ft_strlen(tmp->content) - 1))
 	{
 		offset += tmp->content_size;
 		tmp = tmp->next;
@@ -55,7 +56,8 @@ void		print_offset_int(t_asm *vasm, t_inst *node)
 
 	offset = 0;
 	off = vasm->labreg;
-	while (off && ft_strcmp(node->content + 2, off->content))
+	while (off && ft_strncmp(node->content + 2, off->content,
+			ft_strlen(off->content) - 1))
 		off = off->next;
 	if (off->line > node->line)
 		print_off_pos_int(vasm, off);

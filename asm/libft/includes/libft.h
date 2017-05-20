@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 08:54:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:37:11 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/16 17:37:11 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,9 @@ int					ft_trim(char *str);
 int					ft_nisdigit(char *s, int n);
 char				*ft_parse(char *file_name);
 unsigned int		ft_revint(unsigned int nb);
+int					ft_strichrws(const char *s);
+void				ft_m(void **s, size_t size);
+char				**ft_splitws(char *str);
+int					get_iword(char *str);
 
 #endif

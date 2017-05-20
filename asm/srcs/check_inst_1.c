@@ -6,96 +6,122 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:37:01 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/08 16:50:12 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:28:20 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../includes/asm.h"
 
-void		check_live(t_asm *vasm, char *inst)
-{
-	int		param;
-
-	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
-	if (param)
-		error(vasm, 3);
-	if (!check_dir(vasm, inst))
-		error(vasm, 3);
-}
-
-void		check_ld(t_asm *vasm, char *inst)
+t_inst		*check_live(t_asm *vasm, t_inst *tmp)
 {
 	int		param;
 	int		i;
 
-	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
+	param = get_param(tmp);
 	i = 0;
 	if (param != 1)
 		error(vasm, 3);
-	while (i <= param)
-	{
-		if ((i && !check_reg(inst)) && (!i && !check_dir(vasm, inst) &&
-					!check_ind(vasm, inst)))
-			error(vasm, 3);
-		if (i < param)
-			inst += ft_strichr(inst, SEPARATOR_CHAR) + 1;
-		++i;
-	}
+	if (!check_dir(vasm, tmp->content))
+		error(vasm, 3);
+	vasm->instruct = tmp;
+	return (tmp->next);
 }
 
-void		check_st(t_asm *vasm, char *inst)
+t_inst		*check_ld(t_asm *vasm, t_inst *tmp)
 {
 	int		param;
 	int		i;
 
-	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
-	i = 0;
-	if (param != 1)
+	param = get_param(tmp);
+	if (param != 3)
 		error(vasm, 3);
-	while (i <= param)
+	i = 0;
+	while (i < param)
 	{
-		if (!check_reg(inst) && (i && !check_ind(vasm, inst)))
+		if (!(i % 2) && (i == 2 && !check_reg(tmp->content)) && (!i &&
+				!check_dir(vasm, tmp->content) &&
+				!check_ind(vasm, tmp->content)))
 			error(vasm, 3);
-		if (i < param)
-			inst += ft_strichr(inst, SEPARATOR_CHAR) + 1;
+		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+				tmp->content[0] != ',')
+			error(vasm, 3);
+		if (i == param - 1)
+			vasm->instruct = tmp;
+		tmp = tmp->next;
 		++i;
 	}
+	return (tmp);
 }
 
-void		check_add(t_asm *vasm, char *inst)
+t_inst		*check_st(t_asm *vasm, t_inst *tmp)
 {
 	int		param;
 	int		i;
 
-	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
+	param = get_param(tmp);
 	i = 0;
-	if (param != 2)
+	if (param != 3)
 		error(vasm, 3);
-	while (i <= param)
+	while (i < param)
 	{
-		if (!check_reg(inst))
+		if (!(i % 2) && !check_reg(tmp->content) && (i == 2 &&
+				!check_ind(vasm, tmp->content)))
 			error(vasm, 3);
-		if (i < param)
-			inst += ft_strichr(inst, SEPARATOR_CHAR) + 1;
+		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+				tmp->content[0] != ',')
+			error(vasm, 3);
+		if (i == param - 1)
+			vasm->instruct = tmp;
+		tmp = tmp->next;
 		++i;
 	}
+	return (tmp);
 }
 
-void		check_sub(t_asm *vasm, char *inst)
+t_inst		*check_add(t_asm *vasm, t_inst *tmp)
 {
 	int		param;
 	int		i;
 
-	param = ft_strichr_cnt(inst, SEPARATOR_CHAR);
+	param = get_param(tmp);
 	i = 0;
-	if (param != 2)
+	if (param != 5)
 		error(vasm, 3);
-	while (i <= param)
+	while (i < param)
 	{
-		if (!check_reg(inst))
+		if (!(i % 2) && !check_reg(tmp->content))
 			error(vasm, 3);
-		if (i < param)
-			inst += ft_strichr(inst, SEPARATOR_CHAR) + 1;
+		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+				tmp->content[0] != ',')
+			error(vasm, 3);
+		if (i == param - 1)
+			vasm->instruct = tmp;
+		tmp = tmp->next;
 		++i;
 	}
+	return (tmp);
+}
+
+t_inst		*check_sub(t_asm *vasm, t_inst *tmp)
+{
+	int		param;
+	int		i;
+
+	param = get_param(tmp);
+	i = 0;
+	if (param != 5)
+		error(vasm, 3);
+	while (i < param)
+	{
+		if (!(i % 2) && !check_reg(tmp->content))
+			error(vasm, 3);
+		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+				tmp->content[0] != ',')
+			error(vasm, 3);
+		if (i == param - 1)
+			vasm->instruct = tmp;
+		tmp = tmp->next;
+		++i;
+	}
+	return (tmp);
 }

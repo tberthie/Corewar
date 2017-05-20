@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:16:01 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:48:52 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_asm
 	char			*name;
 	char			*comment;
 	char			cor[4];
+	int				icmd[17];
 	unsigned char	acor;
 	short int		sicor;
 	int				icor;
@@ -50,44 +51,42 @@ typedef struct		s_asm
 	int				command;
 	int				len;
 	int				file_lines;
+	int				first_line;
 	int				inst_line;
-	int				name_line;
-	int				comment_line;
-	int				first_inst_line;
+	t_inst			*(*checktab[17])(struct s_asm *, t_inst *);
 	int				cor_size;
-	void			(*insttab[17])(struct s_asm *, char *);
-	void			(*checktab[17])(struct s_asm *, char *);
 	t_inst			*labreg;
 	t_inst			*instruct;
+	t_header		header;
 }					t_asm;
 
 void			error(t_asm *v_asm, int err);
 void			put_asm(t_asm *vasm);
 void			get_labels(t_asm *vasm, int i, int lbl, char *inst);
 int				ft_lstntabstr(t_inst **begin, char *str, int size, int nb);
-void			check_none(t_asm *vasm, char *inst);
-void			check_live(t_asm *vasm, char *inst);
-void			check_ld(t_asm *vasm, char *inst);
-void			check_st(t_asm *vasm, char *inst);
-void			check_add(t_asm *vasm, char *inst);
-void			check_sub(t_asm *vasm, char *inst);
-void			check_and(t_asm *vasm, char *inst);
-void			check_or(t_asm *vasm, char *inst);
-void			check_xor(t_asm *vasm, char *inst);
-void			check_zjmp(t_asm *vasm, char *inst);
-void			check_ldi(t_asm *vasm, char *inst);
-void			check_sti(t_asm *vasm, char *inst);
-void			check_fork(t_asm *vasm, char *inst);
-void			check_lld(t_asm *vasm, char *inst);
-void			check_lldi(t_asm *vasm, char *inst);
-void			check_lfork(t_asm *vasm, char *inst);
-void			check_aff(t_asm *vasm, char *inst);
+t_inst			*check_none(t_asm *vasm, t_inst *tmp);
+t_inst			*check_live(t_asm *vasm, t_inst *tmp);
+t_inst			*check_ld(t_asm *vasm, t_inst *tmp);
+t_inst			*check_st(t_asm *vasm, t_inst *tmp);
+t_inst			*check_add(t_asm *vasm, t_inst *tmp);
+t_inst			*check_sub(t_asm *vasm, t_inst *tmp);
+t_inst			*check_and(t_asm *vasm, t_inst *tmp);
+t_inst			*check_or(t_asm *vasm, t_inst *tmp);
+t_inst			*check_xor(t_asm *vasm, t_inst *tmp);
+t_inst			*check_zjmp(t_asm *vasm, t_inst *tmp);
+t_inst			*check_ldi(t_asm *vasm, t_inst *tmp);
+t_inst			*check_sti(t_asm *vasm, t_inst *tmp);
+t_inst			*check_fork(t_asm *vasm, t_inst *tmp);
+t_inst			*check_lld(t_asm *vasm, t_inst *tmp);
+t_inst			*check_lldi(t_asm *vasm, t_inst *tmp);
+t_inst			*check_lfork(t_asm *vasm, t_inst *tmp);
+t_inst			*check_aff(t_asm *vasm, t_inst *tmp);
 int				check_reg(char *inst);
 int				check_dir(t_asm *vasm, char *inst);
 int				check_ind(t_asm *vasm, char *inst);
-void			check_label(t_asm *vasm, int i);
-void			check_header(t_asm *vasm, int i);
-void			check_asm(t_asm *vasm, int i, char *inst);
+void			check_label(t_asm *vasm, t_inst *tmp);
+t_inst			*check_header(t_asm *vasm, int name, int comment);
+void			check_asm(t_asm *vasm, t_inst *tmp, t_inst *tmp2);
 int				find_ocp(t_inst *node, int param, int oct, int i);
 void			init_checktab(t_asm *vasm);
 void			init_cmd(t_asm *vasm);
@@ -111,7 +110,7 @@ void			put_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			put_reg(t_asm *vasm, t_inst *node);
 void			put_cmd(t_asm *vasm, t_inst *node);
 void			aff_parse(t_asm *vasm, char *str);
-void			print_header(t_asm *vasm, int i, int nb);
+void			print_header(t_asm *vasm);
 void			print_ind(t_asm *vasm, t_inst *node, int ind);
 void			print_ind_int(t_asm *vasm, t_inst *node, int ind);
 void			print_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
@@ -126,6 +125,14 @@ void			print_off_neg(t_asm *vasm, t_inst *node, t_inst *off);
 void			print_asm(t_asm *vasm);
 void			print_four_bytes(t_asm *vasm, int offset);
 void			print_two_bytes(t_asm *vasm, int offset);
+void			four_bytes(t_asm *vasm, int offset);
+void			two_bytes(t_asm *vasm, int offset);
 void			print_size(t_asm *vasm, t_inst *tmp2, t_inst *tmp, int label);
+t_inst			*store_header(t_asm *vasm, t_inst *tmp, int i);
+t_inst			*store_header_data(t_asm *vasm, t_inst *tmp, int i);
+t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i, char *inst);
+void			get_str(t_asm *vasm, int i, char *inst);
+t_inst			*get_first_inst(t_asm *vasm, t_inst *tmp);
+int				get_param(t_inst *tmp);
 
 #endif

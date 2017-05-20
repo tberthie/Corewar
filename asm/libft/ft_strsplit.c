@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 12:54:46 by gthomas           #+#    #+#             */
-/*   Updated: 2017/04/30 17:30:47 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/20 13:21:57 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	cnt_line(char *s, char c)
 		else
 			++i;
 	}
-	return (cnt + 1);
+	return (cnt);
 }
 
 static char	**alloc_str(char *s, char c, char **new, int i)

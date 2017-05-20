@@ -6,11 +6,11 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/15 15:19:40 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/19 14:33:19 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../includes/asm.h"
 
 void		put_cmd(t_asm *vasm, t_inst *node)
 {
@@ -35,45 +35,16 @@ void		put_reg(t_asm *vasm, t_inst *node)
 	write(vasm->fd, &reg, 1);
 }
 
-void		put_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i)
-{
-	while (i < node->content_size - 2)
-	{
-		write(vasm->fd, &vasm->ff, 1);
-		++i;
-	}
-	if (dir > -256)
-		write(vasm->fd, &vasm->ff, 1);
-	else
-	{
-		vasm->ret = (dir >> 8) & 0x000000ff;
-		write(vasm->fd, &vasm->ret, 1);
-	}
-}
-
 void		put_dir(t_asm *vasm, t_inst *node, int dir, size_t i)
 {
+	i = 0;
 	if (ft_isdigit(node->content[1]) || node->content[1] == '-')
 	{
 		dir = ft_atoi(node->content + 1);
-		if (dir >= 0)
-		{
-			while (i < node->content_size - 2)
-			{
-				write(vasm->fd, &vasm->zero, 1);
-				++i;
-			}
-			if (dir < 256)
-				write(vasm->fd, &vasm->zero, 1);
-			else
-			{
-				vasm->ret = (dir >> 8) & 0x000000ff;
-				write(vasm->fd, &vasm->ret, 1);
-			}
-		}
+		if (node->content_size == 4)
+			four_bytes(vasm, dir);
 		else
-			put_dir_neg(vasm, node, dir, i);
-		write(vasm->fd, &dir, 1);
+			two_bytes(vasm, dir);
 	}
 	else
 		put_offset(vasm, node);
