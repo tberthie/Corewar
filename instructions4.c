@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/18 17:54:08 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 14:13:43 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	zjmp(t_proc *processus, t_corewar *corewar)
 	tmp = processus->pc;
 	off = 0;
 	i = 0;
-	adr = corewar->memory + processus->pc + 1;
+	adr = corewar->memory + set_pc(processus->pc + 1);
 	while (i++ < IND_SIZE)
 	{
 		off |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
@@ -66,7 +66,7 @@ void	c_fork(t_proc *processus, t_corewar *corewar, unsigned char op)
 	off = 0;
 	processus2 = (t_proc*)malloc(sizeof(t_proc));
 	ft_memcpy(processus2, processus, sizeof(t_proc));
-	adr = corewar->memory + processus->pc + 1;
+	adr = corewar->memory + set_pc(processus->pc + 1);
 	while (i++ < IND_SIZE)
 	{
 		off |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
@@ -95,7 +95,7 @@ void	lfork(t_proc *processus, t_corewar *corewar, unsigned char op)
 	off = 0;
 	processus2 = (t_proc*)malloc(sizeof(t_proc));
 	ft_memcpy(processus2, processus, sizeof(t_proc));
-	adr = corewar->memory + processus->pc + 1;
+	adr = corewar->memory + set_pc(processus->pc + 1);
 	while (i++ < IND_SIZE)
 	{
 		off |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
@@ -118,12 +118,12 @@ void	aff(t_proc *processus, t_corewar *corewar)
 	int		value;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if (*(unsigned char*)(corewar->memory + pc) == 64)
 	{
-		pc++;
+		pc = set_pc(pc + 1);
 		value = get_reg_value(processus, corewar->memory + pc);
-		pc++;
+		pc = set_pc(pc + 1);
 		aff = value % 256;
 		if (corewar->visual)
 			ft_strpush(&processus->champ->aff, aff);

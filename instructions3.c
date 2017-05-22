@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/18 17:55:48 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 14:10:38 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int				p2;
 	int				pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		p1 = get_reg_value(processus, corewar->memory + pc);
-		pc++;
+		pc = set_pc(pc + 1);
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
-		pc += move_pc(tab[1], op);
+		pc = set_pc(pc + move_pc(tab[1], op));
 		p2 += get_value(processus, tab[2], op, corewar->memory + pc);
 		tmp = set_pc(p2 + processus->pc);
 		print_bit(corewar, tmp, p1);
@@ -46,17 +46,17 @@ void	add(t_proc *processus, t_corewar *corewar)
 	int		*tab;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
-		pc++;
+		pc = set_pc(pc + 1);
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc++)) < 0)
 			return (return_error(processus, tab));
 		p2 = processus->reg[index];
-		if ((index = set_index(corewar->memory + pc)) < 0)
+		if ((index = set_index(corewar->memory + set_pc(pc))) < 0)
 			return (return_error(processus, tab));
 		processus->reg[index] = p1 + p2;
 		change_carry(processus, p1 + p2);
@@ -75,17 +75,17 @@ void	sub(t_proc *processus, t_corewar *corewar)
 	int		*tab;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
-		pc++;
+		pc = set_pc(pc + 1);
 		p1 = processus->reg[index];
 		if ((index = set_index(corewar->memory + pc++)) < 0)
 			return (return_error(processus, tab));
 		p2 = processus->reg[index];
-		if ((index = set_index(corewar->memory + pc)) < 0)
+		if ((index = set_index(corewar->memory + set_pc(pc))) < 0)
 			return (return_error(processus, tab));
 		processus->reg[index] = p1 - p2;
 		change_carry(processus, p1 - p2);
@@ -118,7 +118,7 @@ void	st(t_proc *processus, t_corewar *corewar)
 	unsigned int	pc;
 	int				s;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc++)))
 	{
 		p1 = get_reg_value(processus, corewar->memory + pc++);

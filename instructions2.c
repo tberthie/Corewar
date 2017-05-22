@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 17:54:06 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 14:07:41 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	void	*adr;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	adr = get_pc(pc, corewar);
 	if ((tab = byte_analysis(adr)))
 	{
-		pc++;
+		pc = set_pc(pc + 1);
 		adr = get_pc(pc, corewar);
 		p1 = get_value(processus, tab[0], op, adr);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
 			return (return_error(processus, tab));
@@ -49,14 +49,14 @@ void	lld(t_proc *processus, t_corewar *corewar, unsigned char op)
 	void	*adr;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	adr = get_pc(pc, corewar);
 	if ((tab = byte_analysis(adr)))
 	{
-		pc += 1;
+		pc = set_pc(pc + 1);
 		adr = get_pc(pc, corewar);
 		p1 = get_value_nm(processus, tab[0], op, adr);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		adr = get_pc(pc, corewar);
 		if ((index = set_index(adr)) < 0)
 			return (return_error(processus, tab));
@@ -77,16 +77,16 @@ void	ldi(t_proc *processus, t_corewar *corewar, unsigned char op)
 	int						value;
 	int						pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
 		pc += 1;
 		nbr = get_value(processus, tab[0], op, corewar->memory + pc);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		nbr += get_value(processus, tab[1], op, corewar->memory + pc);
 		value = *(unsigned int*)(corewar->memory + processus->pc + \
 				(nbr % IDX_MOD));
-		pc += move_pc(tab[1], op);
+		pc = set_pc(pc + move_pc(tab[1], op));
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
 		processus->reg[index] = value;
@@ -105,7 +105,7 @@ void	lldi(t_proc *processus, t_corewar *cor, unsigned char op)
 	int						value;
 	int						pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(cor->memory + pc)))
 	{
 		pc += 1;
