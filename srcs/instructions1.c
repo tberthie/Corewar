@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/20 16:07:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 13:37:21 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	c_and(t_proc *processus, t_corewar *corewar, unsigned char op)
 	char	index;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		pc++;
+		pc = set_pc(pc + 1);
 		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
-		pc += move_pc(tab[1], op);
+		pc = set_pc(pc + move_pc(tab[1], op));
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 & p2;
@@ -61,14 +61,14 @@ void	c_or(t_proc *processus, t_corewar *corewar, unsigned char op)
 	char	index;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		pc++;
+		pc = set_pc(pc + 1);
 		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
-		pc += move_pc(tab[1], op);
+		pc = set_pc(pc + move_pc(tab[1], op));
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 | p2;
@@ -88,14 +88,14 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	char	index;
 	int		pc;
 
-	pc = processus->pc + 1;
+	pc = set_pc(processus->pc + 1);
 	if ((tab = byte_analysis(corewar->memory + pc)))
 	{
-		pc++;
+		pc = set_pc(pc + 1);
 		p1 = get_value(processus, tab[0], op, corewar->memory + pc);
-		pc += move_pc(tab[0], op);
+		pc = set_pc(pc + move_pc(tab[0], op));
 		p2 = get_value(processus, tab[1], op, corewar->memory + pc);
-		pc += move_pc(tab[1], op);
+		pc = set_pc(pc + move_pc(tab[1], op));
 		if ((index = set_index(corewar->memory + pc)) < 0)
 			return (return_error(processus, tab));
 		processus->reg[(int)index - 1] = p1 ^ p2;
