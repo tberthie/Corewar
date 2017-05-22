@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 17:50:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 17:55:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void				zjmp(t_proc *proc, t_corewar *corewar);
 void				c_fork(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				lfork(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				aff(t_proc *proc, t_corewar *corewar);
+int					get_int_direct_value(void *adr, t_proc *processus);
 int					get_int_indirect_value(void *adr, t_proc *processus);
 void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
