@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 16:24:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 17:37:06 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void				result(t_corewar *corewar)
 
 	i = 0;
 	if (!find_champion(corewar->champs, corewar->last_alive))
-		error(0, "\nNobody has won the match");
+		error(0, "Nobody has won the match");
 	while (corewar->champs[i])
 	{
 		if (corewar->champs[i]->number == corewar->last_alive)
