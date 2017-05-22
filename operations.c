@@ -6,14 +6,14 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/18 18:33:34 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:19:48 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include "../libft/libft.h"
 
-int		get_int_direct_value(void *adr)
+int		get_int_direct_value(void *adr, t_proc *processus)
 {
 	unsigned int	tmp;
 	int				value;
@@ -26,12 +26,13 @@ int		get_int_direct_value(void *adr)
 	{
 		tmp |= (unsigned int)(*(unsigned char*)adr << ((DIR_SIZE - i) * 8));
 		adr++;
+		adr = set_adr(adr, processus);
 	}
 	value = (int)tmp;
 	return (value);
 }
 
-int		get_int_indirect_value(void *adr)
+int		get_int_indirect_value(void *adr, t_proc *processus)
 {
 	unsigned short	tmp;
 	short			tmp2;
@@ -45,6 +46,7 @@ int		get_int_indirect_value(void *adr)
 	{
 		tmp |= (unsigned short)(*(unsigned char*)adr << ((IND_SIZE - i) * 8));
 		adr++;
+		adr = set_adr(adr, processus);
 	}
 	tmp += (0xffff << 16);
 	tmp2 = (short)tmp;
@@ -52,7 +54,7 @@ int		get_int_indirect_value(void *adr)
 	return (value);
 }
 
-int		get_direct_value(unsigned char op, void *adr)
+int		get_direct_value(unsigned char op, void *adr, t_proc *processus)
 {
 	int				value;
 	int				i;
@@ -60,9 +62,9 @@ int		get_direct_value(unsigned char op, void *adr)
 	i = 0;
 	value = 0;
 	if ((9 <= op && op <= 12) || op == 14 || op == 15)
-		value = get_int_indirect_value(adr);
+		value = get_int_indirect_value(adr, processus);
 	else
-		value = get_int_direct_value(adr);
+		value = get_int_direct_value(adr, processus);
 	return (value);
 }
 
@@ -88,10 +90,17 @@ int		get_value(t_proc *proc, int nbr, unsigned char op, void *adr)
 	int		p1;
 
 	if (nbr == DIR_CODE)
-		p1 = get_direct_value(op, adr);
+		p1 = get_direct_value(op, adr, proc);
 	else if (nbr == IND_CODE)
 		p1 = get_indirect_value(proc, adr);
 	else
 		p1 = get_reg_value(proc, adr);
 	return (p1);
+}
+
+void	*set_adr(void *adr, t_proc *processus)
+{
+	if (processus->corewar->memory + MEM_SIZE - 1 < adr)
+		return(processus->corewar->memory);
+	return(adr);
 }

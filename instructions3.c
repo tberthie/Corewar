@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 14:10:38 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 15:47:50 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	st(t_proc *processus, t_corewar *corewar)
 			st1(corewar, processus, p1, pc);
 		else if (tab[1] == 3)
 		{
-			offset = get_int_indirect_value(corewar->memory + pc);
+			offset = get_int_indirect_value(corewar->memory + pc, processus);
 			s = set_pc(processus->pc + (offset % IDX_MOD));
 			print_bit(corewar, s, p1);
 			processus->pc = set_pc(pc + 2);
