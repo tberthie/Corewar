@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/20 13:57:55 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/20 14:49:15 by tberthie         ###   ########.fr       */
+/*   Created: 2017/05/22 13:21:25 by tberthie          #+#    #+#             */
+/*   Updated: 2017/05/22 13:30:34 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,15 @@ static void		parse(t_corewar *corewar, char **args)
 
 void			setup_visual(t_corewar *visu)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) || TTF_Init())
-		error(0, (char*)SDL_GetError());
-	if (!(visu->win = SDL_CreateWindow("Corewar", SDL_WINDOWPOS_CENTERED,
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) || TTF_Init() ||
+	!(visu->win = SDL_CreateWindow("Corewar", SDL_WINDOWPOS_CENTERED,
 	SDL_WINDOWPOS_CENTERED, 1500, 1000, SDL_WINDOW_SHOWN)) || !(visu->ren =
-	SDL_CreateRenderer(visu->win, -1, SDL_RENDERER_ACCELERATED)))
+	SDL_CreateRenderer(visu->win, -1, SDL_RENDERER_ACCELERATED)) ||
+	!(visu->hex_font = TTF_OpenFont("SDL/font.ttf", 9)) ||
+	!(visu->font = TTF_OpenFont("SDL/font.ttf", 20)) ||
+	!(visu->subfont = TTF_OpenFont("SDL/font.ttf", 12)))
 		error(0, (char*)SDL_GetError());
 	visu->sf = SDL_CreateRGBSurface(0, 1500, 1000, 32, 0, 0, 0, 0);
-	if (!(visu->hex_font = TTF_OpenFont("SDL/font.ttf", 9)))
-		error(0, (char*)SDL_GetError());
-	if (!(visu->font = TTF_OpenFont("SDL/font.ttf", 20)))
-		error(0, (char*)SDL_GetError());
-	if (!(visu->subfont = TTF_OpenFont("SDL/font.ttf", 12)))
-		error(0, (char*)SDL_GetError());
 	visu->cps = 100;
 	visu->color = ft_m(MEM_SIZE * 4);
 	ft_memset(visu->color, MEM_SIZE * 4, (char)0x50);
