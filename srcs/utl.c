@@ -6,12 +6,23 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/25 15:14:05 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 18:29:43 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 17:51:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
+
+t_champ			*get_champ(t_corewar *corewar, int number)
+{
+	int		i;
+
+	i = ft_parrlen((void**)corewar->champs);
+	while (i--)
+		if (corewar->champs[i]->number == number)
+			return (corewar->champs[i]);
+	return (0);
+}
 
 void			error(char *file, char *msg)
 {

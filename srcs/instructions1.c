@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 17:32:59 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 17:47:40 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	live(t_proc *processus, t_corewar *corewar)
 {
 	t_champ	*champ;
 
-	processus->live++;
+//	processus->live++;
 	champ = processus->champ;
-	corewar->last_alive = champ->number;
+//	corewar->last_alive = champ->number;
 	if (!corewar->visual)
 		ft_print(1, "(cycle %d) A process says player %d(%s) is alive\n",
 		corewar->cycle, champ->number, champ->name);
