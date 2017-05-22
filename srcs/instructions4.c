@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:32:07 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:33:18 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	aff(t_proc *processus, t_corewar *corewar)
 			ft_strpush(&processus->champ->aff, aff);
 		else
 		{
-			ft_print(1, "%s says: ", processus->champ->name);
+			ft_print(1, "%s: says: ", processus->champ->name);
 			ft_putchar(aff);
 			ft_putchar('\n');
 		}

@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/20 16:12:53 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 15:47:21 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int				get_indirect_value(t_proc *proc, void *adr)
 		offset |= (unsigned short)(*(unsigned char*)adr << \
 				((IND_SIZE - i) * 8));
 		adr++;
+		adr = set_adr(adr, proc);
 	}
 	offset += (0xffff << 16);
 	adr2 = proc->corewar->memory + proc->pc + ((short)offset % IDX_MOD);
@@ -55,6 +56,7 @@ int				get_indirect_value_nm(t_proc *processus, void *adr)
 		offset |= (unsigned short)(*(unsigned char*)adr << \
 				((IND_SIZE - i) * 8));
 		adr++;
+		adr = set_adr(adr, processus);
 	}
 	offset += (0xffff << 16);
 	adr2 = processus->corewar->memory + processus->pc + ((short)offset);
@@ -63,6 +65,7 @@ int				get_indirect_value_nm(t_proc *processus, void *adr)
 	{
 		tmp |= (unsigned int)(*(unsigned char*)adr2 << ((DIR_SIZE - i) * 8));
 		adr2++;
+		adr2 = set_adr(adr2, processus);
 	}
 	return ((int)tmp);
 }
@@ -72,7 +75,7 @@ int				get_value_nm(t_proc *proc, int nbr, unsigned char op, void *adr)
 	int		p1;
 
 	if (nbr == DIR_CODE)
-		p1 = get_direct_value(op, adr);
+		p1 = get_direct_value(op, adr, proc);
 	else if (nbr == IND_CODE)
 		p1 = get_indirect_value_nm(proc, adr);
 	else

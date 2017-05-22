@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 14:13:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:49:10 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void				hex_dump(unsigned char hex);
 unsigned int		multi_color(unsigned int color, double ratio);
 
 int					*byte_analysis(void *adr);
-int					get_direct_value(unsigned char op, void *adr);
+int					get_direct_value(unsigned char op, void *adr, t_proc *proc);
 int					get_reg_value(t_proc *processus, void *adr);
 int					get_indirect_value(t_proc *processus, void *adr);
 int					get_value(t_proc *proc, int nbr, unsigned char op,
@@ -155,11 +155,12 @@ void				zjmp(t_proc *proc, t_corewar *corewar);
 void				c_fork(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				lfork(t_proc *proc, t_corewar *corewar, unsigned char op);
 void				aff(t_proc *proc, t_corewar *corewar);
-int					get_int_indirect_value(void *adr);
+int					get_int_indirect_value(void *adr, t_proc *processus);
 void				print_bit(t_corewar *corewar, int pc, int p1);
 unsigned int		set_pc(int tmp);
 void				change_carry(t_proc *processus, int p1);
 int					move_pc(int	tab, unsigned char op);
 void				return_error(t_proc *processus, int *tab);
+void 				*set_adr(void *adr, t_proc *processus);
 
 #endif
