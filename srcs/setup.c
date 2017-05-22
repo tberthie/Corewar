@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 13:21:25 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 18:13:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 21:08:53 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			setup_visual(t_corewar *visu)
 	!(visu->subfont = TTF_OpenFont("SDL/font.ttf", 12)))
 		error(0, (char*)SDL_GetError());
 	visu->sf = SDL_CreateRGBSurface(0, 1500, 1000, 32, 0, 0, 0, 0);
-	visu->cps = 100;
+	visu->cps = 256;
 	visu->color = ft_m(MEM_SIZE * 4);
 	ft_memset(visu->color, MEM_SIZE * 4, (char)0x50);
 }
