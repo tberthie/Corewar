@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:19:48 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:41:01 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,4 @@ int		get_value(t_proc *proc, int nbr, unsigned char op, void *adr)
 	else
 		p1 = get_reg_value(proc, adr);
 	return (p1);
-}
-
-void	*set_adr(void *adr, t_proc *processus)
-{
-	if (processus->corewar->memory + MEM_SIZE - 1 < adr)
-		return(processus->corewar->memory);
-	return(adr);
 }

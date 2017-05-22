@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:21 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 13:37:21 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:41:25 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,11 @@ void	c_xor(t_proc *processus, t_corewar *corewar, unsigned char op)
 	}
 	else
 		processus->pc = set_pc(processus->pc + 1);
+}
+
+void	*set_adr(void *adr, t_proc *processus)
+{
+	if (processus->corewar->memory + MEM_SIZE - 1 < adr)
+		return (processus->corewar->memory);
+	return (adr);
 }

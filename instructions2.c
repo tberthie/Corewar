@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:18:47 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/22 16:37:28 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,11 @@ void	print_bit(t_corewar *corewar, int pc, int p1)
 
 	rev = p1;
 	ft_memcpy(tab, &rev, sizeof(int));
-	i = 0;
-	while (i < 4)
+	i = 4;
+	while (0 <= --i)
 	{
 		pc = set_pc(pc);
 		*(unsigned char*)(corewar->memory + pc) = tab[i];
 		pc++;
-		i++;
 	}
 }
