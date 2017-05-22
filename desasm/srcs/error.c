@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:56:11 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 14:21:33 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		error(t_asm *vasm)
 {
-	ft_lprintf(2, "Error in binary file\n");
+	ft_lprintf(2, "Error in binary file %s\n", vasm->file_name);
 	exit(EXIT_FAILURE);
 }
 

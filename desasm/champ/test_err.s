@@ -28,7 +28,7 @@ and 23,%56,r7
 and %45,%12,r7
 and %:tot,%12,r7
 and %:l2,%:tot,r7
-or r5,r6
+or r5,r6, r7
 or 23,r4,r7
 or %45,r4,r7
 or %:l2,r4,r7
@@ -65,7 +65,7 @@ sti r10,r8,%9
 sti r10,%11,%9
 sti r10,%:live,%:tot
 sti r10,11,%7
-fork %11,r1
+fork %11
 fork %:l2
 lld %12,r11
 lld %:live,r11

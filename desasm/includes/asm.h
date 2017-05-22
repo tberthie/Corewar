@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 12:56:33 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 14:20:50 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_asm
 	int			cor_size;
 }				t_asm;
 
-void			error(t_asm *v_asm);
+void			error(t_asm *vasm);
 void			put_asm(t_asm *vasm);
 void			get_magic_number(t_asm *vasm, char *str);
 void			get_name(t_asm *vasm, char *str);
