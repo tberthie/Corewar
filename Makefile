@@ -6,7 +6,7 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/05/22 13:36:57 by tberthie         ###   ########.fr        #
+#    Updated: 2017/05/22 14:45:13 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ objs:
 	mkdir objs
 
 objs/%.o: srcs/%.c
-	gcc -c $< -o $@ -I includes -I libft -I SDL -Wall -Wextra -O3
+	gcc -c $< -o $@ -I includes -I libft -I SDL -Wall -Wextra -Werror -O3
 
 clean:
 	make clean -C libft

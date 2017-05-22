@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/17 17:44:13 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/22 14:35:21 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ void			add_champion(t_corewar *corewar, char *path)
 	champ = (t_champ*)ft_memalloc(sizeof(t_champ));
 	init_champion(corewar, champ, header, data);
 	set_number(corewar, champ);
+	ft_print(1, "Champion #%d loaded: \x1b[32m%s\x1b[0m\n%s\n\n", champ->number,
+	champ->name, champ->comment);
 	ft_parrpush((void***)&corewar->champs, champ);
 }
