@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:37:01 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:28:20 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 14:12:45 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ t_inst		*check_ld(t_asm *vasm, t_inst *tmp)
 	i = 0;
 	while (i < param)
 	{
-		if (!(i % 2) && (i == 2 && !check_reg(tmp->content)) && (!i &&
-				!check_dir(vasm, tmp->content) &&
-				!check_ind(vasm, tmp->content)))
+		if (!i && !check_dir(vasm, tmp->content) && !check_ind(vasm,
+				tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
-				tmp->content[0] != ',')
+		if (i == 2 && !check_reg(tmp->content))
+			error(vasm, 3);
+		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
 			vasm->instruct = tmp;
@@ -64,11 +64,12 @@ t_inst		*check_st(t_asm *vasm, t_inst *tmp)
 		error(vasm, 3);
 	while (i < param)
 	{
-		if (!(i % 2) && !check_reg(tmp->content) && (i == 2 &&
-				!check_ind(vasm, tmp->content)))
+		if (!i && !check_reg(tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
-				tmp->content[0] != ',')
+		if (i == 2 && !check_reg(tmp->content) && !check_ind(vasm,
+				tmp->content))
+			error(vasm, 3);
+		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
 			vasm->instruct = tmp;
@@ -91,8 +92,7 @@ t_inst		*check_add(t_asm *vasm, t_inst *tmp)
 	{
 		if (!(i % 2) && !check_reg(tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
-				tmp->content[0] != ',')
+		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
 			vasm->instruct = tmp;
@@ -115,8 +115,7 @@ t_inst		*check_sub(t_asm *vasm, t_inst *tmp)
 	{
 		if (!(i % 2) && !check_reg(tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
-				tmp->content[0] != ',')
+		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
 			vasm->instruct = tmp;

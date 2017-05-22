@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 13:49:41 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:32:43 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 14:13:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ t_inst		*check_sti(t_asm *vasm, t_inst *tmp)
 		error(vasm, 3);
 	while (i < param)
 	{
-		if (!(i % 2) && !check_reg(tmp->content) && ((i == 4 || i == 2) &&
-				!check_dir(vasm, tmp->content)) && (i == 2 && !check_ind(vasm,
-				tmp->content)))
+		if (i == 0 && !check_reg(tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+		if ((i == 2) && !check_reg(tmp->content) && !check_dir(vasm,
+				tmp->content) && !check_ind(vasm, tmp->content))
+			error(vasm, 3);
+		if (i == 4 && !check_dir(vasm, tmp->content))
+			error(vasm, 3);
+		if ((i % 2) && ft_strlen(tmp->content) != 1 &&
 				tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
@@ -64,11 +67,12 @@ t_inst		*check_lld(t_asm *vasm, t_inst *tmp)
 		error(vasm, 3);
 	while (i < param)
 	{
-		if (!(i % 2) && (i == 2 && !check_reg(tmp->content)) && (!i &&
-				!check_dir(vasm, tmp->content) && !check_ind(vasm,
+		if (!i && (!check_dir(vasm, tmp->content) && !check_ind(vasm,
 				tmp->content)))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
+		if (i == 2 && !check_reg(tmp->content))
+			error(vasm, 3);
+		if ((i % 2) && ft_strlen(tmp->content) != 1 &&
 				tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
@@ -90,12 +94,15 @@ t_inst		*check_lldi(t_asm *vasm, t_inst *tmp)
 		error(vasm, 3);
 	while (i < param)
 	{
-		if (!(i % 2) && !check_reg(tmp->content) && ((!i || i == 2) &&
-				!check_dir(vasm, tmp->content) && !check_ind(vasm,
-				tmp->content)))
+		if (!i && !check_reg(tmp->content) && !check_dir(vasm, tmp->content) &&
+				!check_ind(vasm, tmp->content))
 			error(vasm, 3);
-		else if ((i % 2) && ft_strlen(tmp->content) != 1 &&
-				tmp->content[0] != ',')
+		if (i == 2 && !check_reg(tmp->content) && !check_dir(vasm,
+				tmp->content))
+			error(vasm, 3);
+		if (i == 4 && !check_reg(tmp->content))
+			error(vasm, 3);
+		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)
 			vasm->instruct = tmp;

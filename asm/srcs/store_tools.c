@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:27:51 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 14:02:19 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int			ft_lstntabstr(t_inst **begin, char *str, int size, int nb)
 	tmp = *begin;
 	while (tmp)
 	{
+		size = ft_strlen(tmp->content) - 1;
+		if (size == 0)
+			size = 1;
 		if (!ft_strncmp(tmp->content, str, size) &&
 				nb == (int)tmp->content_size)
 			return (1);

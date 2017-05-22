@@ -5,7 +5,7 @@ l2:  sti r1 , %:live , %1
  live: live  %1
 zjmp		%:live
 ld  2,r1
-	ld %23	,r3		
+	ld %-23	,r3		
 ld %:l2,r3
 ld %:live,r3
 
