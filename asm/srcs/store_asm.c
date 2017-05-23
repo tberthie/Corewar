@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:27:19 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 14:03:50 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:43:26 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,10 @@ void		get_labels(t_asm *vasm, int i, int lbl, char *inst)
 	get_str(vasm, i, inst);
 	tmp = vasm->labreg;
 	tmp = get_first_inst(tmp);
-	ft_lprintf(1, "ici\n");
 	while (tmp)
 	{
 		lbl = 0;
 		tmp = store_cmd(vasm, tmp, inst, i);
 		tmp = store_inst(vasm, tmp, inst, i);
-	}
-	tmp = vasm->labreg;
-	while (tmp)
-	{
-		ft_lprintf(1, "%s|%d|%d|\n", tmp->content, tmp->content_size, tmp->line);
-		tmp = tmp->next;
 	}
 }

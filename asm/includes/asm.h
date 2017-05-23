@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 14:28:04 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:28:22 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,8 @@ t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i, char *inst);
 void			get_str(t_asm *vasm, int i, char *inst);
 t_inst			*get_first_inst(t_inst *tmp);
 int				get_param(t_inst *tmp);
+t_inst			*first_inst(t_asm *vasm);
+t_inst			*check_name(t_asm *vasm, t_inst *tmp);
+t_inst			*check_comment(t_asm *vasm, t_inst *tmp);
 
 #endif
