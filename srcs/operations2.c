@@ -6,12 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:01 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 15:47:21 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:04 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
+#include "corewar.h"
+#include "libft.h"
 
 int				get_indirect_value(t_proc *proc, void *adr)
 {

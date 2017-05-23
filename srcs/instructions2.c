@@ -6,12 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:37:28 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
+#include "corewar.h"
+#include "libft.h"
 
 void	ld(t_proc *processus, t_corewar *corewar, unsigned char op)
 {

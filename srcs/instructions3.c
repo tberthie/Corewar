@@ -6,12 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:44 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 15:47:50 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
+#include "corewar.h"
+#include "libft.h"
 
 void	sti(t_proc *processus, t_corewar *corewar, unsigned char op)
 {

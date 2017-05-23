@@ -6,13 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 19:31:07 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:33:18 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:16 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
-#include <stdio.h>
+#include "corewar.h"
+#include "libft.h"
 
 void	zjmp(t_proc *processus, t_corewar *corewar)
 {

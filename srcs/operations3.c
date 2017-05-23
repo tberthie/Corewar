@@ -6,12 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 18:48:56 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/17 17:56:43 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:07 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
+#include "corewar.h"
+#include "libft.h"
 
 int		move_pc(int tab, unsigned char op)
 {

@@ -6,12 +6,12 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:29:43 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/22 16:54:28 by ramichia         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:07:01 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
-#include "../libft/libft.h"
+#include "corewar.h"
+#include "libft.h"
 
 int		get_int_direct_value(void *adr, t_proc *processus)
 {
