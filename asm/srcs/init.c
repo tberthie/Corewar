@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 16:48:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:25:49 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 14:31:37 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void		init_asm(t_asm *vasm)
 	vasm->size = 0;
 	vasm->cor_size = 0;
 	vasm->command = 0;
+	vasm->n = 0;
+	vasm->c = 0;
 }
 
 void		init_checktab(t_asm *vasm)

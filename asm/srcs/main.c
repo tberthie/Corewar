@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/22 14:36:06 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 13:15:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void		put_asm(t_asm *vasm)
 				put_dir(vasm, tmp, 0, 0);
 			else
 			{
-				vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
-						ft_strlen(tmp->content));
+				vasm->command = ft_stritabstr(vasm->cmd, tmp->content);
 				vasm->instruct = tmp;
 				if (vasm->command >= 0)
 					put_cmd(vasm, tmp);

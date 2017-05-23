@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:48:52 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 14:28:04 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct		s_asm
 	int				zero;
 	int				ff;
 	int				ret;
+	int				n;
+	int				c;
 	char			*file_name;
 	char			*tmp;
 	char			*file;
@@ -132,7 +134,7 @@ t_inst			*store_header(t_asm *vasm, t_inst *tmp, int i);
 t_inst			*store_header_data(t_asm *vasm, t_inst *tmp, int i);
 t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i, char *inst);
 void			get_str(t_asm *vasm, int i, char *inst);
-t_inst			*get_first_inst(t_asm *vasm, t_inst *tmp);
+t_inst			*get_first_inst(t_inst *tmp);
 int				get_param(t_inst *tmp);
 
 #endif

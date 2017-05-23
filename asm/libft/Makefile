@@ -6,7 +6,7 @@
 #    By: gthomas <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:18:38 by gthomas           #+#    #+#              #
-#    Updated: 2017/05/16 17:37:25 by gthomas          ###   ########.fr        #
+#    Updated: 2017/05/23 13:18:37 by gthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ SRCS = ft_atoi.c \
 	   ft_lstcnt.c \
 	   ft_lstend.c \
 	   ft_stritabstr.c \
+	   ft_strintabstr.c \
 	   ft_lststrstr.c \
 	   ft_putnbr_hex.c \
 	   ft_lprintf.c \

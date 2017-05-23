@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 08:54:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/16 17:37:11 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 13:14:17 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int					ft_strichr_cnt(const char *str, char c);
 int					ft_stristr_eq(const char *str1, const char *str2);
 int					ft_lstcnt(t_list **begin);
 t_list				*ft_lstend(t_list **begin);
-int					ft_stritabstr(char **tab, char *str, size_t n);
+int					ft_stritabstr(char **tab, char *str);
+int					ft_strintabstr(char **tab, char *str, size_t n);
 t_list				*ft_lststrstr(t_list **begin, char *str);
 void				ft_putnbr_hex(uintmax_t nb);
 void				ft_lprintf(int fd, char *fmt, ...);

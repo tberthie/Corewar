@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 13:49:41 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/22 14:13:59 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 17:38:40 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_inst		*check_sti(t_asm *vasm, t_inst *tmp)
 		if ((i == 2) && !check_reg(tmp->content) && !check_dir(vasm,
 				tmp->content) && !check_ind(vasm, tmp->content))
 			error(vasm, 3);
-		if (i == 4 && !check_dir(vasm, tmp->content))
+		if (i == 4 && !check_dir(vasm, tmp->content) && !check_reg(tmp->content))
 			error(vasm, 3);
 		if ((i % 2) && ft_strlen(tmp->content) != 1 &&
 				tmp->content[0] != ',')

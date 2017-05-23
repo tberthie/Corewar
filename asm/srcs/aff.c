@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 14:52:47 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:56:30 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/22 18:16:07 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void		print_hex(t_asm *vasm, char *str)
 {
 	vasm->s = ft_strsplit(str, '\n');
+	ft_putendl(vasm->s[0]);
+	ft_putendl(vasm->s[1]);
 	vasm->file_lines = ft_ptrlen(vasm->s);
 	get_labels(vasm, 0, 0, NULL);
 	init_checktab(vasm);

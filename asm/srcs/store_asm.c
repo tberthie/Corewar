@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:27:19 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:37:30 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 14:03:50 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ t_inst		*store_label(t_asm *vasm, t_inst *tmp, int i)
 t_inst		*store_inst(t_asm *vasm, t_inst *tmp, char *inst, int i)
 {
 	inst = NULL;
-	while (tmp && ft_stritabstr(vasm->cmd, tmp->content,
-			ft_strlen(tmp->content)) == -1)
+	while (tmp && ft_stritabstr(vasm->cmd, tmp->content) == -1)
 	{
 		store_regdirind(vasm, tmp, i, tmp->content);
 		tmp = tmp->next;
@@ -54,8 +53,7 @@ t_inst		*store_cmd(t_asm *vasm, t_inst *tmp, char *inst, int i)
 	i = 0;
 	if (tmp)
 	{
-		vasm->command = ft_stritabstr(vasm->cmd, tmp->content,
-				ft_strlen(tmp->content));
+		vasm->command = ft_stritabstr(vasm->cmd, tmp->content);
 		temp = vasm->command;
 		if (temp != -1)
 		{
@@ -74,7 +72,8 @@ void		get_labels(t_asm *vasm, int i, int lbl, char *inst)
 
 	get_str(vasm, i, inst);
 	tmp = vasm->labreg;
-	tmp = get_first_inst(vasm, tmp);
+	tmp = get_first_inst(tmp);
+	ft_lprintf(1, "ici\n");
 	while (tmp)
 	{
 		lbl = 0;
@@ -84,6 +83,7 @@ void		get_labels(t_asm *vasm, int i, int lbl, char *inst)
 	tmp = vasm->labreg;
 	while (tmp)
 	{
+		ft_lprintf(1, "%s|%d|%d|\n", tmp->content, tmp->content_size, tmp->line);
 		tmp = tmp->next;
 	}
 }

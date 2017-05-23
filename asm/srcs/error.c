@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:33:09 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 14:44:29 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ void		error_1(t_asm *vasm, int err)
 				'"', '"');
 	else if (err == 11)
 		ft_lprintf(2, "Error : duplicate label at line %d\n", vasm->inst_line);
+	else if (err == 12)
+		ft_lprintf(2, "Chapion name must be : .name %cabc%c\n", '"', '"');
+	else if (err == 13)
+		ft_lprintf(2, "Description must be : .comment %cdef%c\n", '"', '"');
+	else if (err == 14)
+		ft_lprintf(2, "Chapion name is too long\n");
+	else if (err == 15)
+		ft_lprintf(2, "Description is too long\n");
+	else if (err == 16)
+		ft_lprintf(2, "Duplicate .name or .comment\n");
 }
 
 void		error(t_asm *vasm, int err)
@@ -43,8 +53,7 @@ void		error(t_asm *vasm, int err)
 	else if (err == 3)
 	{
 		ft_lprintf(2, "ERROR: invalid value in file ");
-		ft_lprintf(2, "for %s instruction on line %d\n",
-				vasm->cmd[vasm->command], vasm->inst_line);
+		ft_lprintf(2, "for instruction on line %d\n", vasm->inst_line);
 	}
 	else if (err == 4)
 		ft_lprintf(2, "Champion size is too big !!\n");
