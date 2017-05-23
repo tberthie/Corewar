@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/23 14:49:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:50:40 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char				find_champion(t_champ **champs, int n);
 void				cycles(t_corewar *corewar, t_proc *proc);
 char				alive_proc(t_proc **proc);
 unsigned int		check_live(t_corewar *corewar);
+void				dump(t_corewar *corewar);
 
 void				error(char *file, char *msg);
 unsigned int		rev_int(unsigned int nb);

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 14:35:21 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:55:29 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		set_number(t_corewar *corewar, t_champ *champ)
 	int		i;
 
 	i = -1;
-	if (corewar->next > 0 && !find_champion(corewar->champs, corewar->next))
+	if (corewar->next > 0 && !find_champion(corewar->champs, -corewar->next))
 		champ->number = -corewar->next;
 	else
 	{

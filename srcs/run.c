@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/23 14:45:19 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:52:09 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void				result(t_corewar *corewar)
 	}
 }
 
-static void				dump(t_corewar *corewar)
+void					dump(t_corewar *corewar)
 {
 	unsigned int	i;
 	int				pad;
@@ -89,7 +89,7 @@ static void				dump(t_corewar *corewar)
 	}
 	if (!pad)
 		ft_print(1, "\n");
-	exit(0);
+	!corewar->visual ? exit(0) : 0;
 }
 
 void					run(t_corewar *corewar)

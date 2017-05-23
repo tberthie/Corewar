@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 16:55:15 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/20 14:45:05 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:51:42 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,15 @@ void			visual_run(t_corewar *corewar)
 		if (corewar->play)
 		{
 			process(corewar);
-			corewar->tot_cycle++;
+			if (++corewar->tot_cycle == corewar->dump)
+				dump(corewar);
 			set_ctd(corewar, ++corewar->cycle);
 			corewar->cycle = corewar->cycle >= corewar->ctd ? 0 :
 			corewar->cycle;
 		}
 		corewar->play ? calc_cps(corewar) : display(corewar);
 	}
+	corewar->dump > corewar->tot_cycle ? dump(corewar) : 0;
 	display(corewar);
 	while (1)
 		event(corewar);
