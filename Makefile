@@ -6,7 +6,7 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/05/22 14:45:13 by tberthie         ###   ########.fr        #
+#    Updated: 2017/05/23 14:58:54 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ objs/%.o: srcs/%.c
 	gcc -c $< -o $@ -I includes -I libft -I SDL -Wall -Wextra -Werror -O3
 
 clean:
-	make clean -C libft
+	make fclean -C libft
 	rm -rf objs
 
 fclean: clean
-	rm -f $(NAME) libft/libft.a
+	rm -f $(NAME)
 
 re: fclean all
