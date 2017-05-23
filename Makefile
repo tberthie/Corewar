@@ -6,7 +6,7 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/05/23 15:05:58 by tberthie         ###   ########.fr        #
+#    Updated: 2017/05/23 15:35:21 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,21 +22,27 @@ NAME = corewar
 all: objs $(NAME)
 
 $(NAME): $(OBJS)
-	make -C libft_corewar
-	gcc -o $(NAME) $(OBJS) libft_corewar/libft.a \
+	make -C asm
+	make -C desasm
+	make -C libft
+	gcc -o $(NAME) $(OBJS) libft/libft.a \
 	SDL/libSDL2-2.0.0.dylib SDL/libSDL2_ttf-2.0.0.dylib
 
 objs:
 	mkdir objs
 
 objs/%.o: srcs/%.c
-	gcc -c $< -o $@ -I includes -I libft_corewar -I SDL -Wall -Wextra -Werror -O3
+	gcc -c $< -o $@ -I includes -I libft -I SDL -Wall -Wextra -Werror -O3
 
 clean:
-	make fclean -C libft_corewar
+	make clean -C asm
+	make clean -C desasm
+	make fclean -C libft
 	rm -rf objs
 
 fclean: clean
+	make fclean -C asm
+	make fclean -C desasm
 	rm -f $(NAME)
 
 re: fclean all
