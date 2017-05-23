@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:37:01 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 13:11:22 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:30:35 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,9 @@ t_inst		*check_ld(t_asm *vasm, t_inst *tmp)
 	i = 0;
 	while (i < param)
 	{
-		ft_lprintf(1, "check dir : %d\ncheck ind : %d\ni = %d\n", check_dir(vasm, tmp->content), check_ind(vasm, tmp->content), i);
 		if (!i && !check_dir(vasm, tmp->content) && !check_ind(vasm,
 				tmp->content))
-		{
-			ft_lprintf(1, "Normalement\n");
 			error(vasm, 3);
-		}
 		if (i == 2 && !check_reg(tmp->content))
 			error(vasm, 3);
 		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
@@ -68,8 +64,6 @@ t_inst		*check_st(t_asm *vasm, t_inst *tmp)
 		error(vasm, 3);
 	while (i < param)
 	{
-		ft_lprintf(1, "content : %s\n", tmp->content);
-		ft_lprintf(1, "check reg : %d\ncheck ind : %d\ni = %d\n", check_reg(tmp->content), check_ind(vasm, tmp->content), i);
 		if (!i && !check_reg(tmp->content))
 			error(vasm, 3);
 		if (i == 2 && !check_reg(tmp->content) && !check_ind(vasm,

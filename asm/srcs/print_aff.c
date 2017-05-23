@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 11:40:20 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:03:35 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:43:18 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void		print_data(t_asm *vasm, t_inst *tmp2, t_inst *tmp)
 		{
 			if (tmp2->content[0] == 'r')
 				print_reg(tmp2);
-			else if (ft_nisdigit(tmp2->content, ft_strlen(tmp2->content)) || (tmp2->content[0] == '-' && ft_nisdigit(tmp2->content + 1, ft_strlen(tmp2->content + 1))))
+			else if (ft_nisdigit(tmp2->content, ft_strlen(tmp2->content)) ||
+					(tmp2->content[0] == '-' && ft_nisdigit(tmp2->content + 1,
+					ft_strlen(tmp2->content + 1))))
 				print_ind(vasm, tmp2, 0);
 			else if (tmp2->content[0] == DIRECT_CHAR)
 				print_dir(vasm, tmp2, 0, 0);
@@ -60,7 +62,9 @@ t_inst		*print_cor_int(t_asm *vasm, t_inst *tmp)
 	{
 		if (tmp->content[0] == 'r')
 			print_reg(tmp);
-		else if (ft_nisdigit(tmp->content, ft_strlen(tmp->content)) || (tmp->content[0] == '-' && ft_nisdigit(tmp->content + 1, ft_strlen(tmp->content + 1))))
+		else if (ft_nisdigit(tmp->content, ft_strlen(tmp->content)) ||
+				(tmp->content[0] == '-' && ft_nisdigit(tmp->content + 1,
+				ft_strlen(tmp->content + 1))))
 			print_ind_int(vasm, tmp, 0);
 		else if (tmp->content[0] == DIRECT_CHAR)
 			print_dir_int(vasm, tmp, 0);

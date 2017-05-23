@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:37:17 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/22 17:34:39 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:32:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_inst		*check_or(t_asm *vasm, t_inst *tmp)
 				&& !check_ind(vasm, tmp->content))
 			error(vasm, 3);
 		if (i == 4 && !check_reg(tmp->content))
+			error(vasm, 3);
 		if ((i % 2) && ft_strlen(tmp->content) != 1 && tmp->content[0] != ',')
 			error(vasm, 3);
 		if (i == param - 1)

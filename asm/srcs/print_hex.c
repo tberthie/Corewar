@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 14:46:06 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:39:51 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void		print_reg(t_inst *node)
 
 void		print_ind_int(t_asm *vasm, t_inst *node, int ind)
 {
-	if (ft_isdigit(node->content[0]) || (node->content[0] == '-' && ft_isdigit(node->content[1])))
+	if (ft_isdigit(node->content[0]) || (node->content[0] == '-' &&
+			ft_isdigit(node->content[1])))
 	{
 		ind = ft_atoi(node->content);
 		ft_lprintf(1, "%d\t\t", ind);
@@ -50,7 +51,8 @@ void		print_ind_int(t_asm *vasm, t_inst *node, int ind)
 
 void		print_ind(t_asm *vasm, t_inst *node, int ind)
 {
-	if (ft_isdigit(node->content[0]) || (node->content[0] == '-' && ft_isdigit(node->content[1])))
+	if (ft_isdigit(node->content[0]) || (node->content[0] == '-' &&
+			ft_isdigit(node->content[1])))
 	{
 		ind = ft_atoi(node->content);
 		print_two_bytes(vasm, ind);

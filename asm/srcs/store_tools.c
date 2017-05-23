@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 14:28:10 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:43:36 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,8 @@ void		store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst)
 
 	i = 0;
 	cmd = vasm->command;
-//	if (ft_strichr(inst, LABEL_CHAR) >= 0 && inst[ft_strichr(inst, LABEL_CHAR)])
 	if (inst[0] == 'r' && ft_strichr(inst, LABEL_CHAR) == -1)
-	{
 		tmp->content_size = 1;
-	}
 	else if (inst[0] == DIRECT_CHAR && inst[1] == LABEL_CHAR)
 	{
 		if (cmd == 1 || cmd == 2 || (cmd >= 6 && cmd <= 8) || cmd == 13)
@@ -75,7 +72,8 @@ void		store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst)
 		else
 			tmp->content_size = 2;
 	}
-	else if (ft_strichr(inst, LABEL_CHAR) == -1 && (ft_isdigit(inst[0]) || (inst[0] == '-' && ft_isdigit(inst[1]))))
+	else if (ft_strichr(inst, LABEL_CHAR) == -1 && (ft_isdigit(inst[0]) ||
+			(inst[0] == '-' && ft_isdigit(inst[1]))))
 		tmp->content_size = 2;
 }
 

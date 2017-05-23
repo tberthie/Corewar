@@ -6,32 +6,32 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:33:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:58:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-#include "../libft/includes/libft.h"
-#include "../libft/includes/get_next_line.h"
+# include "../libft/includes/libft.h"
+# include "../libft/includes/get_next_line.h"
 # include <sys/stat.h>
 # include "../../includes/config.h"
 
 typedef struct	s_asm
 {
-	char		**cmd;
-	char		*name;
-	char		*comment;
-	unsigned char		cor[4];
-	unsigned char		scor[2];
-	char		ocp;
-	int			icor;
-	short int	sicor;
-	int			magic;
-	char		*file_name;
-	int			fd;
-	int			cor_size;
+	char			**cmd;
+	char			*name;
+	char			*comment;
+	unsigned char	cor[4];
+	unsigned char	scor[2];
+	char			ocp;
+	int				icor;
+	short int		sicor;
+	int				magic;
+	char			*file_name;
+	int				fd;
+	int				cor_size;
 }				t_asm;
 
 void			error(t_asm *vasm);

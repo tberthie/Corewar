@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 17:27:15 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/22 17:02:50 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/23 15:36:09 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,38 @@ int			get_param(t_inst *tmp)
 		tmp2 = tmp2->next;
 	}
 	return (param);
+}
+
+t_inst		*first_inst(t_asm *vasm)
+{
+	t_inst	*tmp;
+
+	tmp = vasm->labreg;
+	while (tmp)
+	{
+		if (!ft_stritabstr(vasm->cmd, tmp->content))
+			break ;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
+t_inst		*check_name(t_asm *vasm, t_inst *tmp)
+{
+	if (ft_strichr_cnt(tmp->content, '"') != 2)
+		error(vasm, 12);
+	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') >
+			PROG_NAME_LENGTH)
+		error(vasm, 14);
+	return (tmp);
+}
+
+t_inst		*check_comment(t_asm *vasm, t_inst *tmp)
+{
+	if (ft_strichr_cnt(tmp->content, '"') != 2)
+		error(vasm, 13);
+	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') >
+			COMMENT_LENGTH)
+		error(vasm, 15);
+	return (tmp);
 }

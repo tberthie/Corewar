@@ -6,27 +6,27 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:13:16 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 15:57:44 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-#include "../libft/includes/libft.h"
-#include "../libft/includes/get_next_line.h"
+# include "../libft/includes/libft.h"
+# include "../libft/includes/get_next_line.h"
 # include <sys/stat.h>
 # include "../../includes/config.h"
 
-typedef struct		s_inst
+typedef struct	s_inst
 {
 	char			*content;
 	size_t			content_size;
 	size_t			line;
 	struct s_inst	*next;
-}					t_inst;
+}				t_inst;
 
-typedef struct		s_asm
+typedef struct	s_asm
 {
 	char			**cmd;
 	char			**s;
@@ -60,7 +60,7 @@ typedef struct		s_asm
 	t_inst			*labreg;
 	t_inst			*instruct;
 	t_header		header;
-}					t_asm;
+}				t_asm;
 
 void			error(t_asm *v_asm, int err);
 void			put_asm(t_asm *vasm);
@@ -97,7 +97,7 @@ void			free_all(t_asm *vasm);
 void			get_header(t_asm *vasm);
 void			put_four_zero(t_asm *vasm);
 void			put_magic(t_asm *vasm);
-void			put_header(t_asm *vasm/*, int i*/);
+void			put_header(t_asm *vasm);
 void			offset_pos(t_asm *vasm, t_inst *node, t_inst *off);
 void			offset_neg(t_asm *vasm, t_inst *node, t_inst *off);
 void			put_offset(t_asm *vasm, t_inst *node);
@@ -136,5 +136,8 @@ t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i, char *inst);
 void			get_str(t_asm *vasm, int i, char *inst);
 t_inst			*get_first_inst(t_inst *tmp);
 int				get_param(t_inst *tmp);
+t_inst			*first_inst(t_asm *vasm);
+t_inst			*check_name(t_asm *vasm, t_inst *tmp);
+t_inst			*check_comment(t_asm *vasm, t_inst *tmp);
 
 #endif
