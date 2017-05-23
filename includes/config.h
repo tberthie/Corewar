@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 18:29:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/20 14:43:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:35:36 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+# define CHAMP_MAX_SIZE			(MEM_SIZE / MAX_PLAYERS)
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:14:53 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 17:55:14 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:49:17 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define E_SIZE "This champion exceeds size limit"
 # define E_ARG "Invalid argument"
 # define E_EXP "Argument expected"
-# define E_NBR "Champion number must be positive and cannot overflow INT_MAX"
+# define E_NBR "Numbers must be positive and cannot overflow INT_MAX"
 # define E_USAGE "./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 
 typedef struct		s_champ {

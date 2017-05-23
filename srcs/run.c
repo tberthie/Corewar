@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/22 17:49:02 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/23 14:45:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ static void				result(t_corewar *corewar)
 
 static void				dump(t_corewar *corewar)
 {
-	int			i;
-	int			pad;
+	unsigned int	i;
+	int				pad;
 
 	pad = 32;
 	i = 0;
-	ft_print(1, "0x%p | ", corewar->memory);
-	while (i++ < MEM_SIZE)
+	ft_printf("\n0x%0*x : ", 4, i);
+	while (i < MEM_SIZE)
 	{
-		hex_dump(*(unsigned char*)corewar->memory++);
+		hex_dump(((unsigned char*)corewar->memory)[i++]);
 		if (!--pad && i != MEM_SIZE)
 		{
-			ft_print(1, "\n0x%p | ", corewar->memory);
+			ft_printf("\n0x%0*x : ", 4, i);
 			pad = 32;
 		}
 		else
@@ -113,5 +113,5 @@ void					run(t_corewar *corewar)
 			--corewar->check;
 		cycle = cycle >= corewar->ctd ? 0 : cycle;
 	}
-	result(corewar);
+	corewar->dump ? dump(corewar) : result(corewar);
 }
