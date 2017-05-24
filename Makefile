@@ -6,7 +6,7 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 13:06:49 by tberthie          #+#    #+#              #
-#    Updated: 2017/05/23 15:35:21 by tberthie         ###   ########.fr        #
+#    Updated: 2017/05/24 14:43:31 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,7 @@ $(NAME): $(OBJS)
 	make -C asm
 	make -C desasm
 	make -C libft
-	gcc -o $(NAME) $(OBJS) libft/libft.a \
-	SDL/libSDL2-2.0.0.dylib SDL/libSDL2_ttf-2.0.0.dylib
+	gcc -o $(NAME) $(OBJS) libft/libft.a SDL/SDL_lib SDL/SDL_libttf
 
 objs:
 	mkdir objs

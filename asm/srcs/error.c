@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 14:44:29 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/24 14:46:46 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		error(t_asm *vasm, int err)
 	else if (err == 3)
 	{
 		ft_lprintf(2, "ERROR: invalid value in file ");
-		ft_lprintf(2, "for instruction on line %d\n", vasm->inst_line);
+		ft_lprintf(2, "on line %d\n", vasm->inst_line);
 	}
 	else if (err == 4)
 		ft_lprintf(2, "Champion size is too big !!\n");
