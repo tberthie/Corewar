@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 12:54:46 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/22 18:17:29 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/29 12:44:05 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,8 @@ static int	cnt_line(char *s, char c)
 	while (s[i])
 	{
 		if (s[i] == c)
-		{
 			++cnt;
-			while (s[i] == c && s[i] != '\0')
-				++i;
-		}
-		else
-			++i;
+		++i;
 	}
 	if (s[i - 1] != c)
 		++cnt;
@@ -58,16 +53,15 @@ static char	**alloc_str(char *s, char c, char **new, int i)
 		{
 			if (!(new[j] = (char *)malloc(nb + 1)))
 				return (NULL);
-			while (s[i] == c && s[i] != '\0')
-				++i;
-			nb = 0;
+			++i;
 			++j;
+			nb = 0;
 		}
 	}
 	return (new);
 }
 
-static void	fill_str(char *s, char c, int i, char **new)
+static int	fill_str(char *s, char c, int i, char **new)
 {
 	int k;
 	int j;
@@ -84,14 +78,13 @@ static void	fill_str(char *s, char c, int i, char **new)
 		}
 		if (k && (s[i] == c || s[i] == '\0'))
 		{
-			while (s[i] == c && s[i] != '\0')
-				++i;
 			new[j][k] = '\0';
 			++j;
 			k = 0;
 		}
+		++i;
 	}
-	new[j] = NULL;
+	return (j);
 }
 
 char		**ft_strsplit(char *s, char c)
@@ -106,10 +99,12 @@ char		**ft_strsplit(char *s, char c)
 	nb = 0;
 	if (s && ft_strlen(s) > 0)
 	{
-		if (!(new = (char **)malloc((cnt_line(s, c) + 1) * sizeof(char *))))
+		if (!(nb = cnt_line(s, c)))
+			return (NULL);
+		if (!(new = (char **)malloc((nb + 1) * sizeof(char *))))
 			return (NULL);
 		new = alloc_str(s, c, new, 0);
-		fill_str(s, c, 0, new);
+		new[fill_str(s, c, 0, new)] = NULL;
 		return (new);
 	}
 	return (NULL);

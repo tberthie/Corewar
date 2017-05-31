@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:27:19 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:43:26 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 12:25:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ t_inst		*store_label(t_asm *vasm, t_inst *tmp, int i)
 	return (tmp);
 }
 
-t_inst		*store_inst(t_asm *vasm, t_inst *tmp, char *inst, int i)
+t_inst		*store_inst(t_asm *vasm, t_inst *tmp, int i)
 {
-	inst = NULL;
 	while (tmp && ft_stritabstr(vasm->cmd, tmp->content) == -1)
 	{
 		store_regdirind(vasm, tmp, i, tmp->content);
@@ -45,11 +44,10 @@ t_inst		*store_inst(t_asm *vasm, t_inst *tmp, char *inst, int i)
 	return (tmp);
 }
 
-t_inst		*store_cmd(t_asm *vasm, t_inst *tmp, char *inst, int i)
+t_inst		*store_cmd(t_asm *vasm, t_inst *tmp,int i)
 {
 	int		temp;
 
-	inst = NULL;
 	i = 0;
 	if (tmp)
 	{
@@ -66,17 +64,25 @@ t_inst		*store_cmd(t_asm *vasm, t_inst *tmp, char *inst, int i)
 	return (tmp);
 }
 
-void		get_labels(t_asm *vasm, int i, int lbl, char *inst)
+void		get_labels(t_asm *vasm, int i, int lbl)
 {
 	t_inst	*tmp;
 
-	get_str(vasm, i, inst);
-	tmp = vasm->labreg;
-	tmp = get_first_inst(tmp);
+	get_str(vasm, i);
+	if (!(tmp = vasm->labreg))
+		error(vasm, 7);
+	if (!(tmp = get_first_inst(tmp)))
+		error(vasm, 7);
 	while (tmp)
 	{
 		lbl = 0;
-		tmp = store_cmd(vasm, tmp, inst, i);
-		tmp = store_inst(vasm, tmp, inst, i);
+		tmp = store_cmd(vasm, tmp, i);
+		tmp = store_inst(vasm, tmp, i);
+	}
+	tmp = vasm->labreg;
+	while (tmp)
+	{
+		ft_lprintf(1, "%s|%d|%d|\n", tmp->content, tmp->content_size, tmp->line);
+		tmp = tmp->next;
 	}
 }

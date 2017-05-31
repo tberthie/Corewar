@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 17:27:15 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:36:09 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/24 17:53:02 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void		check_label(t_asm *vasm, t_inst *tmp)
 {
-	int		size;
+	int		i;
+	int		len;
 	t_inst	*tmp2;
 
+	i = 0;
+	len = ft_strlen(tmp->content) - 1;
 	tmp2 = vasm->labreg;
-	size = ft_strlen(tmp->content);
-	if (!size || size > T_LAB + 1)
-		error(vasm, 3);
+	while (i < len)
+	{
+		if (ft_strichr(LABEL_CHARS, tmp->content[i]) == -1)
+			error(vasm, 3);
+		++i;
+	}
 	while (tmp2)
 	{
 		if (!ft_strcmp(tmp2->content, tmp->content) && tmp2->line < tmp->line)

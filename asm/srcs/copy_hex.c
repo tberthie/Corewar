@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/19 14:33:19 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/24 16:53:01 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		put_cmd(t_asm *vasm, t_inst *node)
 	vocp = 0;
 	if (cmd != 1 && cmd != 9 && cmd != 12 && cmd != 15)
 	{
-		vocp = find_ocp(node, 0, 0, 0);
+		vocp = find_ocp(node->next, node->line, 0, 0);
 		write(vasm->fd, &vocp, 1);
 	}
 }
@@ -47,21 +47,20 @@ void		put_dir(t_asm *vasm, t_inst *node, int dir, size_t i)
 			two_bytes(vasm, dir);
 	}
 	else
-		put_offset(vasm, node);
+		put_offset_dir(vasm, node);
 }
 
 void		put_ind(t_asm *vasm, t_inst *node, int ind)
 {
-	if (ft_isdigit(node->content[0]))
+	if (ft_isdigit(node->content[0]) || (node->content[0] == '-' &&
+			ft_isdigit(node->content[1])))
 	{
 		ind = ft_atoi(node->content);
-		vasm->ret = (ind >> 8) & 0x00ff;
-		if (ind < 256)
-			write(vasm->fd, &vasm->zero, 1);
+		if (node->content_size == 4)
+			four_bytes(vasm, ind);
 		else
-			write(vasm->fd, &vasm->ret, 1);
-		write(vasm->fd, &ind, 1);
+			two_bytes(vasm, ind);
 	}
 	else
-		put_offset(vasm, node);
+		put_offset_ind(vasm, node);
 }

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:57:44 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/29 14:56:48 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct	s_asm
 }				t_asm;
 
 void			error(t_asm *v_asm, int err);
-void			put_asm(t_asm *vasm);
-void			get_labels(t_asm *vasm, int i, int lbl, char *inst);
+void			put_asm(t_asm *vasm, t_inst *tmp);
+void			get_labels(t_asm *vasm, int i, int lbl);
 int				ft_lstntabstr(t_inst **begin, char *str, int size, int nb);
 t_inst			*check_none(t_asm *vasm, t_inst *tmp);
 t_inst			*check_live(t_asm *vasm, t_inst *tmp);
@@ -100,7 +100,8 @@ void			put_magic(t_asm *vasm);
 void			put_header(t_asm *vasm);
 void			offset_pos(t_asm *vasm, t_inst *node, t_inst *off);
 void			offset_neg(t_asm *vasm, t_inst *node, t_inst *off);
-void			put_offset(t_asm *vasm, t_inst *node);
+void			put_offset_dir(t_asm *vasm, t_inst *node);
+void			put_offset_ind(t_asm *vasm, t_inst *node);
 void			get_cor_size(t_asm *vasm);
 void			first_node(t_asm *vasm, int i, int size);
 t_inst			*other_node(t_inst *tmp, int i, int size);
@@ -132,8 +133,8 @@ void			two_bytes(t_asm *vasm, int offset);
 void			print_size(t_asm *vasm, t_inst *tmp2, t_inst *tmp, int label);
 t_inst			*store_header(t_asm *vasm, t_inst *tmp, int i);
 t_inst			*store_header_data(t_asm *vasm, t_inst *tmp, int i);
-t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i, char *inst);
-void			get_str(t_asm *vasm, int i, char *inst);
+t_inst			*store_str(t_asm *vasm, t_inst *tmp, int i);
+void			get_str(t_asm *vasm, int i);
 t_inst			*get_first_inst(t_inst *tmp);
 int				get_param(t_inst *tmp);
 t_inst			*first_inst(t_asm *vasm);

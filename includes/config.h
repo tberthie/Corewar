@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 18:29:00 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/23 14:56:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/24 17:33:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
-# define MAX_ARGS_NUMBER		5
+# define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)

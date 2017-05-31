@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 13:49:41 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:34:30 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/24 17:25:16 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,10 @@ int		check_dir(t_asm *vasm, char *inst)
 
 int		check_ind(t_asm *vasm, char *inst)
 {
-	if (vasm->command >= 13 && vasm->command <= 15)
-	{
-		if (!ft_nisdigit(inst, ft_strlen(inst)) && (inst[0] != '-' ||
-				(inst[0] == '-' && !ft_nisdigit(inst + 1,
-				ft_strlen(inst + 1)))))
-			return (0);
-	}
-	else
-	{
-		if (!ft_nisdigit(inst, ft_strlen(inst)) && (inst[0] != '-' ||
-				(inst[0] == '-' && !ft_nisdigit(inst + 1,
-				ft_strlen(inst + 1)))))
-			return (0);
-	}
+	if (!ft_lstntabstr(&vasm->labreg, inst + 1, ft_strlen(inst + 1), 0) &&
+			!ft_nisdigit(inst, ft_strlen(inst)) && (inst[0] != '-' ||
+			(inst[0] == '-' && !ft_nisdigit(inst + 1,
+			ft_strlen(inst + 1)))))
+		return (0);
 	return (1);
 }

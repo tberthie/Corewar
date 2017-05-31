@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 08:54:36 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 13:14:17 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/29 12:47:53 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ unsigned int		ft_revint(unsigned int nb);
 int					ft_strichrws(const char *s);
 void				ft_m(void **s, size_t size);
 char				**ft_splitws(char *str);
+char				**ft_splitline(char *str);
 int					get_iword(char *str);
 
 #endif

@@ -1,129 +1,111 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_splitws.c                                       :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/15 17:04:13 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/16 13:31:47 by gthomas          ###   ########.fr       */
+/*   Created: 2016/11/05 12:54:46 by gthomas           #+#    #+#             */
+/*   Updated: 2017/05/29 12:44:05 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "./includes/libft.h"
 
-int			no_word(char *s, int i)
+static int	cnt_line(char *s, char c)
 {
-	if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == ',')
+	int i;
+	int cnt;
+
+	i = 0;
+	cnt = 0;
+	if (s[0] == c)
 	{
-		while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == ',')
+		while (s[i] == c)
 			++i;
 	}
-	else if (s[i] == '#')
-	{
-		while (s[i] != '\n' && s[i] != '\0')
-			++i;
-	}
-	return (i);
-}
-
-int			nb_line(char *s, int i, int cnt)
-{
 	while (s[i])
 	{
-		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == ',' ||
-				s[i] == '#')
-			i = no_word(s, i);
-		else if (s[i] == '"' && s[i] != '\0')
-		{
-			++i;
-			cnt += 1;
-			while (s[i] != '"' && s[i] != '\0')
-				++i;
-			++i;
-		}
-		else if (s[i] != '\0' && s[i] != '#')
-		{
-			cnt += 1;
-			while (s[i] != ' ' && s[i] != '\t' && s[i] != '\n' && s[i] != '"'
-					&& s[i] != ',' && s[i] != '#' && s[i] != '\0')
-				++i;
-		}
+		if (s[i] == c)
+			++cnt;
+		++i;
 	}
+	if (s[i - 1] != c)
+		++cnt;
 	return (cnt);
 }
 
-char		**nb_word(char *s, char **new, int i, int j)
+static char	**alloc_str(char *s, char c, char **new, int i)
 {
-	int		cnt;
+	int nb;
+	int j;
 
+	nb = 0;
+	j = 0;
 	while (s[i])
 	{
-		cnt = 0;
-		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == ',' ||
-				s[i] == '#')
-			i = no_word(s, i);
-		else if (s[i++] == '"' && (cnt = i))
+		while (s[i] != c && s[i] != '\0')
 		{
-			while (s[i] != '"' && s[i] != '\0')
-				++i;
-			ft_m((void **)(&new[j++]), (cnt = ++i - cnt));
+			++nb;
+			++i;
 		}
-		else if (s[i] != '\0' && s[i] != '#' && (cnt = i))
+		if (nb && (s[i] == c || s[i] == '\0'))
 		{
-			while (s[i] != ' ' && s[i] != '\t' && s[i] != '\n' && s[i] != '"'
-					&& s[i] != ',' && s[i] != '#' && s[i] != '\0')
-				++i;
-			ft_m((void **)(&new[j++]), (cnt = i - cnt));
-		}
-	}
-	ft_m((void **)(&new[j]), 1);
-	return (new);
-}
-
-char		**split(char *s, char **new, int j, int i)
-{
-	int		k;
-
-	while (s[i])
-	{
-		k = 0;
-		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == ',' ||
-				s[i] == '#')
-			i = no_word(s, i);
-		else if (s[i] == '"')
-		{
-			new[j][k++] = s[i++];
-			while (s[i] != '"' && s[i] != '\0')
-				new[j][k++] = s[i++];
-			new[j][k] = s[i++];
-			new[j++][k + 1] = '\0';
-		}
-		else if (s[i] != '\0' && s[i] != '#')
-		{
-			while (s[i] != ' ' && s[i] != '\t' && s[i] != '\n' && s[i] != '"'
-					&& s[i] != ',' && s[i] != '#' && s[i] != '\0')
-				new[j][k++] = s[i++];
-			new[j++][k] = '\0';
+			if (!(new[j] = (char *)malloc(nb + 1)))
+				return (NULL);
+			++i;
+			++j;
+			nb = 0;
 		}
 	}
 	return (new);
 }
 
-char		**ft_splitws(char *str)
+static int	fill_str(char *s, char c, int i, char **new)
+{
+	int k;
+	int j;
+
+	k = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] != c && s[i] != '\0')
+		{
+			new[j][k] = s[i];
+			++i;
+			++k;
+		}
+		if (k && (s[i] == c || s[i] == '\0'))
+		{
+			new[j][k] = '\0';
+			++j;
+			k = 0;
+		}
+		++i;
+	}
+	return (j);
+}
+
+char		**ft_strsplit(char *s, char c)
 {
 	char	**new;
-	int		lines;
+	int		i;
+	int		j;
+	int		nb;
 
-	new = NULL;
-	if (str)
+	i = 0;
+	j = 0;
+	nb = 0;
+	if (s && ft_strlen(s) > 0)
 	{
-		lines = nb_line(str, 0, 0);
-		if (!(new = (char **)malloc((lines + 1) * (sizeof(char *)))))
+		if (!(nb = cnt_line(s, c)))
 			return (NULL);
-		new = nb_word(str, new, 0, 0);
-		new = split(str, new, 0, 0);
-		new[lines] = NULL;
+		if (!(new = (char **)malloc((nb + 1) * sizeof(char *))))
+			return (NULL);
+		new = alloc_str(s, c, new, 0);
+		new[fill_str(s, c, 0, new)] = NULL;
+		return (new);
 	}
-	return (new);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ramichia <ramichia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 18:57:33 by ramichia          #+#    #+#             */
-/*   Updated: 2017/05/23 15:07:12 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/24 16:29:19 by ramichia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ void	lldi(t_proc *processus, t_corewar *cor, unsigned char op)
 		nbr = get_value_nm(processus, tab[0], op, cor->memory + pc);
 		pc += move_pc(tab[0], op);
 		nbr += get_value_nm(processus, tab[1], op, cor->memory + pc);
-		value = *(unsigned int*)(cor->memory + processus->pc + \
-				(nbr % IDX_MOD));
+		value = *(unsigned int*)(cor->memory + set_pc(processus->pc + nbr));
 		pc += move_pc(tab[1], op);
 		if ((index = set_index(cor->memory + pc)) < 0)
 			return (return_error(processus, tab));
