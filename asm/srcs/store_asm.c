@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 14:27:19 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 12:25:02 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:43:54 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_inst		*store_inst(t_asm *vasm, t_inst *tmp, int i)
 	return (tmp);
 }
 
-t_inst		*store_cmd(t_asm *vasm, t_inst *tmp,int i)
+t_inst		*store_cmd(t_asm *vasm, t_inst *tmp, int i)
 {
 	int		temp;
 
@@ -78,11 +78,5 @@ void		get_labels(t_asm *vasm, int i, int lbl)
 		lbl = 0;
 		tmp = store_cmd(vasm, tmp, i);
 		tmp = store_inst(vasm, tmp, i);
-	}
-	tmp = vasm->labreg;
-	while (tmp)
-	{
-		ft_lprintf(1, "%s|%d|%d|\n", tmp->content, tmp->content_size, tmp->line);
-		tmp = tmp->next;
 	}
 }

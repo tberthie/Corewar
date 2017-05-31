@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/20 11:33:22 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/29 15:47:43 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:43:48 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_inst		*store_str(t_asm *vasm, t_inst *tmp, int i)
 	return (tmp);
 }
 
-//pb de boucle infinie dans get_str
-
 void		get_str(t_asm *vasm, int i)
 {
 	t_inst	*tmp;
@@ -78,7 +76,6 @@ void		get_str(t_asm *vasm, int i)
 			else
 				vasm->tmp += get_iword(vasm->tmp);
 			vasm->tmp += ft_trim(vasm->tmp);
-//			ft_lprintf(1, "inst[0] : %d\n", vasm->tmp[0]);
 		}
 		++i;
 	}
@@ -86,7 +83,8 @@ void		get_str(t_asm *vasm, int i)
 
 t_inst		*get_first_inst(t_inst *tmp)
 {
-	while (tmp && tmp->content && (tmp->content[0] == '.' || tmp->content[0] == '"'))
+	while (tmp && tmp->content &&
+			(tmp->content[0] == '.' || tmp->content[0] == '"'))
 		tmp = tmp->next;
 	return (tmp);
 }

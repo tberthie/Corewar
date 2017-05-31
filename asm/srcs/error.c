@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 12:26:21 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:48:28 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void		error_1(t_asm *vasm, int err)
 		ft_lprintf(2, "Description is too long\n");
 	else if (err == 16)
 		ft_lprintf(2, "Duplicate .name or .comment\n");
+	else if (err == 17)
+		ft_lprintf(2, "Name or Comment cannot be empty\n");
 }
 
 void		error(t_asm *vasm, int err)
@@ -60,7 +62,7 @@ void		error(t_asm *vasm, int err)
 	else if (err == 5)
 		ft_lprintf(2, "%s file is empty\n", vasm->file);
 	else if (err == 6)
-		ft_lprintf(2, "Order of commands are not respected\n");
+		ft_lprintf(2, "Order of commands is not respected\n");
 	else
 		error_1(vasm, err);
 	exit(EXIT_FAILURE);

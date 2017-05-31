@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 12:25:15 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:45:52 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void		check_nb_header(t_asm *vasm)
 	}
 	if (vasm->n > 1 || vasm->c > 1)
 		error(vasm, 16);
-//	else if (!vasm->n)
-//		error(vasm, 
 }
 
 t_inst		*check_header(t_asm *vasm, int name, int comment)

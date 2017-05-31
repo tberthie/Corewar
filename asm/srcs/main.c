@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/29 14:52:27 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:39:21 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,12 @@ void		put_asm(t_asm *vasm, t_inst *tmp)
 
 void		cor_hex(t_asm *vasm, char *str)
 {
-	ft_lprintf(1, "BB\n");
 	if (!(vasm->s = ft_splitline(str)))
 		error(vasm, 7);
-	ft_lprintf(1, "CC\n");
 	vasm->file_lines = ft_ptrlen(vasm->s);
-	ft_lprintf(2, "file lines = %d\n", vasm->file_lines);
-	ft_lprintf(1, "DD\n");
 	get_labels(vasm, 0, 0);
-	ft_lprintf(1, "GG\n");
 	init_checktab(vasm);
 	check_asm(vasm, vasm->labreg, vasm->labreg);
-	ft_lprintf(1, "HH\n");
 	get_cor_size(vasm);
 	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT | O_TRUNC, 0600))
 			== -1)
@@ -102,7 +96,6 @@ void		parse(t_asm *vasm, char *str)
 	vasm->file_name = ft_strcat(vasm->file_name, "cor");
 	if (!(tmp = ft_parse(str)))
 		error(vasm, 5);
-	ft_lprintf(1, "AA\n");
 	init_cmd(vasm);
 	cor_hex(vasm, tmp);
 	if (tmp)

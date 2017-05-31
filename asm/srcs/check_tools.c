@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 17:27:15 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/24 17:53:02 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:48:23 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ t_inst		*check_name(t_asm *vasm, t_inst *tmp)
 	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') >
 			PROG_NAME_LENGTH)
 		error(vasm, 14);
+	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') == 1)
+		error(vasm, 17);
 	return (tmp);
 }
 
@@ -85,5 +87,7 @@ t_inst		*check_comment(t_asm *vasm, t_inst *tmp)
 	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') >
 			COMMENT_LENGTH)
 		error(vasm, 15);
+	if (ft_strichr_last(tmp->content, '"') - ft_strichr(tmp->content, '"') == 1)
+		error(vasm, 17);
 	return (tmp);
 }

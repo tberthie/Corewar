@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:17:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/23 14:55:29 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/31 13:09:46 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void			*parse_champion(int fd, char *path)
 	header = (t_header*)buffer;
 	if ((rev_int(header->magic) != COREWAR_EXEC_MAGIC))
 		error(path, E_FORMAT);
+	printf("%u\n", rev_int(header->prog_size));
 	if (rev_int(header->prog_size) > CHAMP_MAX_SIZE)
 		error(path, E_SIZE);
 	data = ft_memalloc(rev_int(header->prog_size) + sizeof(t_header));

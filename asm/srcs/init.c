@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 16:48:56 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 12:23:01 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:41:53 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ void		init_asm(t_asm *vasm)
 	vasm->file_name = NULL;
 	vasm->instruct = NULL;
 	vasm->labreg = NULL;
-//	if (!(vasm->labreg = (t_inst *)malloc(sizeof(t_inst))))
-//		exit(EXIT_FAILURE);
-//	vasm->labreg->content = NULL;
 	vasm->inst_line = 0;
 	vasm->bytes = 0;
 	vasm->size = 0;
