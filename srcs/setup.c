@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 13:21:25 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/23 15:45:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/31 13:56:19 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void			setup_visual(t_corewar *visu)
 		error(0, (char*)SDL_GetError());
 	visu->sf = SDL_CreateRGBSurface(0, 1500, 1000, 32, 0, 0, 0, 0);
 	visu->cps = 250;
-	visu->color = ft_m(MEM_SIZE * 4);
-	ft_memset(visu->color, MEM_SIZE * 4, (char)0x50);
+	visu->color = ft_m((unsigned int)MEM_SIZE * 4);
+	ft_memset(visu->color, (unsigned int)MEM_SIZE * 4, 0x50);
 }
 
 void			setup(t_corewar *corewar, char **args)
