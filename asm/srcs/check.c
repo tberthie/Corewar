@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 13:45:52 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/01 12:15:09 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		check_header_data(t_asm *vasm, t_inst *tmp, int i)
 	}
 }
 
-void		check_nb_header(t_asm *vasm)
+t_inst		*check_nb_header(t_asm *vasm)
 {
 	t_inst	*tmp;
 
@@ -52,21 +52,22 @@ void		check_nb_header(t_asm *vasm)
 	}
 	if (vasm->n > 1 || vasm->c > 1)
 		error(vasm, 16);
+	return (vasm->labreg);
 }
 
 t_inst		*check_header(t_asm *vasm, int name, int comment)
 {
 	t_inst	*tmp;
 
-	tmp = vasm->labreg;
-	check_nb_header(vasm);
+	tmp = check_nb_header(vasm);
 	while (tmp && tmp->content)
 	{
 		if (!ft_strcmp(NAME_CMD_STRING, tmp->content))
 			name = tmp->line;
 		else if (!ft_strcmp(COMMENT_CMD_STRING, tmp->content))
 			comment = tmp->line;
-		else if (tmp->content[0] != '"' && tmp->content[0] != COMMENT_CHAR)
+		else if (ft_strichr(tmp->content, '"') == -1 &&
+				tmp->content[0] != COMMENT_CHAR)
 			vasm->first_line = tmp->line;
 		if (name && comment && vasm->first_line)
 			break ;

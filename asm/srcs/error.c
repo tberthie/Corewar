@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/31 13:48:28 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/01 12:17:03 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void		error_1(t_asm *vasm, int err)
 	else if (err == 11)
 		ft_lprintf(2, "Error : duplicate label at line %d\n", vasm->inst_line);
 	else if (err == 12)
-		ft_lprintf(2, "Chapion name must be : .name %cname%c\n", '"', '"');
+		ft_lprintf(2, "Champion name must be : .name %cname%c\n", '"', '"');
 	else if (err == 13)
 		ft_lprintf(2, "Description must be : .comment %cdesc%c\n", '"', '"');
 	else if (err == 14)
-		ft_lprintf(2, "Chapion name is too long\n");
+		ft_lprintf(2, "Champion name is too long\n");
 	else if (err == 15)
 		ft_lprintf(2, "Description is too long\n");
 	else if (err == 16)
