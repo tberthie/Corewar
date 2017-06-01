@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:45:25 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/29 15:47:42 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/31 13:58:20 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char		**ft_splitline(char *s)
 	{
 		if (!(nb = cnt_line(s)))
 			return (NULL);
-//		ft_lprintf(1, "nb : %d\n", nb);
 		if (!(new = (char **)malloc((nb + 1) * sizeof(char *))))
 			return (NULL);
 		new = alloc_str(s, new, 0);
