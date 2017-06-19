@@ -6,7 +6,7 @@
 #    By: gthomas <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:18:38 by gthomas           #+#    #+#              #
-#    Updated: 2017/05/23 13:18:37 by gthomas          ###   ########.fr        #
+#    Updated: 2017/05/29 12:48:10 by gthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,8 @@ SRCS = ft_atoi.c \
 	   ft_strichrws.c \
 	   ft_m.c \
 	   ft_splitws.c \
-	   get_iword.c
+	   get_iword.c \
+	   ft_splitline.c
 
 OBJS = $(SRCS:.c=.o)
 

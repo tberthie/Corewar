@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/24 14:46:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:58:26 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void		error_1(t_asm *vasm, int err)
 	else if (err == 11)
 		ft_lprintf(2, "Error : duplicate label at line %d\n", vasm->inst_line);
 	else if (err == 12)
-		ft_lprintf(2, "Chapion name must be : .name %cabc%c\n", '"', '"');
+		ft_lprintf(2, "Champion name must be : .name %cname%c\n", '"', '"');
 	else if (err == 13)
-		ft_lprintf(2, "Description must be : .comment %cdef%c\n", '"', '"');
+		ft_lprintf(2, "Description must be : .comment %cdesc%c\n", '"', '"');
 	else if (err == 14)
-		ft_lprintf(2, "Chapion name is too long\n");
+		ft_lprintf(2, "Champion name is too long\n");
 	else if (err == 15)
 		ft_lprintf(2, "Description is too long\n");
 	else if (err == 16)
 		ft_lprintf(2, "Duplicate .name or .comment\n");
+	else if (err == 17)
+		ft_lprintf(2, "Name or Comment cannot be empty\n");
 }
 
 void		error(t_asm *vasm, int err)
@@ -60,63 +62,21 @@ void		error(t_asm *vasm, int err)
 	else if (err == 5)
 		ft_lprintf(2, "%s file is empty\n", vasm->file);
 	else if (err == 6)
-		ft_lprintf(2, "Order of commands are not respected\n");
+		ft_lprintf(2, "Order of commands is not respected\n");
 	else
 		error_1(vasm, err);
 	exit(EXIT_FAILURE);
 }
 
-void		free_list(t_asm *vasm)
+void		cor_usage(t_asm *vasm, char *av)
 {
-	t_inst *tmp;
-	t_inst *tmp2;
+	int		len;
+	int		ext;
 
-	tmp = vasm->labreg;
-	tmp2 = tmp;
-	while (tmp)
-	{
-		tmp2 = tmp;
-		free(tmp->content);
-		tmp->content = NULL;
-		tmp = tmp->next;
-		free(tmp2);
-	}
-}
-
-void		free_all_1(t_asm *vasm)
-{
-	if (vasm->file_name)
-		free(vasm->file_name);
-	if (vasm->comment)
-		free(vasm->comment);
-	if (vasm->name)
-		free(vasm->name);
-	free_list(vasm);
-}
-
-void		free_all(t_asm *vasm)
-{
-	int		i;
-
-	i = 0;
-	free_all_1(vasm);
-	while (i < vasm->file_lines)
-	{
-		if (vasm->s[i])
-			free(vasm->s[i]);
-		++i;
-	}
-	if (vasm->s)
-		free(vasm->s);
-	if (vasm->cmd)
-	{
-		i = ft_ptrlen(vasm->cmd);
-		while (i >= 0)
-		{
-			free(vasm->cmd[i]);
-			--i;
-		}
-	}
-	if (vasm->cmd)
-		free(vasm->cmd);
+	ext = ft_stristr(av, ".s");
+	len = ft_strlen(av);
+	if (ext == -1 || ext != len - 2 || len < 3 ||
+			ft_strichr_cnt(av, '.') != 1 || ft_strichr_last(av, '/') ==
+			ft_strichr(av, '.') - 1)
+		error(vasm, 0);
 }

@@ -6,17 +6,16 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 14:52:47 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:44:30 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/19 12:07:21 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void		print_hex(t_asm *vasm, char *str)
+void		print_hex(t_asm *vasm)
 {
-	vasm->s = ft_strsplit(str, '\n');
 	vasm->file_lines = ft_ptrlen(vasm->s);
-	get_labels(vasm, 0, 0, NULL);
+	get_labels(vasm, 0, 0);
 	init_checktab(vasm);
 	check_asm(vasm, vasm->labreg, vasm->labreg);
 	get_cor_size(vasm);
@@ -36,7 +35,8 @@ void		aff_parse(t_asm *vasm, char *str)
 	if (!(tmp = ft_parse(str)))
 		error(vasm, 5);
 	init_cmd(vasm);
-	print_hex(vasm, tmp);
-	if (tmp)
-		free(tmp);
+	if (!(vasm->s = ft_splitline(tmp)))
+		error(vasm, 7);
+	free(tmp);
+	print_hex(vasm);
 }

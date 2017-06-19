@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 17:52:18 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:43:36 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/19 11:57:08 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int			ft_lstntabstr(t_inst **begin, char *str, int size, int nb)
 		size = ft_strlen(tmp->content) - 1;
 		if (size == 0)
 			size = 1;
-		if (!ft_strncmp(tmp->content, str, size) &&
-				nb == (int)tmp->content_size)
+		if ((int)ft_strlen(str) == size &&
+				!ft_strncmp(tmp->content, str, size) && nb ==
+				(int)tmp->content_size)
 			return (1);
 		tmp = tmp->next;
 	}
@@ -32,6 +33,8 @@ int			ft_lstntabstr(t_inst **begin, char *str, int size, int nb)
 
 void		first_node(t_asm *vasm, int i, int size)
 {
+	if (!(vasm->labreg = (t_inst *)malloc(sizeof(t_inst))))
+		exit(EXIT_FAILURE);
 	if (!(vasm->labreg->content = (char *)malloc(size + 1)))
 		exit(EXIT_FAILURE);
 	vasm->labreg->content_size = 0;
@@ -72,8 +75,9 @@ void		store_regdirind(t_asm *vasm, t_inst *tmp, int i, char *inst)
 		else
 			tmp->content_size = 2;
 	}
-	else if (ft_strichr(inst, LABEL_CHAR) == -1 && (ft_isdigit(inst[0]) ||
-			(inst[0] == '-' && ft_isdigit(inst[1]))))
+	else if (!ft_strichr(inst, LABEL_CHAR) ||
+			(ft_strichr(inst, LABEL_CHAR) == -1 && (ft_isdigit(inst[0]) ||
+			(inst[0] == '-' && ft_isdigit(inst[1])))))
 		tmp->content_size = 2;
 }
 

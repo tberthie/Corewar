@@ -6,31 +6,11 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:49:52 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/20 13:31:15 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/05/24 17:26:44 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
-
-void		put_offset(t_asm *vasm, t_inst *node)
-{
-	t_inst	*off;
-	int		offset;
-
-	offset = 0;
-	off = vasm->labreg;
-	while (off)
-	{
-		if (ft_strlen(off->content) > 1 && !ft_strncmp(node->content + 2,
-				off->content, ft_strlen(off->content) - 1))
-			break ;
-		off = off->next;
-	}
-	if (off->line > node->line)
-		offset_pos(vasm, node, off);
-	else
-		offset_neg(vasm, node, off);
-}
 
 void		four_bytes(t_asm *vasm, int offset)
 {

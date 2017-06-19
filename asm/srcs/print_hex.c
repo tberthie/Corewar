@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 12:27:21 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/23 15:39:51 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/19 12:07:08 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		print_cmd(t_asm *vasm, t_inst *node)
 	vocp = 0;
 	if (cmd != 1 && cmd != 9 && cmd != 12 && cmd != 15)
 	{
-		vocp = find_ocp(node, 0, 0, 0);
+		vocp = find_ocp(node->next, node->line, 0, 0);
 		ft_lprintf(1, "  %d\t\t", vocp);
 	}
 	else
