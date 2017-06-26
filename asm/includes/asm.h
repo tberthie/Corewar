@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:25:04 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/19 11:44:49 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/26 16:12:59 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			put_dir_neg(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			put_dir(t_asm *vasm, t_inst *node, int dir, size_t i);
 void			put_reg(t_asm *vasm, t_inst *node);
 void			put_cmd(t_asm *vasm, t_inst *node);
-void			aff_parse(t_asm *vasm, char *str);
+void			aff_parse(t_asm *vasm, char *str, char *file);
 void			print_header(t_asm *vasm);
 void			print_ind(t_asm *vasm, t_inst *node, int ind);
 void			print_ind_int(t_asm *vasm, t_inst *node, int ind);

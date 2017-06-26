@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/16 14:44:49 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/26 15:41:20 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void		check_asm(t_asm *vasm, t_inst *tmp, t_inst *tmp2)
 	while (tmp)
 	{
 		vasm->inst_line = tmp->line;
-		if (!tmp->content_size && tmp->content[ft_strlen(tmp->content) - 1] ==
-				LABEL_CHAR)
+		while (!tmp->content_size && tmp->content[ft_strlen(tmp->content) - 1]
+				== LABEL_CHAR)
 		{
 			check_label(vasm, tmp);
 			if (!(tmp = tmp->next))

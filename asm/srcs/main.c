@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 09:15:16 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/19 11:56:22 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/26 16:20:34 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,43 +83,42 @@ void		cor_hex(t_asm *vasm)
 	close(vasm->fd);
 }
 
-void		parse(t_asm *vasm)
+void		parse(t_asm *vasm, char *tmp, char *file)
 {
-	char	*tmp;
-
+	vasm->file = file;
 	init_asm(vasm);
 	if (!(vasm->file_name = (char *)malloc(ft_strlen(vasm->file) + 3)))
 		exit(EXIT_FAILURE);
 	ft_strncpy(vasm->file_name, vasm->file, ft_strlen(vasm->file) - 1);
 	vasm->file_name = ft_strcat(vasm->file_name, "cor");
-	if (!(tmp = ft_parse(vasm->file)))
-		error(vasm, 5);
 	init_cmd(vasm);
 	if (!(vasm->s = ft_splitline(tmp)))
 		error(vasm, 7);
-	free(tmp);
 	cor_hex(vasm);
 }
 
 int			main(int ac, char **av)
 {
 	t_asm	*vasm;
+	char	*tmp;
 
 	if (!(vasm = (t_asm *)malloc(sizeof(t_asm))))
 		return (-1);
 	if (ac == 2)
 	{
 		cor_usage(vasm, av[1]);
-		vasm->file = av[1];
-		parse(vasm);
+		if (!(tmp = ft_parse(av[1])))
+			error(vasm, 5);
+		parse(vasm, tmp, av[1]);
 	}
 	else if (ac == 3)
 	{
 		if (ft_strcmp(av[1], "-a"))
 			error(vasm, 0);
 		cor_usage(vasm, av[2]);
-		vasm->file = av[2];
-		aff_parse(vasm, av[2]);
+		if (!(tmp = ft_parse(av[2])))
+			error(vasm, 5);
+		aff_parse(vasm, tmp, av[2]);
 	}
 	else
 		error(vasm, 0);

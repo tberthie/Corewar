@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:15:32 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/19 11:58:26 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/26 15:48:18 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ void		cor_usage(t_asm *vasm, char *av)
 {
 	int		len;
 	int		ext;
+	int		slash;
 
 	ext = ft_stristr(av, ".s");
 	len = ft_strlen(av);
+	slash = ft_strichr_last(av, '/');
 	if (ext == -1 || ext != len - 2 || len < 3 ||
-			ft_strichr_cnt(av, '.') != 1 || ft_strichr_last(av, '/') ==
+			ft_strichr_cnt(av + slash, '.') != 1 || ft_strichr_last(av, '/') ==
 			ft_strichr(av, '.') - 1)
 		error(vasm, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 14:52:47 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/19 12:07:21 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/26 16:12:54 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,12 @@ void		print_hex(t_asm *vasm)
 	print_asm(vasm);
 }
 
-void		aff_parse(t_asm *vasm, char *str)
+void		aff_parse(t_asm *vasm, char *tmp, char *file)
 {
-	char	*tmp;
-
+	vasm->file = file;
 	init_asm(vasm);
-	if (!(tmp = ft_parse(str)))
-		error(vasm, 5);
 	init_cmd(vasm);
 	if (!(vasm->s = ft_splitline(tmp)))
 		error(vasm, 7);
-	free(tmp);
 	print_hex(vasm);
 }
