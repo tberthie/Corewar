@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 15:24:52 by gthomas           #+#    #+#             */
-/*   Updated: 2017/05/12 13:01:23 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/27 14:42:57 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		header(t_asm *vasm, char *str)
 	int i;
 
 	i = 0;
-	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT, 0666)) == -1)
+	if ((vasm->fd = open(vasm->file_name, O_RDWR | O_CREAT | O_TRUNC, 0666))
+			== -1)
 	{
 		ft_lprintf(2, "Error in openning / creating %s file", vasm->file_name);
 		exit(EXIT_FAILURE);
@@ -63,6 +64,7 @@ void	print_hex(t_asm *vasm, char *str, int nb)
 	int i;
 	int cmd;
 
+	ft_lprintf(1, "Writing output ASM file to %s", vasm->file_name);
 	i = header(vasm, str);
 	while (i < nb)
 	{

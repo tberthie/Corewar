@@ -57,7 +57,12 @@ ldi 11,r7,r11
 ldi r8,%9,r10
 ldi %11,%9,r10
 ldi %133,%-416,r10
-ldi r10,%11,%9
+ldi 11,%7,r11
+sti r10,r8,r7
+sti r10,%11,r7
+sti r10,11,r7
+sti r10,r8,%9
+sti r10,%11,%9
 sti r10,%-445,%89
 sti r10,11,%7
 fork %11
@@ -75,4 +80,3 @@ lldi 66,%45,r13
 lfork %13
 lfork %-546
 aff r12
-ldi 
