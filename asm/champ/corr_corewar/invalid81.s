@@ -1,3 +1,3 @@
 .name	"invalid"
-.comment	""
+.comment	"i"
 live	%1

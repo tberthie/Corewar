@@ -1,4 +1,4 @@
 .name	"invalid"
-.comment	""
+.comment	"i"
 
 st	%120, -125

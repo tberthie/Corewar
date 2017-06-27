@@ -1,4 +1,4 @@
 .name	"invalid"
-.comment	""
+.comment	"i"
 
 ld	r2, r2

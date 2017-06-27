@@ -1,5 +1,5 @@
 .name	"invalid"
-.comment	""
+.comment	"i"
 
 123:
 live	%:123

@@ -1,2 +1,2 @@
-.comment	""
+.comment	"i"
 .name	"invalid"

@@ -1,5 +1,5 @@
 .name	"invalid"
-.comment	""
+.comment	"i"
 
 st
 r2, %120

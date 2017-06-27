@@ -1,5 +1,5 @@
 .name	"invalid"
-.comment	""
+.comment	"ii"
 
 fork:
 fork	%:fork

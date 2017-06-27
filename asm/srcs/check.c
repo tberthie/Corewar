@@ -6,7 +6,7 @@
 /*   By: gthomas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 12:44:53 by gthomas           #+#    #+#             */
-/*   Updated: 2017/06/26 15:41:20 by gthomas          ###   ########.fr       */
+/*   Updated: 2017/06/27 13:39:03 by gthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		check_asm(t_asm *vasm, t_inst *tmp, t_inst *tmp2)
 		vasm->command = ft_stritabstr(vasm->cmd, tmp->content);
 		if (vasm->command == -1)
 			error(vasm, 3);
+		vasm->inst_line = tmp->line;
 		tmp2 = tmp;
 		if (!(tmp = tmp->next))
 			error(vasm, 3);
